@@ -27,6 +27,8 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
 
+- (void)cleanupViewsAndGestures;
+
 @end
 
 
@@ -66,6 +68,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
                                                      name:UIKeyboardWillHideNotification object:nil];
     } else {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [self cleanupViewsAndGestures];
     }
 }
 
@@ -90,8 +93,11 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    [self cleanupViewsAndGestures];
+}
+
+- (void)cleanupViewsAndGestures {
     // remove all the views and gestures
-    
     [self.keyboardOverlayView removeFromSuperview];
     self.keyboardOverlayView = nil;
     
