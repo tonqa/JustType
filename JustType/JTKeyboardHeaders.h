@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol JTKeyboardHeaders <NSObject>
-
-@end
+extern NSString * const JTKeyboardGestureSwipeLeftLong;
+extern NSString * const JTKeyboardGestureSwipeRightLong;
+extern NSString * const JTKeyboardGestureSwipeLeftShort;
+extern NSString * const JTKeyboardGestureSwipeRightShort;
+extern NSString * const JTKeyboardGestureSwipeUp;
+extern NSString * const JTKeyboardGestureSwipeDown;
