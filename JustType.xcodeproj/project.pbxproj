@@ -79,6 +79,8 @@
 		65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardOverlayView.m; sourceTree = "<group>"; };
 		65B7AA09186D5AA300D16576 /* JTKeyboardAttachmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardAttachmentView.h; sourceTree = "<group>"; };
 		65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardAttachmentView.m; sourceTree = "<group>"; };
+		65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardHeaders.h; sourceTree = "<group>"; };
+		65B7AA10186D5D1100D16576 /* JustType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustType.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 		65B7A9EF186D570000D16576 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				65B7AA10186D5D1100D16576 /* JustType.h */,
 				65B7AA0C186D5AB200D16576 /* Keyboard Gestures */,
 				65B7AA0D186D5AC700D16576 /* Text Management */,
 				65B7AA0E186D5AE400D16576 /* Syntax Words */,
@@ -193,6 +196,7 @@
 		65B7AA0C186D5AB200D16576 /* Keyboard Gestures */ = {
 			isa = PBXGroup;
 			children = (
+				65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */,
 				65B7A9F0186D57D400D16576 /* JTKeyboardListener.h */,
 				65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */,
 				65B7AA06186D5A8900D16576 /* JTKeyboardOverlayView.h */,
