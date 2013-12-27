@@ -21,6 +21,12 @@
 		65B7A9DB186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		65B7A9E3186D56A000D16576 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65B7A9E1186D56A000D16576 /* InfoPlist.strings */; };
 		65B7A9E6186D56A000D16576 /* JustTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9E5186D56A000D16576 /* JustTypeTests.m */; };
+		65B7A9F2186D57D400D16576 /* JTKeyboardListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */; };
+		65B7A9F5186D581300D16576 /* JTTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F4186D581300D16576 /* JTTextController.m */; };
+		65B7A9FB186D589300D16576 /* JTSyntaxSeperatorWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */; };
+		65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */; };
+		65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA01186D59BF00D16576 /* JTTextView.m */; };
+		65B7AA05186D59E000D16576 /* JTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA04186D59E000D16576 /* JTTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,22 +44,35 @@
 		65B7A9B7186D56A000D16576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B7A9B9186D56A000D16576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B7A9BB186D56A000D16576 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		65B7A9BF186D56A000D16576 /* JustType-Info.plist */ = {isa = PBXFileReference; path = "JustType-Info.plist"; sourceTree = "<group>"; };
+		65B7A9BF186D56A000D16576 /* JustType-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustType-Info.plist"; sourceTree = "<group>"; };
 		65B7A9C1186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65B7A9C3186D56A000D16576 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		65B7A9C5186D56A000D16576 /* JustType-Prefix.pch */ = {isa = PBXFileReference; path = "JustType-Prefix.pch"; sourceTree = "<group>"; };
-		65B7A9C6186D56A000D16576 /* JTAppDelegate.h */ = {isa = PBXFileReference; path = JTAppDelegate.h; sourceTree = "<group>"; };
+		65B7A9C5186D56A000D16576 /* JustType-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustType-Prefix.pch"; sourceTree = "<group>"; };
+		65B7A9C6186D56A000D16576 /* JTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JTAppDelegate.h; sourceTree = "<group>"; };
 		65B7A9C7186D56A000D16576 /* JTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTAppDelegate.m; sourceTree = "<group>"; };
 		65B7A9CA186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		65B7A9CD186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		65B7A9CF186D56A000D16576 /* JTViewController.h */ = {isa = PBXFileReference; path = JTViewController.h; sourceTree = "<group>"; };
+		65B7A9CF186D56A000D16576 /* JTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JTViewController.h; sourceTree = "<group>"; };
 		65B7A9D0186D56A000D16576 /* JTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTViewController.m; sourceTree = "<group>"; };
 		65B7A9D7186D56A000D16576 /* JustTypeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTypeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9D8186D56A000D16576 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		65B7A9E0186D56A000D16576 /* JustTypeTests-Info.plist */ = {isa = PBXFileReference; path = "JustTypeTests-Info.plist"; sourceTree = "<group>"; };
+		65B7A9E0186D56A000D16576 /* JustTypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeTests-Info.plist"; sourceTree = "<group>"; };
 		65B7A9E2186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65B7A9E4186D56A000D16576 /* JustTypeTests.h */ = {isa = PBXFileReference; path = JustTypeTests.h; sourceTree = "<group>"; };
+		65B7A9E4186D56A000D16576 /* JustTypeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustTypeTests.h; sourceTree = "<group>"; };
 		65B7A9E5186D56A000D16576 /* JustTypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustTypeTests.m; sourceTree = "<group>"; };
+		65B7A9F0186D57D400D16576 /* JTKeyboardListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardListener.h; sourceTree = "<group>"; };
+		65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardListener.m; sourceTree = "<group>"; };
+		65B7A9F3186D581300D16576 /* JTTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextController.h; sourceTree = "<group>"; };
+		65B7A9F4186D581300D16576 /* JTTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextController.m; sourceTree = "<group>"; };
+		65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSyntaxSeperatorWord.h; sourceTree = "<group>"; };
+		65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSyntaxSeperatorWord.m; sourceTree = "<group>"; };
+		65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSyntaxLinguisticWord.h; sourceTree = "<group>"; };
+		65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSyntaxLinguisticWord.m; sourceTree = "<group>"; };
+		65B7A9FF186D592F00D16576 /* JTSyntaxWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSyntaxWord.h; sourceTree = "<group>"; };
+		65B7AA00186D59BF00D16576 /* JTTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextView.h; sourceTree = "<group>"; };
+		65B7AA01186D59BF00D16576 /* JTTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextView.m; sourceTree = "<group>"; };
+		65B7AA03186D59E000D16576 /* JTTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextField.h; sourceTree = "<group>"; };
+		65B7AA04186D59E000D16576 /* JTTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +138,7 @@
 				65B7A9CC186D56A000D16576 /* MainStoryboard_iPad.storyboard */,
 				65B7A9CF186D56A000D16576 /* JTViewController.h */,
 				65B7A9D0186D56A000D16576 /* JTViewController.m */,
+				65B7A9EF186D570000D16576 /* Library */,
 				65B7A9BE186D56A000D16576 /* Supporting Files */,
 			);
 			path = JustType;
@@ -152,6 +172,26 @@
 				65B7A9E1186D56A000D16576 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65B7A9EF186D570000D16576 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				65B7A9F0186D57D400D16576 /* JTKeyboardListener.h */,
+				65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */,
+				65B7AA03186D59E000D16576 /* JTTextField.h */,
+				65B7AA04186D59E000D16576 /* JTTextField.m */,
+				65B7AA00186D59BF00D16576 /* JTTextView.h */,
+				65B7AA01186D59BF00D16576 /* JTTextView.m */,
+				65B7A9F3186D581300D16576 /* JTTextController.h */,
+				65B7A9F4186D581300D16576 /* JTTextController.m */,
+				65B7A9FF186D592F00D16576 /* JTSyntaxWord.h */,
+				65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */,
+				65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */,
+				65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */,
+				65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */,
+			);
+			name = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +304,12 @@
 				65B7A9C4186D56A000D16576 /* main.m in Sources */,
 				65B7A9C8186D56A000D16576 /* JTAppDelegate.m in Sources */,
 				65B7A9D1186D56A000D16576 /* JTViewController.m in Sources */,
+				65B7A9F2186D57D400D16576 /* JTKeyboardListener.m in Sources */,
+				65B7A9F5186D581300D16576 /* JTTextController.m in Sources */,
+				65B7A9FB186D589300D16576 /* JTSyntaxSeperatorWord.m in Sources */,
+				65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */,
+				65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */,
+				65B7AA05186D59E000D16576 /* JTTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
