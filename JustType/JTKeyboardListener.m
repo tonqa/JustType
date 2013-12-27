@@ -107,6 +107,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 # pragma mark - Gesture recognizers
 - (void)panned:(UIPanGestureRecognizer*)gestureRecognizer {
+    // TODO: implement gestures using the location and not the velocity
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
 //        CGPoint startPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
@@ -121,12 +122,12 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         
-//        [self.keyboardOverlayView drawLineFromPoint:CGPointZero];
+//        [self.keyboardOverlayView resetLine];
         
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         
-//        [self.keyboardOverlayView drawLineFromPoint:CGPointZero];
+//        [self.keyboardOverlayView resetLine];
         
         CGPoint velocity = [gestureRecognizer velocityInView:self.keyboardOverlayView];
         if (ABS(velocity.x) > ABS(velocity.y)) {

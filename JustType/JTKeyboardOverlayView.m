@@ -61,6 +61,12 @@
     [self setNeedsDisplay];
 }
 
+- (void)resetLine {
+    self.startPoint = CGPointZero;
+    self.lastPoint = CGPointZero;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     

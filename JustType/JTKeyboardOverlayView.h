@@ -13,5 +13,6 @@
 - (void)blink;
 - (void)drawLineFromPoint:(CGPoint)fromPoint;
 - (void)drawLineToPoint:(CGPoint)toPoint;
+- (void)resetLine;
 
 @end
