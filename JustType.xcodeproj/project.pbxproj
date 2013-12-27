@@ -29,6 +29,7 @@
 		65B7AA05186D59E000D16576 /* JTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA04186D59E000D16576 /* JTTextField.m */; };
 		65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */; };
 		65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */; };
+		65B7AA13186D66DB00D16576 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7AA11186D66CE00D16576 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardAttachmentView.m; sourceTree = "<group>"; };
 		65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardHeaders.h; sourceTree = "<group>"; };
 		65B7AA10186D5D1100D16576 /* JustType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustType.h; sourceTree = "<group>"; };
+		65B7AA11186D66CE00D16576 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */,
 				65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */,
 				65B7A9BC186D56A000D16576 /* CoreGraphics.framework in Frameworks */,
+				65B7AA13186D66DB00D16576 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +132,7 @@
 		65B7A9B6186D56A000D16576 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65B7AA11186D66CE00D16576 /* QuartzCore.framework */,
 				65B7A9B7186D56A000D16576 /* UIKit.framework */,
 				65B7A9B9186D56A000D16576 /* Foundation.framework */,
 				65B7A9BB186D56A000D16576 /* CoreGraphics.framework */,
