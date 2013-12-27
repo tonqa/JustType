@@ -30,6 +30,7 @@
 		65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */; };
 		65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */; };
 		65B7AA13186D66DB00D16576 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7AA11186D66CE00D16576 /* QuartzCore.framework */; };
+		65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardHeaders.h; sourceTree = "<group>"; };
 		65B7AA10186D5D1100D16576 /* JustType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustType.h; sourceTree = "<group>"; };
 		65B7AA11186D66CE00D16576 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+JTExtension.h"; sourceTree = "<group>"; };
+		65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JTExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +235,8 @@
 				65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */,
 				65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */,
 				65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */,
+				65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */,
+				65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */,
 			);
 			name = "Syntax Words";
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				65B7AA05186D59E000D16576 /* JTTextField.m in Sources */,
 				65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */,
 				65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */,
+				65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

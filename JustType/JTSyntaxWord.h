@@ -10,11 +10,12 @@
 
 @protocol JTSyntaxWord <NSObject>
 
-+ (BOOL)matchWord:(NSString *)word;
++ (BOOL)doesMatchWord:(NSString *)word;
++ (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range;
 
 - (id)initWithWord:(NSString *)word;
 
-- (NSInteger)indexOfCurrentSuggestion;
+- (NSString *)word;
 - (NSArray *)allSuggestions;
 
 @end
