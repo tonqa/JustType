@@ -31,6 +31,7 @@
 		65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */; };
 		65B7AA13186D66DB00D16576 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7AA11186D66CE00D16576 /* QuartzCore.framework */; };
 		65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */; };
+		65D66F89186DFDD000302F2F /* JTTextViewMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,8 +85,10 @@
 		65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardHeaders.h; sourceTree = "<group>"; };
 		65B7AA10186D5D1100D16576 /* JustType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustType.h; sourceTree = "<group>"; };
 		65B7AA11186D66CE00D16576 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+JTExtension.h"; sourceTree = "<group>"; };
+		65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JTExtension.h"; sourceTree = "<group>"; };
 		65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JTExtension.m"; sourceTree = "<group>"; };
+		65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextViewMediatorDelegate.h; sourceTree = "<group>"; };
+		65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextViewMediatorDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +224,8 @@
 				65B7AA04186D59E000D16576 /* JTTextField.m */,
 				65B7AA00186D59BF00D16576 /* JTTextView.h */,
 				65B7AA01186D59BF00D16576 /* JTTextView.m */,
+				65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */,
+				65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */,
 				65B7A9F3186D581300D16576 /* JTTextController.h */,
 				65B7A9F4186D581300D16576 /* JTTextController.m */,
 			);
@@ -360,6 +365,7 @@
 				65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */,
 				65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */,
 				65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */,
+				65D66F89186DFDD000302F2F /* JTTextViewMediatorDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +545,7 @@
 				65B7A9EB186D56A000D16576 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65B7A9EC186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustTypeTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +554,7 @@
 				65B7A9EE186D56A000D16576 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,4 +11,9 @@
 
 @interface JTTextView : UITextView <JTTextControllerDelegate>
 
+- (id<UITextViewDelegate>)actualDelegate;
+
+- (void)didChangeSelection;
+- (void)didChangeText;
+
 @end

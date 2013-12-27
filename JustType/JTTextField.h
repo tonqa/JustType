@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "JTTextController.h"
 
-@interface JTTextField : UITextField <JTTextControllerDelegate>
+@interface JTTextField : UITextField <JTTextControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
