@@ -30,10 +30,10 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedSeperatorExpression = [NSRegularExpression regularExpressionWithPattern:@"^[!a-zA-Z-]+$" options:NULL error:NULL];
+        sharedSeperatorExpression = [NSRegularExpression regularExpressionWithPattern:@"^[!a-zA-Z-]+$" options:0 error:NULL];
     });
     
-    NSArray *matches = [sharedSeperatorExpression matchesInString:text options:NULL range:range];
+    NSArray *matches = [sharedSeperatorExpression matchesInString:text options:0 range:range];
     return (matches.count > 0);
 }
 

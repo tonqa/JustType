@@ -34,10 +34,10 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^[a-zA-Z-]+$" options:NULL error:NULL];
+        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^[a-zA-Z-]+$" options:0 error:NULL];
     });
     
-    NSArray *matches = [sharedLinguisticExpression matchesInString:text options:NULL range:range];
+    NSArray *matches = [sharedLinguisticExpression matchesInString:text options:0 range:range];
     return (matches.count > 0);
 }
 

@@ -11,19 +11,18 @@
 @protocol JTTextControllerDelegate <NSObject>
 
 - (NSString *)textContent;
-- (NSRange)selectionRange;
-- (NSRange)highlightRange;
 
-- (void)shouldSelectTextInRange:(NSRange)range;
-- (void)shouldReplaceWordAtRange:(NSRange)range withWord:(NSString *)word;
-- (void)shouldHighlightWordInRange:(NSRange)range;
+- (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range;
+
+//- (void)shouldReplaceWordAtRange:(NSRange)range withWord:(NSString *)word;    => replaceRange:
+//- (void)shouldSelectTextInRange:(NSRange)range;                               => setSelectedTextRange:
 
 @end
 
 
 @interface JTTextController : NSObject
 
-@property (nonatomic, assign) id<JTTextControllerDelegate> delegate;
+@property (nonatomic, assign) id<JTTextControllerDelegate, UITextInput> delegate;
 
 - (void)didChangeSelection;
 - (void)didChangeText;

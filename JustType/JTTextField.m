@@ -33,27 +33,13 @@
 }
 
 - (NSString *)textContent {
-    return nil;
+    return self.text;
 }
 
-- (NSRange)selectionRange {
-    return NSRangeFromString(@"");
-}
-
-- (NSRange)highlightRange {
-    return NSRangeFromString(@"");
-}
-
-- (void)shouldSelectTextInRange:(NSRange)range {
-    
-}
-
-- (void)shouldReplaceWordAtRange:(NSRange)range withWord:(NSString *)word {
-    
-}
-
-- (void)shouldHighlightWordInRange:(NSRange)range {
-    
+- (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range {
+//    NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+//    [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:range];
+//    [textView setAttributedText:highlightedString];
 }
 
 @end
