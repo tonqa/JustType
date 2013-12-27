@@ -10,4 +10,20 @@
 
 @implementation JTSyntaxSeperatorWord
 
++ (BOOL)matchWord:(NSString *)word {
+    return NO;
+}
+
+- (id)initWithWord:(NSString *)word {
+    return [super init];
+}
+
+- (NSInteger)indexOfCurrentSuggestion {
+    return -1;
+}
+
+- (NSArray *)allSuggestions {
+    return [NSArray array];
+}
+
 @end
