@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JTTextController.h"
 
-@interface JTTextField : UITextField
+@interface JTTextField : UITextField <JTTextControllerDelegate>
 
 @end
