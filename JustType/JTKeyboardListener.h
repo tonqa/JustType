@@ -10,4 +10,7 @@
 
 @interface JTKeyboardListener : NSObject
 
++ (id)sharedInstance;
+- (void)observeKeyboardGestures:(BOOL)activate;
+
 @end

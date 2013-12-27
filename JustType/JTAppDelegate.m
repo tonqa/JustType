@@ -7,6 +7,7 @@
 //
 
 #import "JTAppDelegate.h"
+#import "JustType.h"
 
 @implementation JTAppDelegate
 
@@ -15,6 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+    
     return YES;
 }
 							
