@@ -13,6 +13,7 @@
 + (BOOL)doesMatchWord:(NSString *)word;
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range;
 
++ (id)alloc;
 - (id)initWithWord:(NSString *)word;
 
 - (NSString *)word;

@@ -29,6 +29,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.autocorrectionType = UITextAutocorrectionTypeNo;
+        
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
@@ -81,7 +83,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 #pragma mark - Gesture recognizer actions
 - (void)didSingleTap:(UITapGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self.textController didChangeSelection];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.textController didChangeSelection];
+        });
     }
 }
 
