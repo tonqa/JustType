@@ -36,6 +36,7 @@
 - (BOOL)updateRange:(NSRange *)range withSelectedIndex:(NSInteger)selectedIndex 
   startIndexOfBlock:(NSInteger)indexOfFirstLetterOfBlock 
            endIndex:(NSInteger)indexOfLastLetterOfBlock;
+- (NSInteger)endIndexOfDocument;
 
 @end
 
@@ -135,11 +136,22 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeLeftShort:(NSNotification *)notification {
+    NSInteger selectedIndex;
+    if (![self getSelectedIndex:&selectedIndex]) return;
+
+    if (selectedIndex <= 0) return;
     
+    [self moveSelectionToIndex:selectedIndex-1];
 }
 
 - (void)didSwipeRightShort:(NSNotification *)notification {
+    NSInteger selectedIndex;
+    if (![self getSelectedIndex:&selectedIndex]) return;
     
+    NSInteger maximumIndex = [self endIndexOfDocument];
+    if (selectedIndex >= maximumIndex) return;
+    
+    [self moveSelectionToIndex:selectedIndex+1];
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
@@ -177,10 +189,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
                     endIndex:indexOfLastLetterOfBlock];
 }
 
-- (BOOL)getRangeOfNextWord:(NSRange *)range fromIndex:(NSInteger)index {
-    UITextPosition *startPositionOfDoc = [self.delegate beginningOfDocument];
-    UITextPosition *endPositionOfDoc = [self.delegate endOfDocument];
-    NSInteger endIndexOfDoc = [self.delegate offsetFromPosition:startPositionOfDoc toPosition:endPositionOfDoc];
+- (BOOL)getRangeOfNextWord:(NSRange *)range fromIndex:(NSInteger)index {    
+    NSInteger endIndexOfDoc = [self endIndexOfDocument];
     
     if (index >= endIndexOfDoc) return NO;
     
@@ -343,6 +353,12 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         }
     }
     return nil;
+}
+
+- (NSInteger)endIndexOfDocument {
+    UITextPosition *startPositionOfDoc = [self.delegate beginningOfDocument];
+    UITextPosition *endPositionOfDoc = [self.delegate endOfDocument];
+    return [self.delegate offsetFromPosition:startPositionOfDoc toPosition:endPositionOfDoc];
 }
 
 @end
