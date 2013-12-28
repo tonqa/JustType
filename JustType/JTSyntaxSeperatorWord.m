@@ -37,10 +37,10 @@
     return (matches.count > 0);
 }
 
-- (id)initWithWord:(NSString *)word {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range {
     self = [super init];
     if (self) {
-        self.word = word;
+        self.word = [text substringWithRange:range];;
     }
     return self;
 }

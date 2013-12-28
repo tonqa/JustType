@@ -41,40 +41,28 @@
     return (matches.count > 0);
 }
 
-- (id)initWithWord:(NSString *)word {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range {
     self = [super init];
     if (self) {
-        self.word = word;
-    }
-    return self;
-}
+        self.word = [text substringWithRange:range];;
 
-- (void)dealloc {
-    self.word = nil;
-}
-
-- (NSArray *)allSuggestions {
-    if (!_allSuggestions) {
-    
         static UITextChecker *sharedTextChecker;
-        
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             sharedTextChecker = [[UITextChecker alloc] init];
         });
         
         if ([self isTextCheckerAvailable]) {
-            NSRange range = [self.word range];
-            _allSuggestions = [sharedTextChecker 
-                               guessesForWordRange:range inString:self.word 
-                               language:[[NSLocale currentLocale] localeIdentifier]];
+            _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[[NSLocale currentLocale] localeIdentifier]];
         } else {
             _allSuggestions = [NSArray array];
         }
-        
     }
-    
-    return _allSuggestions;
+    return self;
+}
+
+- (void)dealloc {
+    self.word = nil;
 }
 
 #pragma mark - private methods
