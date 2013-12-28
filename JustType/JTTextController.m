@@ -121,7 +121,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSInteger startIndexOfSelectedWord = self.selectedSyntaxWordRange.location;
     NSInteger endIndexOfSelectedWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length - 1;
-    if (selectedTextIndex < endIndexOfSelectedWord) {
+    if (selectedTextIndex < endIndexOfSelectedWord+1) {
         [self moveSelectionToIndex:endIndexOfSelectedWord+1];
         return;
     }
@@ -169,11 +169,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 - (BOOL)getRangeOfSelectedWord:(NSRange *)range atIndex:(NSInteger)index {
     
-    UITextPosition *docStartPosition = [self.delegate beginningOfDocument];
-    UITextPosition *docEndPosition = [self.delegate endOfDocument];
-    
-    NSInteger indexOfLastLetterOfDoc = [self.delegate offsetFromPosition:docStartPosition 
-                                                              toPosition:docEndPosition] - 1;
+    NSInteger indexOfLastLetterOfDoc = [self endIndexOfDocument] - 1;
 
     NSInteger indexOfLastLetterOfBlock;
     if (![self findEndIndexOfSelectedBlock:&indexOfLastLetterOfBlock 
@@ -225,7 +221,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             *range = tempWordRange;
         } else {
             // if we met the selection point already or come to the last word just break
-            if (i >= selectedIndex) {
+            if (i > selectedIndex) {
                 break;
             } else {
                 beginIndexOfWord = i;
