@@ -225,6 +225,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // go right and find the last largest matching word step-by-step
     // (until you find a word containing the current index, otherwise the last word)
     NSInteger beginIndexOfWord = indexOfFirstLetterOfBlock;
+    BOOL selectionIndexFound = NO; 
     
     for (NSInteger i = indexOfFirstLetterOfBlock; i <= indexOfLastLetterOfBlock; i++) {
         
@@ -236,13 +237,15 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         if ([self doesTextInRangeComplyToSyntaxWord:tempWordRange]) {
             *range = tempWordRange;
         } else {
-            // if we met the selection point already or come to the last word just break
-            if (i > selectedIndex) {
-                break;
-            } else {
-                beginIndexOfWord = i;
-                *range = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
-            }
+            // if we meet the selection point already or come to the last word just break
+            if (selectionIndexFound) break;
+            
+            beginIndexOfWord = i;
+            *range = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
+        }
+        
+        if (i >= selectedIndex) {
+            selectionIndexFound = YES;
         }
     }
 
@@ -444,8 +447,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSUInteger endIndexOfLastWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
     UITextPosition *endOfWordPosition = [self.delegate positionFromPosition:beginOfDocPosition offset:endIndexOfLastWord];
-    UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
-    NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
 
     // if the rest contain more than one whitespace replace with suggestion
     if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
@@ -474,6 +475,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         }
     }
     
+    UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
+    NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
+
     NSString *wordToReplace = [NSString stringWithFormat:@"%@ ", word ?: @""];
     NSRange wordRangeToReplace = NSMakeRange(wordRange.location, wordRange.length + lastSpacesLength);
     [self replaceRange:wordRangeToReplace withText:wordToReplace];
