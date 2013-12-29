@@ -18,6 +18,7 @@
 @property (nonatomic, assign) id<UITextViewDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextViewMediatorDelegate *mediatorDelegate;
 
+@property (nonatomic, assign) BOOL isIgnoringUpdates;
 
 @end
 
@@ -29,6 +30,7 @@
 
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
+@synthesize isIgnoringUpdates = _isIgnoringUpdates;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {

@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) NSRange selectedSyntaxWordRange;
 @property (nonatomic, retain) id<JTSyntaxWord> selectedSyntaxWord;
+@property (nonatomic, assign) NSInteger selectedSyntaxWordSuggestionIndex;
+@property (nonatomic, assign) BOOL isIgnoringUpdates;
 
 - (BOOL)getRangeOfSelectedWord:(NSRange *)range atIndex:(NSInteger)index;
 - (BOOL)getRangeOfNextWord:(NSRange *)range fromIndex:(NSInteger)index;
@@ -28,6 +30,9 @@
 - (void)computeSyntaxWordWithForcedRecomputation:(BOOL)enforced;
 - (BOOL)getSelectedIndex:(NSInteger *)selectedIndex;
 - (void)moveSelectionToIndex:(NSInteger)newIndex;
+- (void)selectNextSuggestionInForwardDirection:(BOOL)forward;
+- (void)replaceRange:(NSRange)range withText:(NSString *)text;
+- (UITextRange *)textRangeFromRange:(NSRange)range;
 
 - (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index 
                       selectedIndex:(NSInteger)selectedIndex
@@ -46,6 +51,8 @@
 @synthesize syntaxWordClassNames = _syntaxWordClassNames;
 @synthesize selectedSyntaxWordRange = _selectedSyntaxWordRange;
 @synthesize selectedSyntaxWord = _selectedSyntaxWord;
+@synthesize selectedSyntaxWordSuggestionIndex = _selectedSyntaxWordSuggestionIndex;
+@synthesize isIgnoringUpdates = _isIgnoringUpdates;
 
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
 extern NSString * const JTKeyboardGestureSwipeRightLong;
@@ -80,11 +87,15 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 #pragma mark - textview / textfield notifier methods
 - (void)didChangeSelection {
-    [self computeSyntaxWordWithForcedRecomputation:NO];
+    if (!self.isIgnoringUpdates) {
+        [self computeSyntaxWordWithForcedRecomputation:NO];
+    }
 }
 
 - (void)didChangeText {
-    [self computeSyntaxWordWithForcedRecomputation:YES];
+    if (!self.isIgnoringUpdates) {
+        [self computeSyntaxWordWithForcedRecomputation:YES];
+    }
 }
 
 #pragma mark - notification listeners
@@ -155,11 +166,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
-    
+    [self selectNextSuggestionInForwardDirection:NO];
 }
 
 - (void)didSwipeDown:(NSNotification *)notification {
-    
+    [self selectNextSuggestionInForwardDirection:YES];
 }
 
 #pragma mark - internal methods
@@ -301,12 +312,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         self.selectedSyntaxWordRange = rangeOfSelectedWord;
         self.selectedSyntaxWord = syntaxWord;
+        self.selectedSyntaxWordSuggestionIndex = -1;
         
         NSLog(@"The selected text now: %@", [self.textContent substringWithRange:rangeOfSelectedWord]);
         NSLog(@"The suggestions are: %@", [self.selectedSyntaxWord allSuggestions]);
         
     } else {
         self.selectedSyntaxWord = nil;
+        self.selectedSyntaxWordSuggestionIndex = -1;
     }
 }
 
@@ -357,4 +370,63 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     return [self.delegate offsetFromPosition:startPositionOfDoc toPosition:endPositionOfDoc];
 }
 
+- (void)selectNextSuggestionInForwardDirection:(BOOL)forward {
+    NSInteger currentIndex = self.selectedSyntaxWordSuggestionIndex;
+    
+    if (forward) {
+        NSInteger suggestionCount = [[self.selectedSyntaxWord allSuggestions] count];
+        if (currentIndex < suggestionCount - 1) {
+            currentIndex += 1;
+        } else {
+            return;
+        }
+    } else {
+        if (currentIndex > -1) {
+            currentIndex -= 1;
+        } else {
+            return;
+        }
+    }
+    
+    NSString *word = nil;
+    if (currentIndex == -1) {
+        word = [self.selectedSyntaxWord word];
+    } else {
+        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:currentIndex];
+    }
+
+    [self replaceRange:self.selectedSyntaxWordRange withText:word];
+
+    NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
+    self.selectedSyntaxWordRange = newRange;
+    self.selectedSyntaxWordSuggestionIndex = currentIndex;
+}
+
+- (void)replaceRange:(NSRange)range withText:(NSString *)text {
+    
+    self.isIgnoringUpdates = YES;
+    
+    UITextRange *textRange = [self textRangeFromRange:range];
+    [self.delegate replaceRange:textRange withText:text];
+    
+//    NSUInteger selectedIndex = range.location + range.length - 1;
+//    NSRange selectedRange = NSMakeRange(selectedIndex, 0);
+//    UITextRange *selectedTextRange = [self textRangeFromRange:selectedRange];
+//    [self.delegate setSelectedTextRange:selectedTextRange];
+     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isIgnoringUpdates = NO;
+    });
+    
+    NSLog(@"whats wrong");
+}
+
+- (UITextRange *)textRangeFromRange:(NSRange)range {
+    UITextPosition *startPosition = [self.delegate beginningOfDocument];
+    UITextPosition *fromPosition = [self.delegate positionFromPosition:startPosition offset:range.location];
+    UITextPosition *toPosition = [self.delegate positionFromPosition:startPosition offset:range.location+range.length];
+    UITextRange *textRange = [self.delegate textRangeFromPosition:fromPosition toPosition:toPosition];
+    return textRange;
+}
+     
 @end
