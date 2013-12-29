@@ -137,11 +137,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (!self.selectedSyntaxWord) return;
     
     // first try to move to beginning of the selected word
-    NSInteger selectedIndex;
-    if (![self getSelectedIndex:&selectedIndex]) return;
+    NSRange selectedRange;
+    if (![self getSelectedRange:&selectedRange]) return;
     
     NSInteger endIndexOfSelectedWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length - 1;
-    if (selectedIndex < endIndexOfSelectedWord+1) {
+    if (selectedRange.location < endIndexOfSelectedWord+1) {
         [self moveSelectionToIndex:endIndexOfSelectedWord+1];
         return;
     }
@@ -158,22 +158,24 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeLeftShort:(NSNotification *)notification {
-    NSInteger selectedIndex;
-    if (![self getSelectedIndex:&selectedIndex]) return;
+    NSRange selectedRange;
+    if (![self getSelectedRange:&selectedRange]) return;
 
-    if (selectedIndex <= 0) return;
+    NSInteger currentIndex = selectedRange.location;
+    if (currentIndex <= 0) return;
     
-    [self moveSelectionToIndex:selectedIndex-1];
+    [self moveSelectionToIndex:currentIndex-1];
 }
 
 - (void)didSwipeRightShort:(NSNotification *)notification {
-    NSInteger selectedIndex;
-    if (![self getSelectedIndex:&selectedIndex]) return;
+    NSRange selectedRange;
+    if (![self getSelectedRange:&selectedRange]) return;
     
+    NSInteger currentIndex = selectedRange.location+selectedRange.length;
     NSInteger maximumIndex = [self endIndexOfDocument];
-    if (selectedIndex >= maximumIndex) return;
+    if (currentIndex >= maximumIndex) return;
     
-    [self moveSelectionToIndex:selectedIndex+1];
+    [self moveSelectionToIndex:currentIndex+1];
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
@@ -365,7 +367,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         return NO;
     }
     
-    *selectedIndex = selectedRange.location;
+    if (selectedIndex) *selectedIndex = selectedRange.location;
     
     return YES;
 }
@@ -401,6 +403,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward {
+    
+    if (![self getSelectedIndex:NULL]) return;
     
     NSInteger newIndex;
     NSString *word;
