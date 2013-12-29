@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSArray *allSuggestions;
 
 - (BOOL)isTextCheckerAvailable;
+- (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word;
 
 @end
 
@@ -53,7 +54,15 @@
         });
         
         if ([self isTextCheckerAvailable]) {
+                        
             _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[[NSLocale currentLocale] localeIdentifier]];
+            
+            BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
+            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
+                return ([self wordBeginsWithUpperCaseLetter:evaluatedObject] == shouldBeUpperCase);
+            }];
+            _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
+
         } else {
             _allSuggestions = [NSArray array];
         }
@@ -69,6 +78,12 @@
 - (BOOL)isTextCheckerAvailable {
     NSString *localeIdentifier = [[NSLocale currentLocale] localeIdentifier];
     return [[UITextChecker availableLanguages] containsObject:localeIdentifier];
+}
+
+- (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word {
+    NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
+    NSRange range = [self.word rangeOfCharacterFromSet:upperCaseSet];
+    return (range.location == 0);
 }
 
 @end
