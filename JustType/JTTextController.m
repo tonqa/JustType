@@ -13,6 +13,8 @@
 #import "JTSyntaxLinguisticWord.h"
 #import "JTSyntaxSeperatorWord.h"
 
+#define SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT 0
+
 @interface JTTextController ()
 
 @property (nonatomic, readonly) NSString *textContent;
@@ -445,32 +447,39 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
     NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
 
-    // replace with next syntax word
-    if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
-
-        wordRange = self.selectedSyntaxWordRange;
-        [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];        
+    // if the rest contain more than one whitespace replace with suggestion
+    if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
+        
+        wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
+        if (![self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
+            word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
+        }
         
     } else {
-
-        wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
-
-        // if the rest contain more than one whitespace replace with suggestion
-        if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
-            word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
-            wordIndex = -1;
+        if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
+            
+            // replace with next syntax word
+            wordRange = self.selectedSyntaxWordRange;
+            [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];        
+            
+        } else {
+            
+            if (!SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT) {
+                wordRange = NSMakeRange(self.selectedSyntaxWordRange.location + 
+                                        self.selectedSyntaxWordRange.length, 0);
+            } else {
+                wordRange = self.selectedSyntaxWordRange;
+                [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];
+            }
         }
-                
     }
     
     NSString *wordToReplace = [NSString stringWithFormat:@"%@ ", word ?: @""];
     NSRange wordRangeToReplace = NSMakeRange(wordRange.location, wordRange.length + lastSpacesLength);
     [self replaceRange:wordRangeToReplace withText:wordToReplace];
     
-    if (word) {
-        self.selectedSyntaxWordRange = wordRange;
-        self.selectedSyntaxWordSuggestionIndex = wordIndex;
-    }
+    [self computeSyntaxWordWithForcedRecomputation:YES];
+
 }
      
 @end
