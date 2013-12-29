@@ -361,6 +361,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         return NO;
     }
     
+    if (selectedRange.length > 0) {
+        return NO;
+    }
+    
     *selectedIndex = selectedRange.location;
     
     return YES;
