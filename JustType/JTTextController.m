@@ -31,6 +31,7 @@
 - (id<JTSyntaxWord>)syntaxWordForTextInRange:(NSRange)range;
 - (void)computeSyntaxWordWithForcedRecomputation:(BOOL)enforced;
 - (BOOL)getSelectedIndex:(NSInteger *)selectedIndex;
+- (BOOL)getSelectedRange:(NSRange *)selectedIndex;
 - (void)moveSelectionToIndex:(NSInteger)newIndex;
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward;
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex;
@@ -107,11 +108,16 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (!self.selectedSyntaxWord) return;
         
     // first try to move to beginning of the selected word
-    NSInteger selectedTextIndex;
-    if (![self getSelectedIndex:&selectedTextIndex]) return;
+    NSRange selectedRange;
+    if (![self getSelectedRange:&selectedRange]) return;
+    
+    if (selectedRange.length > 0) {
+        [self moveSelectionToIndex:selectedRange.location];
+        return;
+    }
 
     NSInteger startIndexOfSelectedWord = self.selectedSyntaxWordRange.location;
-    if (selectedTextIndex > startIndexOfSelectedWord) {
+    if (selectedRange.location > startIndexOfSelectedWord) {
         [self moveSelectionToIndex:startIndexOfSelectedWord];
         return;
     }
@@ -349,11 +355,27 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (BOOL)getSelectedIndex:(NSInteger *)selectedIndex {
+    
+    NSRange selectedRange;
+    if (![self getSelectedRange:&selectedRange]) {
+        return NO;
+    }
+    
+    *selectedIndex = selectedRange.location;
+    
+    return YES;
+}
+
+- (BOOL)getSelectedRange:(NSRange *)selectedIndex {
     UITextRange *selectedTextRange = [self.delegate selectedTextRange];    
     UITextPosition *docStartPosition = [self.delegate beginningOfDocument];
-    *selectedIndex = [self.delegate offsetFromPosition:docStartPosition 
-                                            toPosition:selectedTextRange.start];
     
+    if (!selectedTextRange) return NO;
+
+    NSInteger startIndex = [self.delegate offsetFromPosition:docStartPosition toPosition:selectedTextRange.start];
+    NSInteger endIndex = [self.delegate offsetFromPosition:docStartPosition toPosition:selectedTextRange.end];
+    
+    *selectedIndex = NSMakeRange(startIndex, endIndex-startIndex);
     return YES;
 }
 

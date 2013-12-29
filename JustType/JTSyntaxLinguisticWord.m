@@ -57,9 +57,10 @@
                         
             _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[[NSLocale currentLocale] localeIdentifier]];
             
+            // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
-            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-                return ([self wordBeginsWithUpperCaseLetter:evaluatedObject] == shouldBeUpperCase);
+            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
+                return ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
             }];
             _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
 
