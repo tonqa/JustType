@@ -37,19 +37,7 @@
     return (matches.count > 0);
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range {
-    self = [super init];
-    if (self) {
-        self.word = [text substringWithRange:range];;
-    }
-    return self;
-}
-
-- (void)dealloc {
-    self.word = nil;
-}
-
-- (NSArray *)allSuggestions {
++ (NSArray *)possibleSuggestions {
     static NSArray *sharedSeperatorSuggestions;
     
     static dispatch_once_t onceToken;
@@ -58,6 +46,23 @@
     });
     
     return sharedSeperatorSuggestions;
+}
+
+- (id)initWithText:(NSString *)text inRange:(NSRange)range {
+    self = [super init];
+    if (self) {
+        self.word = [text substringWithRange:range];
+        
+        NSMutableArray *mutableSuggestions = [NSMutableArray arrayWithArray:[[self class] possibleSuggestions]];
+        [mutableSuggestions removeObject:self.word];
+        _allSuggestions = mutableSuggestions;
+
+    }
+    return self;
+}
+
+- (void)dealloc {
+    self.word = nil;
 }
 
 @end

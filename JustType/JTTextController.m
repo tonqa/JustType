@@ -31,8 +31,10 @@
 - (BOOL)getSelectedIndex:(NSInteger *)selectedIndex;
 - (void)moveSelectionToIndex:(NSInteger)newIndex;
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward;
+- (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex;
 - (void)replaceRange:(NSRange)range withText:(NSString *)text;
 - (UITextRange *)textRangeFromRange:(NSRange)range;
+- (void)selectNextSeperatorForEndOfDocument;
 
 - (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index 
                       selectedIndex:(NSInteger)selectedIndex
@@ -127,20 +129,21 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (!self.selectedSyntaxWord) return;
     
     // first try to move to beginning of the selected word
-    NSInteger selectedTextIndex;
-    if (![self getSelectedIndex:&selectedTextIndex]) return;
+    NSInteger selectedIndex;
+    if (![self getSelectedIndex:&selectedIndex]) return;
     
-    NSInteger startIndexOfSelectedWord = self.selectedSyntaxWordRange.location;
     NSInteger endIndexOfSelectedWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length - 1;
-    if (selectedTextIndex < endIndexOfSelectedWord+1) {
+    if (selectedIndex < endIndexOfSelectedWord+1) {
         [self moveSelectionToIndex:endIndexOfSelectedWord+1];
         return;
     }
     
     // then try to move to the beginning of the word before the selected word
     NSRange newWordRange;
-    if (![self getRangeOfNextWord:&newWordRange fromIndex:endIndexOfSelectedWord + 1]) return;
-    if (startIndexOfSelectedWord == newWordRange.location) return;
+    if (![self getRangeOfNextWord:&newWordRange fromIndex:endIndexOfSelectedWord + 1]) {
+        [self selectNextSeperatorForEndOfDocument];
+        return;
+    }
 
     NSInteger offsetFromStartPosition = newWordRange.location + newWordRange.length;
     [self moveSelectionToIndex:offsetFromStartPosition];
@@ -341,11 +344,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (BOOL)getSelectedIndex:(NSInteger *)selectedIndex {
-    UITextRange *selectedTextRange = [self.delegate selectedTextRange];
-    NSComparisonResult result = [self.delegate comparePosition:selectedTextRange.start 
-                                                    toPosition:selectedTextRange.end];
-    if (result != NSOrderedSame) return NO;
-    
+    UITextRange *selectedTextRange = [self.delegate selectedTextRange];    
     UITextPosition *docStartPosition = [self.delegate beginningOfDocument];
     *selectedIndex = [self.delegate offsetFromPosition:docStartPosition 
                                             toPosition:selectedTextRange.start];
@@ -371,35 +370,43 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward {
-    NSInteger currentIndex = self.selectedSyntaxWordSuggestionIndex;
     
-    if (forward) {
-        NSInteger suggestionCount = [[self.selectedSyntaxWord allSuggestions] count];
-        if (currentIndex < suggestionCount - 1) {
-            currentIndex += 1;
-        } else {
-            return;
-        }
-    } else {
-        if (currentIndex > -1) {
-            currentIndex -= 1;
-        } else {
-            return;
-        }
-    }
+    NSInteger newIndex;
+    NSString *word;
+    [self nextSuggestionInForwardDirection:forward word:&word index:&newIndex];
     
-    NSString *word = nil;
-    if (currentIndex == -1) {
-        word = [self.selectedSyntaxWord word];
-    } else {
-        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:currentIndex];
-    }
-
     [self replaceRange:self.selectedSyntaxWordRange withText:word];
 
     NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
     self.selectedSyntaxWordRange = newRange;
-    self.selectedSyntaxWordSuggestionIndex = currentIndex;
+    self.selectedSyntaxWordSuggestionIndex = newIndex;
+}
+
+- (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
+    *currentIndex = self.selectedSyntaxWordSuggestionIndex;
+    NSInteger suggestionCount = [[self.selectedSyntaxWord allSuggestions] count];
+    
+    if (forward) {
+        if (*currentIndex < suggestionCount - 1) {
+            *currentIndex += 1;
+        } else {
+            *currentIndex = -1;
+        }
+    } else {
+        if (*currentIndex > -1) {
+            *currentIndex -= 1;
+        } else {
+            *currentIndex = suggestionCount - 1;
+        }
+    }
+    
+    if (*currentIndex == -1) {
+        *word = [self.selectedSyntaxWord word];
+    } else {
+        *word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:*currentIndex];
+    }
+
+    return;
 }
 
 - (void)replaceRange:(NSRange)range withText:(NSString *)text {
@@ -408,11 +415,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     UITextRange *textRange = [self textRangeFromRange:range];
     [self.delegate replaceRange:textRange withText:text];
-    
-//    NSUInteger selectedIndex = range.location + range.length - 1;
-//    NSRange selectedRange = NSMakeRange(selectedIndex, 0);
-//    UITextRange *selectedTextRange = [self textRangeFromRange:selectedRange];
-//    [self.delegate setSelectedTextRange:selectedTextRange];
      
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isIgnoringUpdates = NO;
@@ -427,6 +429,48 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     UITextPosition *toPosition = [self.delegate positionFromPosition:startPosition offset:range.location+range.length];
     UITextRange *textRange = [self.delegate textRangeFromPosition:fromPosition toPosition:toPosition];
     return textRange;
+}
+
+- (void)selectNextSeperatorForEndOfDocument {
+    NSString *word = nil;
+    NSRange wordRange;
+    NSInteger wordIndex;
+    
+    // get range of the spaces after the currently selected word
+    UITextPosition *beginOfDocPosition = [self.delegate beginningOfDocument];
+    UITextPosition *endOfDocPosition = [self.delegate endOfDocument];
+    
+    NSUInteger endIndexOfLastWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
+    UITextPosition *endOfWordPosition = [self.delegate positionFromPosition:beginOfDocPosition offset:endIndexOfLastWord];
+    UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
+    NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
+
+    // replace with next syntax word
+    if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
+
+        wordRange = self.selectedSyntaxWordRange;
+        [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];        
+        
+    } else {
+
+        wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
+
+        // if the rest contain more than one whitespace replace with suggestion
+        if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
+            word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
+            wordIndex = -1;
+        }
+                
+    }
+    
+    NSString *wordToReplace = [NSString stringWithFormat:@"%@ ", word ?: @""];
+    NSRange wordRangeToReplace = NSMakeRange(wordRange.location, wordRange.length + lastSpacesLength);
+    [self replaceRange:wordRangeToReplace withText:wordToReplace];
+    
+    if (word) {
+        self.selectedSyntaxWordRange = wordRange;
+        self.selectedSyntaxWordSuggestionIndex = wordIndex;
+    }
 }
      
 @end

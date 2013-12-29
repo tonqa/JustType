@@ -10,4 +10,6 @@
 
 @interface JTSyntaxSeperatorWord : NSObject<JTSyntaxWord>
 
++ (NSArray *)possibleSuggestions;
+
 @end
