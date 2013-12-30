@@ -8,6 +8,7 @@
 
 #import "JTTextView.h"
 #import "JTTextViewMediatorDelegate.h"
+#import "JTKeyboardAttachmentView.h"
 
 @interface JTTextView ()
 
@@ -43,6 +44,10 @@
         
         _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
         _mediatorDelegate.textView = self;
+        
+        CGRect frame = CGRectMake(0, 0, self.frame.size.width, 20);
+        JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+        [self setInputAccessoryView:attachmentView];
     }
     return self;
 }
@@ -61,6 +66,16 @@
 - (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range {
 }
 
+#pragma mark - Overwritten methods
+- (void)setInputAccessoryView:(UIView *)inputAccessoryView {
+    [super setInputAccessoryView:inputAccessoryView];
+    
+    if ([inputAccessoryView isKindOfClass:[JTKeyboardAttachmentView class]]) {
+        JTKeyboardAttachmentView *attachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
+        self.textController.keyboardAttachmentView = attachmentView;
+        attachmentView.delegate = self.textController;
+    }
+}
 
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText {

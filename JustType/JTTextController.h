@@ -7,21 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JTKeyboardAttachmentView.h"
 
+@class JTKeyboardAttachmentView;
 @protocol JTTextControllerDelegate <NSObject>
 
 - (NSString *)textContent;
 
 - (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range;
 
-//- (void)shouldReplaceWordAtRange:(NSRange)range withWord:(NSString *)word;    => replaceRange:
-//- (void)shouldSelectTextInRange:(NSRange)range;                               => setSelectedTextRange:
-
 @end
 
 
-@interface JTTextController : NSObject
+@interface JTTextController : NSObject <JTKeyboardAttachmentViewDelegate>
 
+@property (nonatomic, retain) JTKeyboardAttachmentView *keyboardAttachmentView;
 @property (nonatomic, assign) id<JTTextControllerDelegate, UITextInput> delegate;
 
 - (void)didChangeSelection;

@@ -12,5 +12,6 @@
 #import "JTKeyboardListener.h"
 #import "JTTextField.h"
 #import "JTTextView.h"
+#import "JTKeyboardAttachmentView.h"
 
 #endif

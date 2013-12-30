@@ -58,6 +58,7 @@
 @synthesize selectedSyntaxWord = _selectedSyntaxWord;
 @synthesize selectedSyntaxWordSuggestionIndex = _selectedSyntaxWordSuggestionIndex;
 @synthesize isIgnoringUpdates = _isIgnoringUpdates;
+@synthesize keyboardAttachmentView = _keyboardAttachmentView;
 
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
 extern NSString * const JTKeyboardGestureSwipeRightLong;
@@ -330,12 +331,16 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         self.selectedSyntaxWord = syntaxWord;
         self.selectedSyntaxWordSuggestionIndex = -1;
         
-//        NSLog(@"The selected text now: %@", [self.textContent substringWithRange:rangeOfSelectedWord]);
-//        NSLog(@"The suggestions are: %@", [self.selectedSyntaxWord allSuggestions]);
+        // set changed syntax word
+        [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
         
     } else {
         self.selectedSyntaxWord = nil;
         self.selectedSyntaxWordSuggestionIndex = -1;
+
+        // end notification with changed syntax word
+        [self.keyboardAttachmentView setSelectedSyntaxWord:nil];
+
     }
 }
 
@@ -519,6 +524,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     [self computeSyntaxWordWithForcedRecomputation:YES];
 
+}
+
+#pragma mark - JTKeyboardAttachmentViewDelegate methods
+- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectDisplayedWordWithIndex:(NSUInteger)index {
+    
 }
      
 @end
