@@ -479,9 +479,16 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // if the rest contain more than one whitespace replace with suggestion
     if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
         
-        wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
         if (![self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
+            
+            wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
             word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
+            
+        } else {
+            
+            wordRange = self.selectedSyntaxWordRange;
+            [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];
+            
         }
         
     } else {
