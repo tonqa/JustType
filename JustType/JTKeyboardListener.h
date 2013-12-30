@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JTKeyboardListener : NSObject
+@interface JTKeyboardListener : NSObject <UIGestureRecognizerDelegate>
 
 + (id)sharedInstance;
 - (void)observeKeyboardGestures:(BOOL)activate;

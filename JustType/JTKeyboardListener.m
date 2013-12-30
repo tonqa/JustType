@@ -16,6 +16,9 @@ NSString * const JTKeyboardGestureSwipeRightShort   = @"JTKeyboardGestureSwipeRi
 NSString * const JTKeyboardGestureSwipeUp           = @"JTKeyboardGestureSwipeUp";
 NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDown";
 
+#define SWIPE_PIXEL_THRESHOLD 40.0
+#define SWIPE_LONGSWIPE_WIDTH 100.0
+#define SAMPLE_TIME_SECS 0.2
 
 @interface JTKeyboardListener ()
 
@@ -24,17 +27,34 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @property (nonatomic, readonly) UIWindow *keyboardView;
 
 @property (nonatomic, retain) UIPanGestureRecognizer *panGesture;
+@property (nonatomic, assign) CGPoint gestureStartingPoint;
+@property (nonatomic, assign) CGPoint gestureMovementPoint;
+@property (nonatomic, assign) NSTimeInterval currentSampleInterval;
+@property (nonatomic, retain) NSString *lastSwipeDirection;
+@property (nonatomic, assign) BOOL panGestureInProgress;
+
 
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
 
 - (void)cleanupViewsAndGestures;
+- (void)storeStartingPointWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer;
+- (void)sendNotificationForLastSwipeDirection;
+- (void)sendNotificationForSwipeDirection:(NSString *)swipeDirection;
+- (void)checkGestureResult;
+- (void)doPolling;
+- (void)stopPollingAndCleanGesture;
 
 @end
 
 
-@implementation JTKeyboardListener
+@implementation JTKeyboardListener 
 @synthesize panGesture = _panGesture;
 @synthesize keyboardOverlayView = _keyboardOverlayView;
+@synthesize gestureStartingPoint = _gestureStartingPoint;
+@synthesize gestureMovementPoint = _gestureMovementPoint;
+@synthesize currentSampleInterval = _currentSampleInterval;
+@synthesize lastSwipeDirection = _lastSwipeDirection;
+@synthesize panGestureInProgress = _panGestureInProgress;
 
 # pragma mark - object lifecycle
 + (id)sharedInstance {
@@ -87,9 +107,11 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self.keyboardOverlayView = transparentView;
     
     // add gesture recognizers to KeyboardView (for typing faster)
-    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-    [keyboardView addGestureRecognizer:recognizer];
-    self.panGesture = recognizer;
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    pan.delegate = self;
+    [keyboardView addGestureRecognizer:pan];
+    self.panGesture = pan;
+        
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -106,53 +128,104 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 }
 
 # pragma mark - Gesture recognizers
-- (void)panned:(UIPanGestureRecognizer*)gestureRecognizer {
-    // TODO: implement gestures using the location and not the velocity
+- (void)panned:(UIGestureRecognizer*)gestureRecognizer {
+    
+    NSLog(@"gesture pan");
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
-//        CGPoint startPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
-//        [self.keyboardOverlayView drawLineFromPoint:startPoint];
+        self.gestureStartingPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
+        self.gestureMovementPoint = self.gestureStartingPoint;
+        self.panGestureInProgress = YES;
+        [self performSelector:@selector(checkGestureResult) withObject:nil afterDelay:SAMPLE_TIME_SECS];
         
+    } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        
+        self.gestureMovementPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
+        
+    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        
+        self.panGestureInProgress = NO;
+        
+    } else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
+        
+        [self stopPollingAndCleanGesture];
     }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        
-//        CGPoint lastPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
-//        [self.keyboardOverlayView drawLineToPoint:lastPoint];
-        
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
-        
-//        [self.keyboardOverlayView resetLine];
-        
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        
-//        [self.keyboardOverlayView resetLine];
-        
-        CGPoint velocity = [gestureRecognizer velocityInView:self.keyboardOverlayView];
-        if (ABS(velocity.x) > ABS(velocity.y)) {
-            if (velocity.x > 0) {
-                NSLog(@"panned, gesture went right");
-                [self.keyboardOverlayView blink];
-                [[NSNotificationCenter defaultCenter] postNotificationName:JTKeyboardGestureSwipeRightLong object:self];
+}
+
+- (void)checkGestureResult {
+
+    CGPoint diffPoint = CGPointMake(self.gestureMovementPoint.x - self.gestureStartingPoint.x,
+                                    self.gestureMovementPoint.y - self.gestureStartingPoint.y);
+    CGPoint absDiffPoint = CGPointMake(ABS(diffPoint.x), ABS(diffPoint.y));
+    
+    if (absDiffPoint.x > SWIPE_PIXEL_THRESHOLD || absDiffPoint.y > SWIPE_PIXEL_THRESHOLD)  {
+                
+        if (absDiffPoint.x >= absDiffPoint.y) {
+            if (diffPoint.x >=0) {
+                if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightShort;
+                } else {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightLong;
+                }
             } else {
-                NSLog(@"panned, gesture went left");
-                [self.keyboardOverlayView blink];
-                [[NSNotificationCenter defaultCenter] postNotificationName:JTKeyboardGestureSwipeLeftLong object:self];
+                if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeLeftShort;
+                } else {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeLeftLong;
+                }
             }
         } else {
-            if (velocity.y > 0) {
-                NSLog(@"panned, gesture went down");
-                [self.keyboardOverlayView blink];
-                [[NSNotificationCenter defaultCenter] postNotificationName:JTKeyboardGestureSwipeDown object:self];
+            if (diffPoint.y >= 0) {
+                self.lastSwipeDirection = JTKeyboardGestureSwipeUp;
             } else {
-                NSLog(@"panned, gesture went up");
-                [self.keyboardOverlayView blink];
-                [[NSNotificationCenter defaultCenter] postNotificationName:JTKeyboardGestureSwipeUp object:self];
+                self.lastSwipeDirection = JTKeyboardGestureSwipeDown;
             }
         }
         
+        [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
+        [self doPolling];
+        
+    } else {
+        
+        [self stopPollingAndCleanGesture];
+        
     }
+}
+
+- (void)doPolling {
+    if (self.panGestureInProgress) {
+        [self sendNotificationForLastSwipeDirection];
+        [self performSelector:@selector(doPolling) withObject:nil afterDelay:0.2];
+    } else {
+        [self stopPollingAndCleanGesture];
+    }
+}
+
+- (void)stopPollingAndCleanGesture {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+    self.gestureStartingPoint = CGPointZero;
+    self.gestureMovementPoint = CGPointZero;
+    self.lastSwipeDirection = nil;
+    self.panGestureInProgress = NO;
+}
+
+- (void)storeStartingPointWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    // store the starting point
+    self.gestureStartingPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
+}
+
+- (void)sendNotificationForLastSwipeDirection {
+    NSString *swipeDirection = self.lastSwipeDirection;
+
+    if ([self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeUp] ||
+        [self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeDown]) return;
+
+    [self sendNotificationForSwipeDirection:swipeDirection];
+}
+
+- (void)sendNotificationForSwipeDirection:(NSString *)swipeDirection {
+    [[NSNotificationCenter defaultCenter] postNotificationName:swipeDirection object:self];
 }
 
 # pragma mark - private methods
@@ -166,6 +239,11 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 - (UIView *)keyboardView {
     return [[[self keyboardWindow] subviews] objectAtIndex:0];
+}
+
+# pragma mark - gesture recognizer delegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 @end

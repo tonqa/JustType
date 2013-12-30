@@ -330,8 +330,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         self.selectedSyntaxWord = syntaxWord;
         self.selectedSyntaxWordSuggestionIndex = -1;
         
-        NSLog(@"The selected text now: %@", [self.textContent substringWithRange:rangeOfSelectedWord]);
-        NSLog(@"The suggestions are: %@", [self.selectedSyntaxWord allSuggestions]);
+//        NSLog(@"The selected text now: %@", [self.textContent substringWithRange:rangeOfSelectedWord]);
+//        NSLog(@"The suggestions are: %@", [self.selectedSyntaxWord allSuggestions]);
         
     } else {
         self.selectedSyntaxWord = nil;
@@ -453,9 +453,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
      
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isIgnoringUpdates = NO;
-    });
-    
-    NSLog(@"whats wrong");
+    });    
 }
 
 - (UITextRange *)textRangeFromRange:(NSRange)range {
