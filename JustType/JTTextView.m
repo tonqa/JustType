@@ -45,7 +45,7 @@
         _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
         _mediatorDelegate.textView = self;
         
-        CGRect frame = CGRectMake(0, 0, self.frame.size.width, 20);
+        CGRect frame = CGRectMake(0, 0, self.frame.size.width, 30);
         JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
         [self setInputAccessoryView:attachmentView];
     }

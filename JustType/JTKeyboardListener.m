@@ -181,7 +181,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
                 }
             }
         } else {
-            if (diffPoint.y >= 0) {
+            if (diffPoint.y < 0) {
                 self.lastSwipeDirection = JTKeyboardGestureSwipeUp;
             } else {
                 self.lastSwipeDirection = JTKeyboardGestureSwipeDown;
