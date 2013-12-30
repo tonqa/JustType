@@ -11,6 +11,9 @@
 @interface JTKeyboardListener : NSObject <UIGestureRecognizerDelegate>
 
 + (id)sharedInstance;
+
 - (void)observeKeyboardGestures:(BOOL)activate;
+
+- (BOOL)keyboardIsAvailable;
 
 @end

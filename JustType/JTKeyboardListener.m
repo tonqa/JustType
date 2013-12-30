@@ -96,9 +96,13 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 # pragma mark - Keyboard handling
 - (void)keyboardDidShow:(NSNotification *)notification {
-    // TODO: secure fetching those views
     UIView *keyboardView = self.keyboardView;
-    NSAssert(keyboardView, @"No keyboard view found");
+    
+    if (!keyboardView) {
+        NSLog(@"Keyboard view is not at the expected place, \n \
+              probably you use incompatible version of iOS. \n \
+              The keyboard functionality is skipped");
+    }
     
     // add own ABKeyboardOverlayView to KeyboardOverlay (just for giving hints)
     JTKeyboardOverlayView *transparentView = [[JTKeyboardOverlayView alloc] initWithFrame:keyboardView.bounds];
@@ -240,17 +244,50 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     [[NSNotificationCenter defaultCenter] postNotificationName:swipeDirection object:self];
 }
 
+- (BOOL)keyboardIsAvailable {
+    return [self keyboardView] != nil;
+}
+
 # pragma mark - private methods
 - (UIWindow *)mainWindow {
     return [[[UIApplication sharedApplication] delegate] window];
 }
 
+/*
+ * Fetches the keyboard window, this method makes explicit checks
+ * if the view hierarchy has not changed in another iOS version.
+ */
 - (UIWindow *)keyboardWindow {
-    return [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    NSArray *allWindows = [[UIApplication sharedApplication] windows];
+    if ([allWindows count] < 2) return nil;
+    
+    UIWindow *keyboardWindow = [allWindows objectAtIndex:1];
+    NSString *specificWindowClassName = NSStringFromClass([keyboardWindow class]);
+    if (![specificWindowClassName isEqualToString:@"UITextEffectsWindow"]) {
+        return nil;
+    }
+    
+    return keyboardWindow;
 }
 
+/*
+ * Fetches the keyboard view, this method makes explicit checks
+ * if the view hierarchy has not changed in another iOS version.
+ */
 - (UIView *)keyboardView {
-    return [[[self keyboardWindow] subviews] objectAtIndex:0];
+    UIWindow *keyboardWindow = [self keyboardWindow];
+    if (!keyboardWindow) return nil;
+    
+    NSArray *keyboardWindowSubviews = [keyboardWindow subviews];
+    if ([keyboardWindowSubviews count] == 0) return nil;
+    
+    UIView *keyboardView = [keyboardWindowSubviews objectAtIndex:0];
+    NSString *specificViewClassName = NSStringFromClass([keyboardView class]);
+    if (![specificViewClassName isEqualToString:@"UIPeripheralHostView"]) {
+        return nil;
+    }
+
+    return keyboardView;
 }
 
 # pragma mark - gesture recognizer delegate

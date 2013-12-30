@@ -22,7 +22,6 @@
     return [self rangeOfLastWordAtPosition:self.length];
 }
 
-// TODO: Handle the selection in between words
 - (NSRange)rangeOfLastWordAtPosition:(NSUInteger)position {
     NSUInteger lastIndex = position-1;
     while ([NSString isSeperator:[self characterAtIndex:lastIndex]]) {
