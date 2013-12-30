@@ -167,17 +167,17 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     if (absDiffPoint.x > SWIPE_PIXEL_THRESHOLD || absDiffPoint.y > SWIPE_PIXEL_THRESHOLD)  {
                 
         if (absDiffPoint.x >= absDiffPoint.y) {
-            if (diffPoint.x >=0) {
-                if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
-                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightShort;
-                } else {
-                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightLong;
-                }
-            } else {
+            if (diffPoint.x < 0) {
                 if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
                     self.lastSwipeDirection = JTKeyboardGestureSwipeLeftShort;
                 } else {
                     self.lastSwipeDirection = JTKeyboardGestureSwipeLeftLong;
+                }
+            } else {
+                if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightShort;
+                } else {
+                    self.lastSwipeDirection = JTKeyboardGestureSwipeRightLong;
                 }
             }
         } else {

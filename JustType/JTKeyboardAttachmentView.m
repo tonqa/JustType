@@ -36,9 +36,13 @@
 }
 
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
-    NSArray *allWords = [NSArray arrayWithObject:syntaxWord.word];
-    allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];
-    [self setDisplayedWords:allWords];
+    if (syntaxWord) {
+        NSArray *allWords = [NSArray arrayWithObject:syntaxWord.word];
+        allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];
+        [self setDisplayedWords:allWords];
+    } else {
+        [self setDisplayedWords:[NSArray array]];
+    }
 }
 
 - (void)setDisplayedWords:(NSArray *)displayedWords {
