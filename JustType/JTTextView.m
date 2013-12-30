@@ -69,11 +69,8 @@
 #pragma mark - Overwritten methods
 - (void)setInputAccessoryView:(UIView *)inputAccessoryView {
     [super setInputAccessoryView:inputAccessoryView];
-    
     if ([inputAccessoryView isKindOfClass:[JTKeyboardAttachmentView class]]) {
-        JTKeyboardAttachmentView *attachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
-        self.textController.keyboardAttachmentView = attachmentView;
-        attachmentView.delegate = self.textController;
+        self.textController.keyboardAttachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
     }
 }
 

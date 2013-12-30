@@ -527,6 +527,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods
+- (void)setKeyboardAttachmentView:(JTKeyboardAttachmentView *)keyboardAttachmentView {
+    if (_keyboardAttachmentView != keyboardAttachmentView) {
+        _keyboardAttachmentView.delegate = nil;
+        _keyboardAttachmentView = keyboardAttachmentView;
+        _keyboardAttachmentView.delegate = self;
+    }
+}
+
 - (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectDisplayedWordWithIndex:(NSUInteger)index {
     
 }
