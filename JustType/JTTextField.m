@@ -8,6 +8,7 @@
 
 #import <objc/runtime.h>
 #import "JTTextField.h"
+#import "NSString+JTExtension.h"
 
 UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput> textInput);
 
@@ -69,14 +70,14 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     return self.text;
 }
 
-- (void)replaceHighlightingInRange:(NSRange)oldRange withRange:(NSRange)newRange {
+- (void)replaceHighlightingWithRange:(NSRange)newRange {
 #ifdef __IPHONE_6_0
     // these checks are for compatibility reasons with older iOS versions
     if ([self respondsToSelector:@selector(setAttributedText:)]) {
         UITextRange *selectedTextRange = self.selectedTextRange;
         
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [highlightedString removeAttribute:NSForegroundColorAttributeName range:oldRange];
+        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
         [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
         [self setAttributedText:highlightedString];
         

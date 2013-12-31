@@ -9,6 +9,7 @@
 #import "JTTextView.h"
 #import "JTTextViewMediatorDelegate.h"
 #import "JTKeyboardAttachmentView.h"
+#import "NSString+JTExtension.h"
 
 @interface JTTextView ()
 
@@ -48,6 +49,8 @@
         CGRect frame = CGRectMake(0, 0, self.frame.size.width, 30);
         JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
         [self setInputAccessoryView:attachmentView];
+        
+        self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
     return self;
 }
@@ -63,14 +66,14 @@
     return self.text;
 }
 
-- (void)replaceHighlightingInRange:(NSRange)oldRange withRange:(NSRange)newRange {
+- (void)replaceHighlightingWithRange:(NSRange)newRange {
 #ifdef __IPHONE_6_0
     // these checks are for compatibility reasons with older iOS versions
     if ([self respondsToSelector:@selector(setAttributedText:)]) {
         UITextRange *selectedTextRange = self.selectedTextRange;
         
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [highlightedString removeAttribute:NSForegroundColorAttributeName range:oldRange];
+        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
         [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
         [self setAttributedText:highlightedString];
         

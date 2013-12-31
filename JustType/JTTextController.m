@@ -330,7 +330,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 - (void)computeSyntaxWordWithForcedRecomputation:(BOOL)enforced {
     // highlight / print out the result
     NSRange rangeOfSelectedWord;
-    NSRange oldRange = self.selectedSyntaxWordRange;
     NSInteger selectedTextIndex;
     if ([self getSelectedIndex:&selectedTextIndex] &&
         [self getRangeOfSelectedWord:&rangeOfSelectedWord atIndex:selectedTextIndex]) {
@@ -348,7 +347,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self.keyboardAttachmentView setHighlightedIndex:-1];
 
         self.isIgnoringUpdates = YES;
-        [self.delegate replaceHighlightingInRange:oldRange withRange:self.selectedSyntaxWordRange];
+        [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
         self.isIgnoringUpdates = NO;
         
     } else {
@@ -359,7 +358,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self.keyboardAttachmentView setSelectedSyntaxWord:nil];
         
         self.isIgnoringUpdates = YES;
-        [self.delegate replaceHighlightingInRange:oldRange withRange:NSMakeRange(0, 0)];
+        [self.delegate replaceHighlightingWithRange:NSMakeRange(0, 0)];
         self.isIgnoringUpdates = NO;
     }
 }
@@ -449,7 +448,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
     [self replaceRange:self.selectedSyntaxWordRange withText:word];
     
-    NSRange oldRange = self.selectedSyntaxWordRange;
     NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
     self.selectedSyntaxWordRange = newRange;
     self.selectedSyntaxWordSuggestionIndex = index;
@@ -457,7 +455,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self.keyboardAttachmentView setHighlightedIndex:index];
 
     self.isIgnoringUpdates = YES;
-    [self.delegate replaceHighlightingInRange:oldRange withRange:self.selectedSyntaxWordRange];
+    [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
     self.isIgnoringUpdates = NO;
 }
 
@@ -562,7 +560,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self replaceRange:wordRangeToReplace withText:wordToReplace];
     
     [self computeSyntaxWordWithForcedRecomputation:YES];
-
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods

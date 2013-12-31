@@ -14,7 +14,7 @@
 
 - (NSString *)textContent;
 
-- (void)replaceHighlightingInRange:(NSRange)oldRange withRange:(NSRange)newRange;
+- (void)replaceHighlightingWithRange:(NSRange)newRange;
 
 @end
 
