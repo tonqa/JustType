@@ -94,16 +94,17 @@
         NSInteger oldButtonIndex = _highlightedIndex+1;
         NSInteger buttonIndex = highlightedIndex+1;
         
-        if (buttonIndex < [self.buttons count]) {
-        
+        if (oldButtonIndex < [self.buttons count]) {
             UIButton *oldButton = [self.buttons objectAtIndex:oldButtonIndex];
             [oldButton setHighlighted:NO];
+        }
 
+        if (buttonIndex < [self.buttons count]) {
             UIButton *button = [self.buttons objectAtIndex:buttonIndex];
             [button setHighlighted:YES];
-
-            _highlightedIndex = highlightedIndex;
         }
+
+        _highlightedIndex = highlightedIndex;
     }];
 }
 

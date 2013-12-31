@@ -136,7 +136,6 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 # pragma mark - Gesture recognizers
 - (void)panned:(UIGestureRecognizer*)gestureRecognizer {
     
-    NSLog(@"gesture pan");
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
         self.gestureStartingPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
