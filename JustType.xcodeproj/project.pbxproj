@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		65B7A9BC186D56A000D16576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
+		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
 		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9B7186D56A000D16576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B7A9B9186D56A000D16576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -213,6 +216,8 @@
 				65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */,
 				65B7AA09186D5AA300D16576 /* JTKeyboardAttachmentView.h */,
 				65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */,
+				6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */,
+				6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */,
 			);
 			name = "Keyboard Gestures";
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */,
 				65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */,
 				65D66F89186DFDD000302F2F /* JTTextViewMediatorDelegate.m in Sources */,
+				6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
