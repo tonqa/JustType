@@ -229,12 +229,12 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSInteger newStartIndex = index;
     while ([self.textContent characterAtIndex:newStartIndex] == ' ') {
         newStartIndex += 1;
-        if (newStartIndex >= endIndexOfDoc) {
+        if (newStartIndex + 1 >= endIndexOfDoc) {
             return NO;
         }
     }
     
-    return [self getRangeOfSelectedWord:range atIndex:newStartIndex];
+    return [self getRangeOfSelectedWord:range atIndex:newStartIndex + 1];
 }
 
 
@@ -249,21 +249,21 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     for (NSInteger i = indexOfFirstLetterOfBlock; i <= indexOfLastLetterOfBlock; i++) {
         
+        NSInteger endIndexOfWord = i+1;
+        NSRange tempWordRange = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
+        
         if (i >= selectedIndex) {
             selectionIndexFound = YES;
         }
 
-        NSInteger endIndexOfWord = i+1;
-        NSRange tempWordRange = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
-        
-        // if word from last "beginIndexOfWord" to current "i" 
+        // if word from last "beginIndexOfWord" to current "i"
         // does not match any more open up new word (with a new "beginIndexOfWord")
         if ([self doesTextInRangeComplyToSyntaxWord:tempWordRange]) {
             *range = tempWordRange;
         } else {
             // if we meet the selection point already or come to the last word just break
             if (selectionIndexFound) break;
-            
+
             beginIndexOfWord = i;
             *range = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
         }
@@ -334,7 +334,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if ([self getSelectedIndex:&selectedTextIndex] &&
         [self getRangeOfSelectedWord:&rangeOfSelectedWord atIndex:selectedTextIndex]) {
         
-        if (!enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) return;
+        if (!enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
+            return;
+        }
         
         id<JTSyntaxWord> syntaxWord = [self syntaxWordForTextInRange:rangeOfSelectedWord];
         
@@ -539,7 +541,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             // replace with next syntax word
             wordRange = self.selectedSyntaxWordRange;
             [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];        
-            
+
         } else {
             
             if (!SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT) {
@@ -558,8 +560,15 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSString *wordToReplace = [NSString stringWithFormat:@"%@ ", word ?: @""];
     NSRange wordRangeToReplace = NSMakeRange(wordRange.location, wordRange.length + lastSpacesLength);
     [self replaceRange:wordRangeToReplace withText:wordToReplace];
+
+    self.selectedSyntaxWordSuggestionIndex = wordIndex;
+    [self.keyboardAttachmentView setHighlightedIndex:wordIndex];
     
-    [self computeSyntaxWordWithForcedRecomputation:YES];
+    NSRange wordRangeToHighlight = NSMakeRange(wordRange.location, word.length);
+    self.selectedSyntaxWordRange = wordRangeToHighlight;
+    [self.delegate replaceHighlightingWithRange:wordRangeToHighlight];
+
+    [self computeSyntaxWordWithForcedRecomputation:NO];
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods
