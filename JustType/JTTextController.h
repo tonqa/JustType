@@ -22,7 +22,7 @@
 @interface JTTextController : NSObject <JTKeyboardAttachmentViewDelegate>
 
 @property (nonatomic, retain) JTKeyboardAttachmentView *keyboardAttachmentView;
-@property (nonatomic, assign) id<JTTextControllerDelegate, UITextInput> delegate;
+@property (nonatomic, assign) UIResponder<JTTextControllerDelegate, UITextInput> *delegate;
 
 - (void)didChangeSelection;
 - (void)didChangeText;

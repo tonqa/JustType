@@ -38,7 +38,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.autocorrectionType = UITextAutocorrectionTypeNo;
-        
+
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         

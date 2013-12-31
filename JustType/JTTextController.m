@@ -107,6 +107,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 #pragma mark - notification listeners
 - (void)didSwipeLeftLong:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
         
     // first try to move to beginning of the selected word
@@ -136,6 +137,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeRightLong:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
     
     // first try to move to beginning of the selected word
@@ -160,6 +162,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeLeftShort:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
+
     NSRange selectedRange;
     if (![self getSelectedRange:&selectedRange]) return;
 
@@ -170,6 +174,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeRightShort:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
+
     NSRange selectedRange;
     if (![self getSelectedRange:&selectedRange]) return;
     
@@ -181,10 +187,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
+
     [self selectNextSuggestionInForwardDirection:NO];
 }
 
 - (void)didSwipeDown:(NSNotification *)notification {
+    if (![self.delegate isFirstResponder]) return;
+    
     [self selectNextSuggestionInForwardDirection:YES];
 }
 
