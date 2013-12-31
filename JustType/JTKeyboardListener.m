@@ -18,6 +18,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 #define SWIPE_PIXEL_THRESHOLD 40.0
 #define SWIPE_LONGSWIPE_WIDTH 100.0
+#define SAMPLE_TIME_SECS_INITIAL 0.4
 #define SAMPLE_TIME_SECS_MAX 0.3
 #define SAMPLE_TIME_SECS_MIDDLE 0.2
 #define SAMPLE_TIME_SECS_MIN 0.1
@@ -190,7 +191,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
         self.timesOccurred = 0;
         [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
         [self.keyboardOverlayView fadeOutLineForDirection:self.lastSwipeDirection];
-        [self doPolling];
+        [self performSelector:@selector(doPolling) withObject:nil afterDelay:SAMPLE_TIME_SECS_INITIAL];
         
     } else {
         

@@ -14,7 +14,7 @@
 
 - (NSString *)textContent;
 
-- (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range;
+- (void)replaceHighlightingInRange:(NSRange)oldRange withRange:(NSRange)newRange;
 
 @end
 

@@ -69,10 +69,20 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     return self.text;
 }
 
-- (void)highlightWord:(BOOL)shouldBeHighlighted inRange:(NSRange)range {
-//    NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-//    [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:range];
-//    [textView setAttributedText:highlightedString];
+- (void)replaceHighlightingInRange:(NSRange)oldRange withRange:(NSRange)newRange {
+#ifdef __IPHONE_6_0
+    // these checks are for compatibility reasons with older iOS versions
+    if ([self respondsToSelector:@selector(setAttributedText:)]) {
+        UITextRange *selectedTextRange = self.selectedTextRange;
+        
+        NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+        [highlightedString removeAttribute:NSForegroundColorAttributeName range:oldRange];
+        [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
+        [self setAttributedText:highlightedString];
+        
+        self.selectedTextRange = selectedTextRange;
+    }
+#endif
 }
 
 #pragma mark - editing actions
