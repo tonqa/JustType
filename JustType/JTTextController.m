@@ -94,13 +94,13 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 #pragma mark - textview / textfield notifier methods
 - (void)didChangeSelection {
-    if (!self.isIgnoringUpdates) {
+    if (!self.isIgnoringUpdates && self.delegate.isFirstResponder) {
         [self computeSyntaxWordWithForcedRecomputation:NO];
     }
 }
 
 - (void)didChangeText {
-    if (!self.isIgnoringUpdates) {
+    if (!self.isIgnoringUpdates && self.delegate.isFirstResponder) {
         [self computeSyntaxWordWithForcedRecomputation:YES];
     }
 }
