@@ -12,14 +12,14 @@
 @class JTKeyboardAttachmentView;
 @protocol JTKeyboardAttachmentViewDelegate <NSObject>
 
-- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectDisplayedWordWithIndex:(NSUInteger)index;
+- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index;
 
 @end
 
 @interface JTKeyboardAttachmentView : UIView
 
 @property (nonatomic, retain) id<JTSyntaxWord> selectedSyntaxWord;
-@property (nonatomic, assign) NSInteger selectedDisplayedWord;
+@property (nonatomic, assign) NSInteger highlightedIndex;
 @property (nonatomic, assign) id<JTKeyboardAttachmentViewDelegate> delegate;
 
 @end

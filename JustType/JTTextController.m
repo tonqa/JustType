@@ -34,6 +34,7 @@
 - (BOOL)getSelectedRange:(NSRange *)selectedIndex;
 - (void)moveSelectionToIndex:(NSInteger)newIndex;
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward;
+- (void)selectSuggestionByIndex:(NSInteger)index;
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex;
 - (void)replaceRange:(NSRange)range withText:(NSString *)text;
 - (UITextRange *)textRangeFromRange:(NSRange)range;
@@ -333,6 +334,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         // set changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
+        [self.keyboardAttachmentView setHighlightedIndex:-1];
         
     } else {
         self.selectedSyntaxWord = nil;
@@ -414,12 +416,26 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSInteger newIndex;
     NSString *word;
     [self nextSuggestionInForwardDirection:forward word:&word index:&newIndex];
-    
-    [self replaceRange:self.selectedSyntaxWordRange withText:word];
+    [self selectSuggestionByIndex:newIndex];
+}
 
+- (void)selectSuggestionByIndex:(NSInteger)index {
+    if (!self.selectedSyntaxWord) return;
+    
+    NSString *word = nil;
+    if (index == -1) {
+        word = [self.selectedSyntaxWord word];
+    } else {
+        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
+    }
+
+    [self replaceRange:self.selectedSyntaxWordRange withText:word];
+    
     NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
     self.selectedSyntaxWordRange = newRange;
-    self.selectedSyntaxWordSuggestionIndex = newIndex;
+    self.selectedSyntaxWordSuggestionIndex = index;
+    
+    [self.keyboardAttachmentView setHighlightedIndex:index];
 }
 
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
@@ -535,8 +551,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
-- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectDisplayedWordWithIndex:(NSUInteger)index {
-    
+- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index {
+    [self selectSuggestionByIndex:index];
 }
-     
+
 @end
