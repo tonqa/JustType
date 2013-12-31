@@ -90,21 +90,21 @@
 }
 
 - (void)setHighlightedIndex:(NSInteger)highlightedIndex {
-    NSInteger oldButtonIndex = _highlightedIndex+1;
-    NSInteger buttonIndex = highlightedIndex+1;
-    
-    if (buttonIndex < [self.buttons count]) {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSInteger oldButtonIndex = _highlightedIndex+1;
+        NSInteger buttonIndex = highlightedIndex+1;
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        if (buttonIndex < [self.buttons count]) {
+        
             UIButton *oldButton = [self.buttons objectAtIndex:oldButtonIndex];
             [oldButton setHighlighted:NO];
 
             UIButton *button = [self.buttons objectAtIndex:buttonIndex];
             [button setHighlighted:YES];
-        }];
 
-        _highlightedIndex = highlightedIndex;
-    }
+            _highlightedIndex = highlightedIndex;
+        }
+    }];
 }
 
 - (IBAction)touched:(id)sender {

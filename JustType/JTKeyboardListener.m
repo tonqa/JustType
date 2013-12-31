@@ -190,6 +190,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
         
         self.timesOccurred = 0;
         [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
+        [self.keyboardOverlayView fadeOutLineForDirection:self.lastSwipeDirection];
         [self doPolling];
         
     } else {

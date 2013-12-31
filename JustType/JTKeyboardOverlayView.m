@@ -8,11 +8,20 @@
 
 #import "JTKeyboardOverlayView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "JTKeyboardHeaders.h"
+
+@interface JTKeyboardOverviewLayer : CALayer
+@property (nonatomic, assign) CGPoint startPoint;
+@property (nonatomic, assign) CGPoint endPoint;
+@end
+
+@implementation JTKeyboardOverviewLayer
+@synthesize startPoint;
+@synthesize endPoint;
+@end
+
 
 @interface JTKeyboardOverlayView ()
-
-@property (assign, nonatomic) CGPoint startPoint;
-@property (assign, nonatomic) CGPoint lastPoint;
 
 - (void)drawLineInContext:(CGContextRef)context fromPoint:(CGPoint)beginPoint toPoint:(CGPoint)endPoint width:(CGFloat)width;
 - (void)drawLineArrowInContext:(CGContextRef)context fromPoint:(CGPoint)beginPoint 
@@ -21,16 +30,12 @@
 @end
 
 @implementation JTKeyboardOverlayView
-@synthesize startPoint;
-@synthesize lastPoint;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.startPoint = CGPointZero;
-        self.lastPoint = CGPointZero;
     }
     return self;
 }
@@ -50,44 +55,85 @@
     [[self layer] addAnimation:animation forKey:@"opacity"];
 }
 
-- (void)drawLineFromPoint:(CGPoint)fromPoint {
-    self.startPoint = fromPoint;
-    self.lastPoint = fromPoint;
-    [self setNeedsDisplay];
-}
-
-- (void)drawLineToPoint:(CGPoint)toPoint {
-    self.lastPoint = toPoint;
-    [self setNeedsDisplay];
-}
-
-- (void)resetLine {
-    self.startPoint = CGPointZero;
-    self.lastPoint = CGPointZero;
-    [self setNeedsDisplay];
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+- (void)fadeOutLineForDirection:(NSString *)direction {
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGPoint startPoint, endPoint;
     
-    if (self.startPoint.x != 0.0 || self.lastPoint.x != 0.0f) {
+    if ([direction isEqualToString:JTKeyboardGestureSwipeLeftLong]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        endPoint = CGPointMake(self.frame.size.width*1./4., self.frame.size.height/2);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightLong]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        endPoint = CGPointMake(self.frame.size.width*3./4., self.frame.size.height/2);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeLeftShort]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        endPoint = CGPointMake(self.frame.size.width*3./8., self.frame.size.height/2);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightShort]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        endPoint = CGPointMake(self.frame.size.width*5./8., self.frame.size.height/2);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeUp]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height*5./8.);
+        endPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height*3./8.);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeDown]) {
+        startPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height*3./8.);
+        endPoint = CGPointMake(self.frame.size.width/2, self.frame.size.height*5./8.);
+    } else {
+        return;
+    }
+    
+    JTKeyboardOverviewLayer *layer = [[JTKeyboardOverviewLayer alloc] init];
+    layer.frame = self.layer.bounds;
+    layer.masksToBounds = NO;
+    layer.shadowColor = [[UIColor whiteColor] CGColor];
+    layer.shadowOffset = CGSizeMake(0, 1);
+    layer.shadowRadius = 0.5;
+    layer.shadowOpacity = 0.2;
+    layer.delegate = self;
+    layer.startPoint = startPoint;
+    layer.endPoint = endPoint;
+    [self.layer addSublayer:layer];
+    [layer setNeedsDisplay];
+
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+    [animation setDuration:1.0f];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [animation setRemovedOnCompletion:NO];
+    [animation setAutoreverses:NO];
+    [animation setFillMode:kCAFillModeForwards];
+    [animation setRepeatCount:0];
+    [animation setDelegate:self];
+    [layer addAnimation:animation forKey:@"opacity"];
+}
+
+#pragma mark - CAAnimationDelegate
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [[[self.layer sublayers] objectAtIndex:0] removeFromSuperlayer];
+}
+
+#pragma mark - CALayerDelegate
+- (void)drawLayer:(JTKeyboardOverviewLayer *)layer inContext:(CGContextRef)context {
+    UIGraphicsPushContext(context);
+    
+    if (layer.startPoint.x != 0.0 || layer.endPoint.x != 0.0f) {
         
-        CGFloat length = 5.0f, width = 3.0f;
+        CGFloat length = 5.0f, width = 5.0f;
         CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
         
-        [self drawLineInContext:context fromPoint:self.startPoint 
-                        toPoint:self.lastPoint width:width];
+        [self drawLineInContext:context fromPoint:layer.startPoint 
+                        toPoint:layer.endPoint width:width];
         
-        [self drawLineArrowInContext:context fromPoint:self.startPoint 
-                             toPoint:self.lastPoint width:width length:length];
+        [self drawLineArrowInContext:context fromPoint:layer.startPoint 
+                             toPoint:layer.endPoint width:width length:length];
     }
     
     CGContextStrokePath(context);
     
+    UIGraphicsPopContext();
 }
 
+#pragma mark - internal methods
 - (void)drawLineInContext:(CGContextRef)context fromPoint:(CGPoint)beginPoint 
                   toPoint:(CGPoint)endPoint width:(CGFloat)width {
     
