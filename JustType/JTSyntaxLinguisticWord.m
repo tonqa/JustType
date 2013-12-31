@@ -83,8 +83,7 @@
 
 - (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word {
     NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
-    NSRange range = [self.word rangeOfCharacterFromSet:upperCaseSet];
-    return (range.location == 0);
+    return [upperCaseSet characterIsMember:[word characterAtIndex:0]];
 }
 
 @end

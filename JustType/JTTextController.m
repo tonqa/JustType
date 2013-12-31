@@ -233,11 +233,15 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     // go right and find the last largest matching word step-by-step
     // (until you find a word containing the current index, otherwise the last word)
-    NSInteger beginIndexOfWord = indexOfFirstLetterOfBlock;
     BOOL selectionIndexFound = NO; 
+    NSInteger beginIndexOfWord = indexOfFirstLetterOfBlock;
     
     for (NSInteger i = indexOfFirstLetterOfBlock; i <= indexOfLastLetterOfBlock; i++) {
         
+        if (i >= selectedIndex) {
+            selectionIndexFound = YES;
+        }
+
         NSInteger endIndexOfWord = i+1;
         NSRange tempWordRange = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
         
@@ -251,10 +255,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             
             beginIndexOfWord = i;
             *range = NSMakeRange(beginIndexOfWord, endIndexOfWord-beginIndexOfWord);
-        }
-        
-        if (i >= selectedIndex) {
-            selectionIndexFound = YES;
         }
     }
 
