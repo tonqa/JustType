@@ -40,13 +40,26 @@
         allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];
         [self setDisplayedWords:allWords];
     } else {
-        [self setDisplayedWords:[NSArray array]];
+        [self setDisplayedWords:nil];
     }
 }
 
 - (void)setDisplayedWords:(NSArray *)displayedWords {
     for (UIView *subview in self.subviews) {
         [subview removeFromSuperview];
+    }
+
+
+    if (!displayedWords) {
+        NSString *notAvailableText = @"suggestion is not possible";
+        UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:13];
+        CGSize notAvailableSize = [notAvailableText sizeWithFont:notAvailableFont];
+        CGRect notAvailableRect = CGRectMake(20, 0, notAvailableSize.width, self.frame.size.height);
+        UILabel *notAvailableLabel = [[UILabel alloc] initWithFrame:notAvailableRect];
+        notAvailableLabel.text = notAvailableText;
+        notAvailableLabel.font = notAvailableFont;
+        notAvailableLabel.textColor = [UIColor lightGrayColor];
+        [self addSubview:notAvailableLabel];
     }
     
     UIFont *systemFont = [UIFont systemFontOfSize:14];

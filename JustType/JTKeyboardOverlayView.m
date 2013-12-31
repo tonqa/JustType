@@ -95,7 +95,7 @@
     [layer setNeedsDisplay];
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+    [animation setFromValue:[NSNumber numberWithFloat:0.5]];
     [animation setToValue:[NSNumber numberWithFloat:0.0]];
     [animation setDuration:1.0f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
@@ -118,14 +118,14 @@
     
     if (layer.startPoint.x != 0.0 || layer.endPoint.x != 0.0f) {
         
-        CGFloat length = 5.0f, width = 5.0f;
+        CGFloat width = 10.0f, arrowLength = 5.0f, arrowWidth = 5.0f;
         CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
         
         [self drawLineInContext:context fromPoint:layer.startPoint 
                         toPoint:layer.endPoint width:width];
         
         [self drawLineArrowInContext:context fromPoint:layer.startPoint 
-                             toPoint:layer.endPoint width:width length:length];
+                             toPoint:layer.endPoint width:arrowWidth length:arrowLength];
     }
     
     CGContextStrokePath(context);
