@@ -181,7 +181,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSInteger currentIndex = selectedRange.location+selectedRange.length;
     NSInteger maximumIndex = [self endIndexOfDocument];
-    if (currentIndex >= maximumIndex) return;
+    if (currentIndex >= maximumIndex) {
+        [self selectNextSeperatorForEndOfDocument];
+        return;
+    }
     
     [self moveSelectionToIndex:currentIndex+1];
 }
@@ -334,7 +337,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if ([self getSelectedIndex:&selectedTextIndex] &&
         [self getRangeOfSelectedWord:&rangeOfSelectedWord atIndex:selectedTextIndex]) {
         
-        if (!enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
+        if (self.selectedSyntaxWord && !enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
             return;
         }
         
@@ -350,7 +353,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
         self.isIgnoringUpdates = YES;
         [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
-        self.isIgnoringUpdates = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringUpdates = NO;
+        });
         
     } else {
         self.selectedSyntaxWord = nil;
@@ -361,7 +366,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         self.isIgnoringUpdates = YES;
         [self.delegate replaceHighlightingWithRange:NSMakeRange(0, 0)];
-        self.isIgnoringUpdates = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringUpdates = NO;
+        });
     }
 }
 
@@ -458,7 +465,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
     self.isIgnoringUpdates = YES;
     [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
-    self.isIgnoringUpdates = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isIgnoringUpdates = NO;
+    });
 }
 
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
@@ -545,9 +554,13 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
         NSRange wordRangeToReplace = NSMakeRange(wordIndex, 0);
         
-        [self replaceRange:wordRangeToReplace withText:word];
         [self computeSyntaxWordWithForcedRecomputation:YES];
+        [self replaceRange:wordRangeToReplace withText:word];
     }
+
+    endOfDocPosition = [self.delegate endOfDocument];
+    UITextRange *endOfDocTextRange = [self.delegate textRangeFromPosition:endOfDocPosition toPosition:endOfDocPosition];
+    [self.delegate setSelectedTextRange:endOfDocTextRange];
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods
