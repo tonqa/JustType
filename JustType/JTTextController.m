@@ -501,9 +501,19 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     self.isIgnoringUpdates = YES;
     
+    UITextRange *selectedTextRange = self.delegate.selectedTextRange;
+    NSInteger offset = [self.delegate offsetFromPosition:self.delegate.beginningOfDocument toPosition:selectedTextRange.start];
+    
     UITextRange *textRange = [self textRangeFromRange:range];
     [self.delegate replaceRange:textRange withText:text];
-     
+    
+    if (offset > range.location + range.length) {
+        NSInteger lengthDiff = text.length - range.length;
+        UITextPosition *selectedTextPosition = [self.delegate positionFromPosition:self.delegate.beginningOfDocument offset:offset+lengthDiff];
+        selectedTextRange = [self.delegate textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
+        self.delegate.selectedTextRange = selectedTextRange;
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isIgnoringUpdates = NO;
     });    
@@ -529,13 +539,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
     BOOL hadWhiteSpaces = [self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame;
 
-    // replace with one whitespace
-    UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
-    NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
-    CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
-
-    NSRange wordRangeToReplace = NSMakeRange(wordIndex, lastSpacesLength);
-    [self replaceRange:wordRangeToReplace withText:@" "];
+    [self trimDownLastWhitespacesToOneWhitespace];
 
     if (!hadWhiteSpaces) return;
     
@@ -557,10 +561,24 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self computeSyntaxWordWithForcedRecomputation:YES];
         [self replaceRange:wordRangeToReplace withText:word];
     }
+}
 
-    endOfDocPosition = [self.delegate endOfDocument];
-    UITextRange *endOfDocTextRange = [self.delegate textRangeFromPosition:endOfDocPosition toPosition:endOfDocPosition];
-    [self.delegate setSelectedTextRange:endOfDocTextRange];
+- (void)trimDownLastWhitespacesToOneWhitespace {
+    // get range of the spaces after the currently selected word
+    UITextPosition *beginOfDocPosition = [self.delegate beginningOfDocument];
+    UITextPosition *endOfDocPosition = [self.delegate endOfDocument];
+    
+    NSUInteger endIndexOfLastWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
+    UITextPosition *endOfWordPosition = [self.delegate positionFromPosition:beginOfDocPosition offset:endIndexOfLastWord];
+    
+    // replace with one whitespace
+    UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
+    NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
+    CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
+    
+    NSRange wordRangeToReplace = NSMakeRange(wordIndex, lastSpacesLength);
+    [self replaceRange:wordRangeToReplace withText:@" "];
+
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods
