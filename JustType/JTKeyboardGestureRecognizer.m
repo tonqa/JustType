@@ -61,7 +61,7 @@
         
         if (-[self.startTime timeIntervalSinceNow] > SWIPE_TIMEINTERVAL_THRESHOLD) {
             self.state = UIGestureRecognizerStateFailed;
-            NSLog(@"failed");
+            //NSLog(@"failed");
             return;
         }
 
@@ -71,7 +71,7 @@
         if ([self distanceBetween:self.startPoint and:currentPoint] > SWIPE_PIXEL_THRESHOLD) {
             self.state = UIGestureRecognizerStateBegan;
             self.wasRecognized = YES;
-            NSLog(@"recognized");
+            //NSLog(@"recognized");
         }
     } else if (self.wasRecognized) {
         // if gesture was already recognized, then sent regular point updates

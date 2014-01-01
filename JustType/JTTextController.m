@@ -39,6 +39,7 @@
 - (void)replaceRange:(NSRange)range withText:(NSString *)text;
 - (UITextRange *)textRangeFromRange:(NSRange)range;
 - (void)selectNextSeperatorForEndOfDocument;
+- (void)trimDownLastWhitespacesToOneWhitespace;
 
 - (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index 
                       selectedIndex:(NSInteger)selectedIndex

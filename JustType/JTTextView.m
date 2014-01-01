@@ -73,6 +73,7 @@
     if ([self respondsToSelector:@selector(setAttributedText:)]) {
         UITextRange *selectedTextRange = self.selectedTextRange;
         NSInteger offset = [self offsetFromPosition:self.beginningOfDocument toPosition:selectedTextRange.start];
+        NSInteger selectedRangeLength = [self offsetFromPosition:selectedTextRange.start toPosition:selectedTextRange.end];
         
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
         [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
@@ -80,7 +81,8 @@
         [self setAttributedText:highlightedString];
         
         UITextPosition *selectedTextPosition = [self positionFromPosition:self.beginningOfDocument offset:offset];
-        selectedTextRange = [self textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
+        UITextPosition *selectedTextEnd = [self positionFromPosition:self.beginningOfDocument offset:offset + selectedRangeLength];
+        selectedTextRange = [self textRangeFromPosition:selectedTextPosition toPosition:selectedTextEnd];
         self.selectedTextRange = selectedTextRange;
     }
 #endif
