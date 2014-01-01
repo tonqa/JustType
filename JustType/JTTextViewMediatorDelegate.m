@@ -12,6 +12,14 @@
 @implementation JTTextViewMediatorDelegate
 @synthesize textView;
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    BOOL result = [self.textView textViewShouldBeginEditing:self.textView];
+    if ([self.textView.actualDelegate respondsToSelector:@selector(textViewDidChange:)]) {
+        result = [self.textView.actualDelegate textViewShouldBeginEditing:self.textView];
+    }
+    return result;
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
     [self.textView didChangeText];
     if ([self.textView.actualDelegate respondsToSelector:@selector(textViewDidChange:)]) {

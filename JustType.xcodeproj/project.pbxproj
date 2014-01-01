@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */; };
 		6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextFieldMediatorDelegate.h; sourceTree = "<group>"; };
+		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
 		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,6 +230,8 @@
 			children = (
 				65B7AA03186D59E000D16576 /* JTTextField.h */,
 				65B7AA04186D59E000D16576 /* JTTextField.m */,
+				11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */,
+				11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */,
 				65B7AA00186D59BF00D16576 /* JTTextView.h */,
 				65B7AA01186D59BF00D16576 /* JTTextView.m */,
 				65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */,
@@ -364,6 +369,7 @@
 				65B7A9F2186D57D400D16576 /* JTKeyboardListener.m in Sources */,
 				65B7A9F5186D581300D16576 /* JTTextController.m in Sources */,
 				65B7A9FB186D589300D16576 /* JTSyntaxSeperatorWord.m in Sources */,
+				11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */,
 				65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */,
 				65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */,
 				65B7AA05186D59E000D16576 /* JTTextField.m in Sources */,

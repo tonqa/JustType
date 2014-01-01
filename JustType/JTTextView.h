@@ -15,5 +15,6 @@
 
 - (void)didChangeSelection;
 - (void)didChangeText;
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
 
 @end

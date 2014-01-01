@@ -9,6 +9,7 @@
 #import <objc/runtime.h>
 #import "JTTextField.h"
 #import "NSString+JTExtension.h"
+#import "JTTextFieldMediatorDelegate.h"
 
 UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput> textInput);
 
@@ -18,6 +19,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @property (nonatomic, retain) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, retain) UILongPressGestureRecognizer *pressGesture;
 
+@property (nonatomic, assign) id<UITextFieldDelegate> actualDelegate;
+@property (nonatomic, retain) JTTextFieldMediatorDelegate *mediatorDelegate;
+
 @end
 
 
@@ -25,6 +29,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize textController = _textController;
 @synthesize tapGesture = _tapGesture;
 @synthesize pressGesture = _pressGesture;
+@synthesize actualDelegate = _actualDelegate;
+@synthesize mediatorDelegate = _mediatorDelegate;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -35,6 +41,10 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
+        _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
+        _mediatorDelegate.textField = self;
+        [super setDelegate:_mediatorDelegate];
+
         [self addTarget:self action:@selector(didChangeText:) forControlEvents:UIControlEventEditingChanged];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -63,6 +73,7 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     
     _textController.delegate = nil;
     _textController = nil;
+    _mediatorDelegate = nil;
 }
 
 #pragma mark - text controller delegate actions
@@ -102,6 +113,20 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 #pragma mark - Gesture recognizer delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+#pragma mark - overwritten methods
+- (id<UITextFieldDelegate>)delegate {
+    return self.mediatorDelegate;
+}
+
+- (void)setDelegate:(id<UITextFieldDelegate>)delegate {
+    self.actualDelegate = delegate;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.textController didChangeSelection];
     return YES;
 }
 

@@ -45,6 +45,7 @@
         
         _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
         _mediatorDelegate.textView = self;
+        [super setDelegate:_mediatorDelegate];
         
         CGRect frame = CGRectMake(0, 0, self.frame.size.width, 30);
         JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
@@ -97,6 +98,11 @@
 
 - (void)didChangeSelection {
     [self.textController didChangeSelection];
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    [self.textController didChangeSelection];
+    return YES;
 }
 
 #pragma mark - overwritten methods

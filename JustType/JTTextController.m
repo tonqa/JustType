@@ -510,8 +510,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 - (void)selectNextSeperatorForEndOfDocument {
     NSString *word = nil;
-    NSRange wordRange;
-    NSInteger wordIndex;
     
     // get range of the spaces after the currently selected word
     UITextPosition *beginOfDocPosition = [self.delegate beginningOfDocument];
@@ -520,55 +518,36 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSUInteger endIndexOfLastWord = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
     UITextPosition *endOfWordPosition = [self.delegate positionFromPosition:beginOfDocPosition offset:endIndexOfLastWord];
 
-    // if the rest contain more than one whitespace replace with suggestion
-    if ([self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame) {
-        
-        if (![self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
-            
-            wordRange = NSMakeRange(self.selectedSyntaxWordRange.location+self.selectedSyntaxWordRange.length, 0);
-            word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
-            
-        } else {
-            
-            wordRange = self.selectedSyntaxWordRange;
-            [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];
-            
-        }
-        
-    } else {
-        if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
-            
-            // replace with next syntax word
-            wordRange = self.selectedSyntaxWordRange;
-            [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];        
+    BOOL hadWhiteSpaces = [self.delegate comparePosition:endOfDocPosition toPosition:endOfWordPosition] != NSOrderedSame;
 
-        } else {
-            
-            if (!SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT) {
-                wordRange = NSMakeRange(self.selectedSyntaxWordRange.location + 
-                                        self.selectedSyntaxWordRange.length, 0);
-            } else {
-                wordRange = self.selectedSyntaxWordRange;
-                [self nextSuggestionInForwardDirection:YES word:&word index:&wordIndex];
-            }
-        }
-    }
-    
+    // replace with one whitespace
     UITextRange *lastSpacesRange = [self.delegate textRangeFromPosition:endOfWordPosition toPosition:endOfDocPosition];
     NSInteger lastSpacesLength = [self.delegate offsetFromPosition:lastSpacesRange.start toPosition:lastSpacesRange.end];
+    CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
 
-    NSString *wordToReplace = [NSString stringWithFormat:@"%@ ", word ?: @""];
-    NSRange wordRangeToReplace = NSMakeRange(wordRange.location, wordRange.length + lastSpacesLength);
-    [self replaceRange:wordRangeToReplace withText:wordToReplace];
+    NSRange wordRangeToReplace = NSMakeRange(wordIndex, lastSpacesLength);
+    [self replaceRange:wordRangeToReplace withText:@" "];
 
-    self.selectedSyntaxWordSuggestionIndex = wordIndex;
-    [self.keyboardAttachmentView setHighlightedIndex:wordIndex];
+    if (!hadWhiteSpaces) return;
     
-    NSRange wordRangeToHighlight = NSMakeRange(wordRange.location, word.length);
-    self.selectedSyntaxWordRange = wordRangeToHighlight;
-    [self.delegate replaceHighlightingWithRange:wordRangeToHighlight];
+    // if the rest contain more than one whitespace replace with suggestion
+    if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
+        
+        [self selectNextSuggestionInForwardDirection:YES];
 
-    [self computeSyntaxWordWithForcedRecomputation:NO];
+    } else {
+        
+        if (SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT) {
+            [self selectNextSuggestionInForwardDirection:YES];
+        }
+        
+        word = [[JTSyntaxSeperatorWord possibleSuggestions] objectAtIndex:0];
+        CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
+        NSRange wordRangeToReplace = NSMakeRange(wordIndex, 0);
+        
+        [self replaceRange:wordRangeToReplace withText:word];
+        [self computeSyntaxWordWithForcedRecomputation:YES];
+    }
 }
 
 #pragma mark - JTKeyboardAttachmentViewDelegate methods

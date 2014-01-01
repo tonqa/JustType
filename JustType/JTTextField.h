@@ -11,4 +11,8 @@
 
 @interface JTTextField : UITextField <JTTextControllerDelegate, UIGestureRecognizerDelegate>
 
+- (id<UITextFieldDelegate>)actualDelegate;
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+
 @end
