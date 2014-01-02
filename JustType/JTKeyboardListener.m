@@ -46,6 +46,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (void)checkGestureResult;
 - (void)doPolling;
 - (void)stopPollingAndCleanGesture;
+- (void)recomputeSwipeDirection;
 
 @end
 
@@ -161,31 +162,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 - (void)checkGestureResult {
 
-    CGPoint diffPoint = CGPointMake(self.gestureMovementPoint.x - self.gestureStartingPoint.x,
-                                    self.gestureMovementPoint.y - self.gestureStartingPoint.y);
-    CGPoint absDiffPoint = CGPointMake(ABS(diffPoint.x), ABS(diffPoint.y));
-    
-    if (absDiffPoint.x >= absDiffPoint.y) {
-        if (diffPoint.x < 0) {
-            if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
-                self.lastSwipeDirection = JTKeyboardGestureSwipeLeftShort;
-            } else {
-                self.lastSwipeDirection = JTKeyboardGestureSwipeLeftLong;
-            }
-        } else {
-            if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
-                self.lastSwipeDirection = JTKeyboardGestureSwipeRightShort;
-            } else {
-                self.lastSwipeDirection = JTKeyboardGestureSwipeRightLong;
-            }
-        }
-    } else {
-        if (diffPoint.y < 0) {
-            self.lastSwipeDirection = JTKeyboardGestureSwipeUp;
-        } else {
-            self.lastSwipeDirection = JTKeyboardGestureSwipeDown;
-        }
-    }
+    [self recomputeSwipeDirection];
     
     self.timesOccurred = 0;
     [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
@@ -231,7 +208,41 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     if ([self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeUp] ||
         [self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeDown]) return;
 
+    [self recomputeSwipeDirection];
     [self sendNotificationForSwipeDirection:swipeDirection];
+}
+
+- (void)recomputeSwipeDirection {
+    CGPoint diffPoint = CGPointMake(
+                                    self.gestureMovementPoint.x - self.gestureStartingPoint.x,
+                                    self.gestureMovementPoint.y - self.gestureStartingPoint.y);
+    CGPoint absDiffPoint = CGPointMake(ABS(diffPoint.x), ABS(diffPoint.y));
+    
+    if ([self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeLeftShort] ||
+        [self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeLeftLong] ||
+        [self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeRightShort] ||
+        [self.lastSwipeDirection isEqualToString:JTKeyboardGestureSwipeRightLong] ||
+        absDiffPoint.x >= absDiffPoint.y) {
+        if (diffPoint.x < 0) {
+            if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
+                self.lastSwipeDirection = JTKeyboardGestureSwipeLeftShort;
+            } else {
+                self.lastSwipeDirection = JTKeyboardGestureSwipeLeftLong;
+            }
+        } else {
+            if (absDiffPoint.x < SWIPE_LONGSWIPE_WIDTH) {
+                self.lastSwipeDirection = JTKeyboardGestureSwipeRightShort;
+            } else {
+                self.lastSwipeDirection = JTKeyboardGestureSwipeRightLong;
+            }
+        }
+    } else {
+        if (diffPoint.y < 0) {
+            self.lastSwipeDirection = JTKeyboardGestureSwipeUp;
+        } else {
+            self.lastSwipeDirection = JTKeyboardGestureSwipeDown;
+        }
+    }
 }
 
 - (void)sendNotificationForSwipeDirection:(NSString *)swipeDirection {
