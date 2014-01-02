@@ -67,19 +67,10 @@
 #ifdef __IPHONE_6_0
     // these checks are for compatibility reasons with older iOS versions
     if ([self respondsToSelector:@selector(setAttributedText:)]) {
-        UITextRange *selectedTextRange = self.selectedTextRange;
-        NSInteger offset = [self offsetFromPosition:self.beginningOfDocument toPosition:selectedTextRange.start];
-        NSInteger selectedRangeLength = [self offsetFromPosition:selectedTextRange.start toPosition:selectedTextRange.end];
-        
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
         [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
         [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
         [self setAttributedText:highlightedString];
-        
-        UITextPosition *selectedTextPosition = [self positionFromPosition:self.beginningOfDocument offset:offset];
-        UITextPosition *selectedTextEnd = [self positionFromPosition:self.beginningOfDocument offset:offset + selectedRangeLength];
-        selectedTextRange = [self textRangeFromPosition:selectedTextPosition toPosition:selectedTextEnd];
-        self.selectedTextRange = selectedTextRange;
     }
 #endif
 }

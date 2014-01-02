@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self.textView setFont:[UIFont systemFontOfSize:16]];
+    [self.textView setFont:[UIFont systemFontOfSize:20]];
 
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
     JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];

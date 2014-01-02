@@ -85,17 +85,10 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 #ifdef __IPHONE_6_0
     // these checks are for compatibility reasons with older iOS versions
     if ([self respondsToSelector:@selector(setAttributedText:)]) {
-        UITextRange *selectedTextRange = self.selectedTextRange;
-        NSInteger offset = [self offsetFromPosition:self.beginningOfDocument toPosition:selectedTextRange.start];
-        
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
         [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
         [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
         [self setAttributedText:highlightedString];
-        
-        UITextPosition *selectedTextPosition = [self positionFromPosition:self.beginningOfDocument offset:offset];
-        selectedTextRange = [self textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
-        self.selectedTextRange = selectedTextRange;
     }
 #endif
 }

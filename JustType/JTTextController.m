@@ -375,6 +375,18 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
+- (void)replaceHighlightingWithRange:(NSRange)range {
+    UITextRange *selectedTextRange = self.delegate.selectedTextRange;
+    NSInteger offset = [self.delegate offsetFromPosition:self.delegate.beginningOfDocument toPosition:selectedTextRange.start];
+    
+    [self.delegate replaceHighlightingWithRange:range];
+    
+    UITextPosition *selectedTextPosition = [self.delegate positionFromPosition:self.delegate.beginningOfDocument offset:offset];
+    selectedTextRange = [self.delegate textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
+    self.delegate.selectedTextRange = selectedTextRange;
+
+}
+
 - (void)moveSelectionToIndex:(NSInteger)newIndex {
     UITextPosition *startPosition = [self.delegate beginningOfDocument];
     UITextPosition *newPosition = [self.delegate positionFromPosition:startPosition offset:newIndex];
