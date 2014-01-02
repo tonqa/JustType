@@ -18,6 +18,7 @@
 
 - (BOOL)isTextCheckerAvailable;
 - (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word;
+- (NSString *)selectedLocaleIdentifier;
 
 @end
 
@@ -62,8 +63,8 @@
         });
         
         if ([self isTextCheckerAvailable]) {
-                        
-            _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[[NSLocale currentLocale] localeIdentifier]];
+            
+            _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[self selectedLocaleIdentifier]];
             
             // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
@@ -87,8 +88,14 @@
 
 #pragma mark - private methods
 - (BOOL)isTextCheckerAvailable {
-    NSString *localeIdentifier = [[NSLocale currentLocale] localeIdentifier];
-    return [[UITextChecker availableLanguages] containsObject:localeIdentifier];
+    return [[UITextChecker availableLanguages] containsObject:[self selectedLocaleIdentifier]];
+}
+
+- (NSString *)selectedLocaleIdentifier {
+    //NSString *localeIdentifier = [[NSLocale currentLocale] localeIdentifier];
+    NSString *localeIdentifier = [UITextInputMode currentInputMode].primaryLanguage;
+    localeIdentifier = [localeIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+    return localeIdentifier;
 }
 
 - (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word {
