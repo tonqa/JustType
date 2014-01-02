@@ -65,22 +65,9 @@
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (NSUInteger)supportedInterfaceOrientations
 {
-    // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    
-    //we should resize the attachment view here or just create it again
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
-    JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
-    [self.textView setInputAccessoryView:attachmentView];
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up {
