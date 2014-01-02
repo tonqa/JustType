@@ -42,7 +42,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedSeperatorSuggestions = [NSArray arrayWithObjects:@".", @",", @";", nil];
+        sharedSeperatorSuggestions = [NSArray arrayWithObjects:@".", @"?", @"!", @",", @";", nil];
     });
     
     return sharedSeperatorSuggestions;
