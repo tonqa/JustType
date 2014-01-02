@@ -362,7 +362,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
         [self.keyboardAttachmentView setHighlightedIndex:-1];
 
-        [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
+        [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
         
     } else {
         self.selectedSyntaxWord = nil;
@@ -371,7 +371,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         // end notification with changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:nil];
         
-        [self.delegate replaceHighlightingWithRange:NSMakeRange(0, 0)];
+        [self replaceHighlightingWithRange:NSMakeRange(0, 0)];
     }
 }
 
@@ -480,7 +480,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     [self.keyboardAttachmentView setHighlightedIndex:index];
 
-    [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
+    [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isIgnoringChangeUpdates = NO;
