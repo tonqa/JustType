@@ -10,6 +10,7 @@
 #import "JTTextViewMediatorDelegate.h"
 #import "JTKeyboardAttachmentView.h"
 #import "NSString+JTExtension.h"
+#import "JTDashedBorderedView.h"
 
 @interface JTTextView ()
 
@@ -19,6 +20,7 @@
 
 @property (nonatomic, assign) id<UITextViewDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextViewMediatorDelegate *mediatorDelegate;
+@property (nonatomic, retain) UIView *highlightView;
 
 @property (nonatomic, assign) BOOL isIgnoringUpdates;
 
@@ -33,6 +35,7 @@
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
 @synthesize isIgnoringUpdates = _isIgnoringUpdates;
+@synthesize highlightView = _highlightView;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -48,6 +51,12 @@
         [super setDelegate:_mediatorDelegate];
                 
         self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        
+        JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
+        highlightView.backgroundColor = [UIColor clearColor];
+        highlightView.userInteractionEnabled = NO;
+        [self addSubview:highlightView];
+        self.highlightView = highlightView;
     }
     return self;
 }
@@ -64,15 +73,11 @@
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
-#ifdef __IPHONE_6_0
-    // these checks are for compatibility reasons with older iOS versions
-    if ([self respondsToSelector:@selector(setAttributedText:)]) {
-        NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
-        [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
-        [self setAttributedText:highlightedString];
-    }
-#endif
+    CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
+    highlightRect.origin.x -= 2;
+    highlightRect.size.width += 4;
+    self.highlightView.frame = highlightRect;
+    [self.highlightView setNeedsDisplay];
 }
 
 #pragma mark - Overwritten methods

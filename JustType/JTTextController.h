@@ -27,4 +27,6 @@
 - (void)didChangeSelection;
 - (void)didChangeText;
 
+- (UITextRange *)textRangeFromRange:(NSRange)range;
+
 @end

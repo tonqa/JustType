@@ -10,6 +10,7 @@
 #import "JTTextField.h"
 #import "NSString+JTExtension.h"
 #import "JTTextFieldMediatorDelegate.h"
+#import "JTDashedBorderedView.h"
 
 UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput> textInput);
 
@@ -18,6 +19,7 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @property (nonatomic, retain) JTTextController *textController;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, retain) UILongPressGestureRecognizer *pressGesture;
+@property (nonatomic, retain) UIView *highlightView;
 
 @property (nonatomic, assign) id<UITextFieldDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextFieldMediatorDelegate *mediatorDelegate;
@@ -29,6 +31,7 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize textController = _textController;
 @synthesize tapGesture = _tapGesture;
 @synthesize pressGesture = _pressGesture;
+@synthesize highlightView = _highlightView;
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
 
@@ -41,6 +44,12 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
+        JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
+        highlightView.backgroundColor = [UIColor clearColor];
+        highlightView.userInteractionEnabled = NO;
+        [self addSubview:highlightView];
+        self.highlightView = highlightView;
+
         _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
         _mediatorDelegate.textField = self;
         [super setDelegate:_mediatorDelegate];
@@ -82,15 +91,11 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
-#ifdef __IPHONE_6_0
-    // these checks are for compatibility reasons with older iOS versions
-    if ([self respondsToSelector:@selector(setAttributedText:)]) {
-        NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
-        [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
-        [self setAttributedText:highlightedString];
-    }
-#endif
+    CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
+    highlightRect.origin.x -= 2;
+    highlightRect.size.width += 4;
+    self.highlightView.frame = highlightRect;
+    [self.highlightView setNeedsDisplay];
 }
 
 #pragma mark - editing actions

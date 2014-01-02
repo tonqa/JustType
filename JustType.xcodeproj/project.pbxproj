@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B6294A18753CAB008FB812 /* Default-568h@2x.png */; };
 		11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */; };
+		11DBAA671876120200566E06 /* JTDashedBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBAA661876120200566E06 /* JTDashedBorderedView.m */; };
 		6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -51,6 +52,8 @@
 		11B6294A18753CAB008FB812 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextFieldMediatorDelegate.h; sourceTree = "<group>"; };
 		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
+		11DBAA651876120200566E06 /* JTDashedBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDashedBorderedView.h; sourceTree = "<group>"; };
+		11DBAA661876120200566E06 /* JTDashedBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDashedBorderedView.m; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
 		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +244,8 @@
 				65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */,
 				65B7A9F3186D581300D16576 /* JTTextController.h */,
 				65B7A9F4186D581300D16576 /* JTTextController.m */,
+				11DBAA651876120200566E06 /* JTDashedBorderedView.h */,
+				11DBAA661876120200566E06 /* JTDashedBorderedView.m */,
 			);
 			name = "Text Management";
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */,
 				65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */,
 				65B7AA05186D59E000D16576 /* JTTextField.m in Sources */,
+				11DBAA671876120200566E06 /* JTDashedBorderedView.m in Sources */,
 				65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */,
 				65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */,
 				65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */,
