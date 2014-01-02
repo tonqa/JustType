@@ -164,7 +164,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // then try to move to the beginning of the word before the selected word
     NSRange newWordRange;
     if (![self getRangeOfNextWord:&newWordRange fromIndex:endIndexOfSelectedWord + 1]) {
+        self.isIgnoringChangeUpdates = YES;
         [self selectNextSeperatorForEndOfDocument];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringChangeUpdates = NO;
+        });
         return;
     }
 
@@ -193,7 +197,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSInteger currentIndex = selectedRange.location+selectedRange.length;
     NSInteger maximumIndex = [self endIndexOfDocument];
     if (currentIndex >= maximumIndex) {
+        self.isIgnoringChangeUpdates = YES;
         [self selectNextSeperatorForEndOfDocument];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringChangeUpdates = NO;
+        });
         return;
     }
     
@@ -376,13 +384,16 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)range {
+    
     UITextRange *selectedTextRange = self.delegate.selectedTextRange;
     NSInteger offset = [self.delegate offsetFromPosition:self.delegate.beginningOfDocument toPosition:selectedTextRange.start];
-    
+    NSInteger selectedRangeLength = [self.delegate offsetFromPosition:selectedTextRange.start toPosition:selectedTextRange.end];
+
     [self.delegate replaceHighlightingWithRange:range];
     
     UITextPosition *selectedTextPosition = [self.delegate positionFromPosition:self.delegate.beginningOfDocument offset:offset];
-    selectedTextRange = [self.delegate textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
+    UITextPosition *selectedTextEnd = [self.delegate positionFromPosition:self.delegate.beginningOfDocument offset:offset + selectedRangeLength];
+    selectedTextRange = [self.delegate textRangeFromPosition:selectedTextPosition toPosition:selectedTextEnd];
     self.delegate.selectedTextRange = selectedTextRange;
 
 }
@@ -569,8 +580,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         CGFloat wordIndex = self.selectedSyntaxWordRange.location + self.selectedSyntaxWordRange.length;
         NSRange wordRangeToReplace = NSMakeRange(wordIndex, 0);
         
-        [self computeSyntaxWordWithForcedRecomputation:YES];
         [self replaceRange:wordRangeToReplace withText:word];
+        [self computeSyntaxWordWithForcedRecomputation:YES];
     }
 }
 
