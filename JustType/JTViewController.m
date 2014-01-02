@@ -7,8 +7,10 @@
 //
 
 #import "JTViewController.h"
+#import "JTTextView.h"
 
 @implementation JTViewController
+@synthesize textView;
 
 - (void)didReceiveMemoryWarning
 {
@@ -22,6 +24,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self.textView setFont:[UIFont systemFontOfSize:16]];
 }
 
 - (void)viewDidUnload

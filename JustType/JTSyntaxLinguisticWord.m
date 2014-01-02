@@ -69,7 +69,7 @@
             BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
             NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
                 NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
-                int matchesCount = [expression numberOfMatchesInString:text options:0 range:range];
+                int matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
                 return (matchesCount > 0) && ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
             }];
             _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
