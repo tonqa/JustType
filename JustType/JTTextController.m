@@ -23,7 +23,8 @@
 @property (nonatomic, assign) NSRange selectedSyntaxWordRange;
 @property (nonatomic, retain) id<JTSyntaxWord> selectedSyntaxWord;
 @property (nonatomic, assign) NSInteger selectedSyntaxWordSuggestionIndex;
-@property (nonatomic, assign) BOOL isIgnoringUpdates;
+@property (nonatomic, assign) BOOL isIgnoringSelectionUpdates;
+@property (nonatomic, assign) BOOL isIgnoringChangeUpdates;
 
 - (BOOL)getRangeOfSelectedWord:(NSRange *)range atIndex:(NSInteger)index;
 - (BOOL)getRangeOfNextWord:(NSRange *)range fromIndex:(NSInteger)index;
@@ -59,7 +60,8 @@
 @synthesize selectedSyntaxWordRange = _selectedSyntaxWordRange;
 @synthesize selectedSyntaxWord = _selectedSyntaxWord;
 @synthesize selectedSyntaxWordSuggestionIndex = _selectedSyntaxWordSuggestionIndex;
-@synthesize isIgnoringUpdates = _isIgnoringUpdates;
+@synthesize isIgnoringSelectionUpdates = _isIgnoringSelectionUpdates;
+@synthesize isIgnoringChangeUpdates = _isIgnoringChangeUpdates;
 @synthesize keyboardAttachmentView = _keyboardAttachmentView;
 
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
@@ -95,14 +97,22 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 #pragma mark - textview / textfield notifier methods
 - (void)didChangeSelection {
-    if (!self.isIgnoringUpdates && self.delegate.isFirstResponder) {
+    if (!self.isIgnoringSelectionUpdates && self.delegate.isFirstResponder) {
+        self.isIgnoringSelectionUpdates = YES;
         [self computeSyntaxWordWithForcedRecomputation:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringSelectionUpdates = NO;
+        });
     }
 }
 
 - (void)didChangeText {
-    if (!self.isIgnoringUpdates && self.delegate.isFirstResponder) {
+    if (!self.isIgnoringChangeUpdates && self.delegate.isFirstResponder) {
+        self.isIgnoringChangeUpdates = YES;
         [self computeSyntaxWordWithForcedRecomputation:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isIgnoringChangeUpdates = NO;
+        });
     }
 }
 
@@ -352,11 +362,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
         [self.keyboardAttachmentView setHighlightedIndex:-1];
 
-        self.isIgnoringUpdates = YES;
         [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.isIgnoringUpdates = NO;
-        });
         
     } else {
         self.selectedSyntaxWord = nil;
@@ -365,11 +371,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         // end notification with changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:nil];
         
-        self.isIgnoringUpdates = YES;
         [self.delegate replaceHighlightingWithRange:NSMakeRange(0, 0)];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.isIgnoringUpdates = NO;
-        });
     }
 }
 
@@ -464,11 +466,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     [self.keyboardAttachmentView setHighlightedIndex:index];
 
-    self.isIgnoringUpdates = YES;
     [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.isIgnoringUpdates = NO;
-    });
 }
 
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
@@ -500,8 +498,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 - (void)replaceRange:(NSRange)range withText:(NSString *)text {
     
-    self.isIgnoringUpdates = YES;
-    
     UITextRange *selectedTextRange = self.delegate.selectedTextRange;
     NSInteger offset = [self.delegate offsetFromPosition:self.delegate.beginningOfDocument toPosition:selectedTextRange.start];
     
@@ -514,10 +510,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         selectedTextRange = [self.delegate textRangeFromPosition:selectedTextPosition toPosition:selectedTextPosition];
         self.delegate.selectedTextRange = selectedTextRange;
     }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.isIgnoringUpdates = NO;
-    });    
 }
 
 - (UITextRange *)textRangeFromRange:(NSRange)range {
