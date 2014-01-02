@@ -35,11 +35,14 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^[\\w-]+$" options:0 error:NULL];
+        NSError *error = nil;
+        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^([\\w]+[\\w-']*)$" options:0 error:&error];
+//        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^(([\\w]+[\\w-']*)|(\\w+\\.\\w[\\w-'.]*))$" options:0 error:&error];
+        NSAssert(!error, [error description]);
     });
     
-    NSArray *matches = [sharedLinguisticExpression matchesInString:text options:0 range:range];
-    return (matches.count > 0);
+    int matchesCount = [sharedLinguisticExpression numberOfMatchesInString:text options:0 range:range];
+    return (matchesCount > 0);
 }
 
 - (id)initWithText:(NSString *)text inRange:(NSRange)range {

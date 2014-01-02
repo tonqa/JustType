@@ -30,7 +30,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedSeperatorExpression = [NSRegularExpression regularExpressionWithPattern:@"^[^\\w-]+$" options:0 error:NULL];
+        sharedSeperatorExpression = [NSRegularExpression regularExpressionWithPattern:@"^[^\\w]+$" options:0 error:NULL];
     });
     
     NSArray *matches = [sharedSeperatorExpression matchesInString:text options:0 range:range];

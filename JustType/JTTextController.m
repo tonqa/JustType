@@ -262,7 +262,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
         // if word from last "beginIndexOfWord" to current "i"
         // does not match any more open up new word (with a new "beginIndexOfWord")
-        if ([self doesTextInRangeComplyToSyntaxWord:tempWordRange]) {
+        if (tempWordRange.length == 1 || [self doesTextInRangeComplyToSyntaxWord:tempWordRange]) {
             *range = tempWordRange;
         } else {
             // if we meet the selection point already or come to the last word just break
