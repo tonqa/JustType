@@ -31,18 +31,23 @@
 }
 
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range {
+    NSRegularExpression *expression = [self sharedLinguisticExpression];
+    int matchesCount = [expression numberOfMatchesInString:text options:0 range:range];
+    return (matchesCount > 0);
+}
+
++ (NSRegularExpression *)sharedLinguisticExpression {
     static NSRegularExpression *sharedLinguisticExpression;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSError *error = nil;
         sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^([\\w]+[\\w-']*)$" options:0 error:&error];
-//        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^(([\\w]+[\\w-']*)|(\\w+\\.\\w[\\w-'.]*))$" options:0 error:&error];
+        //        sharedLinguisticExpression = [NSRegularExpression regularExpressionWithPattern:@"^(([\\w]+[\\w-']*)|(\\w+\\.\\w[\\w-'.]*))$" options:0 error:&error];
         NSAssert(!error, [error description]);
     });
     
-    int matchesCount = [sharedLinguisticExpression numberOfMatchesInString:text options:0 range:range];
-    return (matchesCount > 0);
+    return sharedLinguisticExpression;
 }
 
 - (id)initWithText:(NSString *)text inRange:(NSRange)range {
@@ -63,7 +68,9 @@
             // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
             NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
-                return ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
+                NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
+                int matchesCount = [expression numberOfMatchesInString:text options:0 range:range];
+                return (matchesCount > 0) && ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
             }];
             _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
 
