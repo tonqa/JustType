@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B6294A18753CAB008FB812 /* Default-568h@2x.png */; };
 		11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */; };
 		6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11B6294A18753CAB008FB812 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextFieldMediatorDelegate.h; sourceTree = "<group>"; };
 		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				65B7A9BF186D56A000D16576 /* JustType-Info.plist */,
 				65B7A9C0186D56A000D16576 /* InfoPlist.strings */,
 				65B7A9C3186D56A000D16576 /* main.m */,
+				11B6294A18753CAB008FB812 /* Default-568h@2x.png */,
 				65B7A9C5186D56A000D16576 /* JustType-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65B7A9C2186D56A000D16576 /* InfoPlist.strings in Resources */,
+				11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */,
 				65B7A9CB186D56A000D16576 /* MainStoryboard_iPhone.storyboard in Resources */,
 				65B7A9CE186D56A000D16576 /* MainStoryboard_iPad.storyboard in Resources */,
 			);

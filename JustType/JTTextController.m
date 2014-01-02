@@ -97,7 +97,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 #pragma mark - textview / textfield notifier methods
 - (void)didChangeSelection {
-    if (!self.isIgnoringSelectionUpdates && self.delegate.isFirstResponder) {
+    if (!self.isIgnoringSelectionUpdates && !self.isIgnoringChangeUpdates && self.delegate.isFirstResponder) {
         self.isIgnoringSelectionUpdates = YES;
         [self computeSyntaxWordWithForcedRecomputation:NO];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -458,6 +458,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
     }
 
+    self.isIgnoringChangeUpdates = YES;
+
     [self replaceRange:self.selectedSyntaxWordRange withText:word];
     
     NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
@@ -467,6 +469,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self.keyboardAttachmentView setHighlightedIndex:index];
 
     [self.delegate replaceHighlightingWithRange:self.selectedSyntaxWordRange];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isIgnoringChangeUpdates = NO;
+    });
 }
 
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {

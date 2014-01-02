@@ -46,11 +46,7 @@
         _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
         _mediatorDelegate.textView = self;
         [super setDelegate:_mediatorDelegate];
-        
-        CGRect frame = CGRectMake(0, 0, self.frame.size.width, 30);
-        JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
-        [self setInputAccessoryView:attachmentView];
-        
+                
         self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
     return self;
