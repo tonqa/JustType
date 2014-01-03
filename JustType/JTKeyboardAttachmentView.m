@@ -12,6 +12,7 @@
 
 @property (nonatomic, retain) UILabel *label;
 @property (nonatomic, retain) NSArray *buttons;
+@property (nonatomic, assign) CGFloat fontSize;
 
 - (void)setDisplayedWords:(NSArray *)displayedWords;
 
@@ -23,6 +24,7 @@
 @synthesize buttons = _buttons;
 @synthesize label = _label;
 @synthesize delegate = _delegate;
+@synthesize fontSize = _fontSize;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -49,10 +51,9 @@
         [subview removeFromSuperview];
     }
 
-
     if (!displayedWords) {
         NSString *notAvailableText = @"suggestion is not possible";
-        UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:13];
+        UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:self.fontSize];
         CGSize notAvailableSize = [notAvailableText sizeWithFont:notAvailableFont];
         CGRect notAvailableRect = CGRectMake(20, 0, notAvailableSize.width, self.frame.size.height);
         UILabel *notAvailableLabel = [[UILabel alloc] initWithFrame:notAvailableRect];
@@ -62,7 +63,8 @@
         [self addSubview:notAvailableLabel];
     }
     
-    UIFont *systemFont = [UIFont systemFontOfSize:14];
+    
+    UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
     NSString *placeholderText = @"...";
     CGSize placeholderSize = [placeholderText sizeWithFont:systemFont];
     CGFloat placeholderWidth = placeholderSize.width + 10;
@@ -123,6 +125,23 @@
 
 - (IBAction)touched:(id)sender {
     [self.delegate keyboardAttachmentView:self didSelectIndex:[((UIButton *)sender) tag]];
+}
+
+# pragma mark - helper methods
+- (CGFloat)fontSize {
+    if (!_fontSize) {
+        _fontSize = [self fontSizeForRectHeight:MAX(0, self.frame.size.height - 15)];
+    }
+    return _fontSize;
+}
+
+- (CGFloat)fontSizeForRectHeight:(CGFloat)height {
+    UIFont *font = nil;
+    for (float i = height; i > 0; i = i - 1) {
+        font = [UIFont systemFontOfSize:i];
+        if ([font lineHeight] < height) break;
+    }
+    return [[font fontDescriptor] pointSize];
 }
 
 @end

@@ -76,6 +76,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="2Mx-J6-Its" kind="push" id="9M7-uQ-Lgr"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="V37-ku-nLD" style="IBUITableViewCellStyleDefault" id="6aP-vy-8OO">
                                         <rect key="frame" x="0.0" y="240" width="320" height="44"/>
@@ -93,6 +96,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="U6y-Lk-rIf" kind="push" id="xhI-xP-sB8"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -138,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="903"/>
+            <point key="canvasLocation" x="316" y="-195"/>
         </scene>
         <!--TextField View Controller-->
         <scene sceneID="o2m-Ut-ALl">
@@ -157,7 +163,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ruS-iA-Y9Q" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="244"/>
+            <point key="canvasLocation" x="316" y="-778"/>
+        </scene>
+        <!--TextView View Controller-->
+        <scene sceneID="ByV-h8-gAd">
+            <objects>
+                <viewController id="U6y-Lk-rIf" userLabel="TextView View Controller" sceneMemberID="viewController">
+                    <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="V85-Vp-Qtw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <navigationItem key="navigationItem" title="Default TextView" id="crE-rA-5fr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SNA-RJ-HMP" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="326" y="973"/>
+        </scene>
+        <!--TextField View Controller-->
+        <scene sceneID="IX2-nB-XVS">
+            <objects>
+                <viewController title="JustType TextField" id="2Mx-J6-Its" userLabel="TextField View Controller" sceneMemberID="viewController">
+                    <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3dJ-87-VSV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <navigationItem key="navigationItem" title="Default TextField" id="kGD-uH-EUp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2sN-jg-lY6" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="326" y="382"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

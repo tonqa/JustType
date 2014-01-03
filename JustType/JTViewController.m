@@ -10,8 +10,6 @@
 #import "JTTextView.h"
 #import "JTTextField.h"
 
-#define JTViewControllerKeyboardAttachmentViewHeight() 30.0f
-
 @interface JTViewController ()
 
 - (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up;
@@ -46,8 +44,14 @@
         [self.textField setFont:[UIFont systemFontOfSize:30]];
     }
 
-    // get the frame for the keyboard attachment view (with suggestions)
-    CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
+    // get the frame for the keyboard attachment view (with suggestions),
+    // also a little bit larger on the iPad
+    CGRect attachmentViewFrame;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        attachmentViewFrame = CGRectMake(0, 0, self.view.frame.size.width, 30.0f);
+    } else {
+        attachmentViewFrame = CGRectMake(0, 0, self.view.frame.size.width, 40.0f);
+    }
     
     // this sets up the keyboard attachment view (with suggestions)
     // of the TextView (if available)
