@@ -118,11 +118,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
-#pragma mark - notification listeners
-- (void)didSwipeLeftLong:(NSNotification *)notification {
+#pragma mark - public methods
+- (void)moveToPreviousWord {
     if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
-        
+    
     // first try to move to beginning of the selected word
     NSRange selectedRange;
     if (![self getSelectedRange:&selectedRange]) return;
@@ -131,7 +131,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         [self moveSelectionToIndex:selectedRange.location];
         return;
     }
-
+    
     NSInteger startIndexOfSelectedWord = self.selectedSyntaxWordRange.location;
     if (selectedRange.location > startIndexOfSelectedWord) {
         [self moveSelectionToIndex:startIndexOfSelectedWord];
@@ -140,7 +140,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     // then try to move to the beginning of the word before the selected word
     if (self.selectedSyntaxWordRange.location <= 0) return;
-
+    
     NSRange newWordRange;
     if (![self getRangeOfSelectedWord:&newWordRange atIndex:startIndexOfSelectedWord - 1]) return;
     if (startIndexOfSelectedWord == newWordRange.location) return;
@@ -149,7 +149,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self moveSelectionToIndex:offsetFromStartPosition];
 }
 
-- (void)didSwipeRightLong:(NSNotification *)notification {
+- (void)moveToNextWord {
     if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
     
@@ -173,26 +173,26 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         });
         return;
     }
-
+    
     NSInteger offsetFromStartPosition = newWordRange.location + newWordRange.length;
     [self moveSelectionToIndex:offsetFromStartPosition];
 }
 
-- (void)didSwipeLeftShort:(NSNotification *)notification {
+- (void)moveToPreviousLetter {
     if (![self.delegate isFirstResponder]) return;
-
+    
     NSRange selectedRange;
     if (![self getSelectedRange:&selectedRange]) return;
-
+    
     NSInteger currentIndex = selectedRange.location;
     if (currentIndex <= 0) return;
     
     [self moveSelectionToIndex:currentIndex-1];
 }
 
-- (void)didSwipeRightShort:(NSNotification *)notification {
+- (void)moveToNextLetter {
     if (![self.delegate isFirstResponder]) return;
-
+    
     NSRange selectedRange;
     if (![self getSelectedRange:&selectedRange]) return;
     
@@ -210,16 +210,41 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self moveSelectionToIndex:currentIndex+1];
 }
 
-- (void)didSwipeUp:(NSNotification *)notification {
+- (void)selectPreviousSuggestion {
     if (![self.delegate isFirstResponder]) return;
-
+    
     [self selectNextSuggestionInForwardDirection:NO];
 }
 
-- (void)didSwipeDown:(NSNotification *)notification {
+- (void)selectNextSuggestion {
     if (![self.delegate isFirstResponder]) return;
     
     [self selectNextSuggestionInForwardDirection:YES];
+}
+
+#pragma mark - notification listeners
+- (void)didSwipeLeftLong:(NSNotification *)notification {
+    [self moveToPreviousWord];
+}
+
+- (void)didSwipeRightLong:(NSNotification *)notification {
+    [self moveToNextWord];
+}
+
+- (void)didSwipeLeftShort:(NSNotification *)notification {
+    [self moveToPreviousLetter];
+}
+
+- (void)didSwipeRightShort:(NSNotification *)notification {
+    [self moveToNextLetter];
+}
+
+- (void)didSwipeUp:(NSNotification *)notification {
+    [self selectPreviousSuggestion];
+}
+
+- (void)didSwipeDown:(NSNotification *)notification {
+    [self selectNextSuggestion];
 }
 
 #pragma mark - internal methods
@@ -479,6 +504,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectSuggestionByIndex:(NSInteger)index {
+    if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
     
     NSString *word = nil;

@@ -17,6 +17,12 @@
 @property (nonatomic, retain) UIView *highlightView;
 @property (nonatomic, assign) id<JTTextSuggestionDelegate> textSuggestionDelegate;
 
+- (void)moveToPreviousWord;
+- (void)moveToNextWord;
+- (void)moveToPreviousLetter;
+- (void)moveToNextLetter;
+- (void)selectPreviousSuggestion;
+- (void)selectNextSuggestion;
 - (void)selectSuggestionByIndex:(NSInteger)index;
 
 @end

@@ -95,12 +95,37 @@
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    // the selection is not immediately set in the textView, that's why we wait here for a certain amount of time
     double delayInSeconds = 0.2;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.textController didChangeText];
     });
     return YES;
+}
+
+- (void)moveToNextWord {
+    [self.textController moveToNextWord];
+}
+
+- (void)moveToPreviousWord {
+    [self.textController moveToPreviousWord];
+}
+
+- (void)moveToNextLetter {
+    [self.textController moveToNextLetter];
+}
+
+- (void)moveToPreviousLetter {
+    [self.textController moveToPreviousLetter];
+}
+
+- (void)selectNextSuggestion {
+    [self.textController selectNextSuggestion];
+}
+
+- (void)selectPreviousSuggestion {
+    [self.textController selectPreviousSuggestion];
 }
 
 - (void)selectSuggestionByIndex:(NSInteger)index {

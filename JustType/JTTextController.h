@@ -31,7 +31,14 @@
 - (void)didChangeSelection;
 - (void)didChangeText;
 
-- (void)selectSuggestionByIndex:(NSInteger)index;
 - (UITextRange *)textRangeFromRange:(NSRange)range;
+
+- (void)moveToPreviousWord;
+- (void)moveToNextWord;
+- (void)moveToPreviousLetter;
+- (void)moveToNextLetter;
+- (void)selectPreviousSuggestion;
+- (void)selectNextSuggestion;
+- (void)selectSuggestionByIndex:(NSInteger)index;
 
 @end
