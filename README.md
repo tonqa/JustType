@@ -47,22 +47,6 @@ Additional options
                                       initWithFrame: attachmentViewFrame];
         [textView setInputAccessoryView: attachmentView];
 
-* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off:
-
-        [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
-
-* Note: You can use the JTTextView and JTTextField also without intercepting gestures by not adding the keyboard listener (from step 2) at all or turning it off again:
-
-        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
-
-* If you want to turn the syntax highlighting off just use the following command on the textView / textField:
-
-        textView.isSyntaxHighlightingUsed = NO;
-
-* In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
-
-        textView.isSyntaxCompletionUsed = NO;
-
 * You can add your own highlighting style to a textView by creating and own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
 
         UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] 
@@ -73,9 +57,25 @@ Additional options
 
         textView.textSuggestionDelegate = self;
 
-* When you implement this protocol it will be useful to set own suggestions for the current selected word by calling the following method on the textView / textField:
+* When you implement this protocol it will be useful to set own suggestions for the currently selected word by calling the following method on the textView / textField:
 
         [textView selectSuggestionByIndex: suggestionIndex];
+
+* If you want to turn the syntax highlighting off just use the following command on the textView / textField:
+
+        textView.isSyntaxHighlightingUsed = NO;
+
+* In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
+
+        textView.isSyntaxCompletionUsed = NO;
+
+* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off:
+
+        [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
+
+* Note: You can use the JTTextView and JTTextField also as a stand-alone for syntax highlighting and completion  without intercepting gestures. You can do this by simply not adding the keyboard listener (from step 2) at all or turning it off again:
+
+        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
 
 
 As a side note 
