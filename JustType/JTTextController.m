@@ -247,7 +247,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (index >= endIndexOfDoc) return NO;
     
     NSInteger newStartIndex = index;
-    while ([self.delegate.textContent characterAtIndex:newStartIndex] == ' ') {
+    while ([self isEmptyCharacter:[self.delegate.textContent characterAtIndex:newStartIndex]]) {
         newStartIndex += 1;
         if (newStartIndex + 1 >= endIndexOfDoc) {
             return NO;
@@ -306,14 +306,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (indexOfLastLetterOfBlock < 0) return NO;
     
     BOOL anyWordsFound = YES;
-    while ([self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
+    while ([self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock]]) {
         if (indexOfLastLetterOfBlock > 0) {
             indexOfLastLetterOfBlock -= 1;
         } else {
             // this is only executed if we get to the left border of the document, 
             // then we go right as long as we can
             indexOfLastLetterOfBlock = selectedIndex;
-            while ([self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
+            while ([self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock]]) {
                 if (indexOfLastLetterOfBlock < indexOfLastLetterOfDoc) {
                     indexOfLastLetterOfBlock += 1;
                 } else {
@@ -329,7 +329,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (!anyWordsFound) return NO;
     
     while (indexOfLastLetterOfBlock < indexOfLastLetterOfDoc && 
-           [self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock+1] != ' ') {
+           ![self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock+1]]) {
             indexOfLastLetterOfBlock += 1;
     }
 
@@ -341,7 +341,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // go left all non-empty letters (to find begin of block)
     NSInteger indexOfFirstLetterOfBlock = indexOfLastLetterOfBlock;
     while (indexOfFirstLetterOfBlock > 0 && 
-           [self.delegate.textContent characterAtIndex:indexOfFirstLetterOfBlock-1] != ' ') {
+           ![self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfFirstLetterOfBlock-1]]) {
         indexOfFirstLetterOfBlock -= 1;
     }
     return indexOfFirstLetterOfBlock;
@@ -625,6 +625,16 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 - (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index {
     [self selectSuggestionByIndex:index];
+}
+
+#pragma mark - helper methods
+- (BOOL)isEmptyCharacter:(unichar)character {
+    switch (character) {
+        case ' ':
+        case '\n':
+            return YES; break;
+    }
+    return NO;
 }
 
 @end
