@@ -74,6 +74,7 @@
         self.highlightView.frame = highlightRect;
         [self.highlightView setNeedsDisplay];
     }
+    [self scrollRangeToVisible:newRange];
 }
 
 #pragma mark - Overwritten methods
