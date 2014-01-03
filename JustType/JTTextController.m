@@ -632,6 +632,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     switch (character) {
         case ' ':
         case '\n':
+        case '\t':
+        case '\r':
+        case '\f':
+        case '\a':
             return YES; break;
     }
     return NO;

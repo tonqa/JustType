@@ -31,8 +31,7 @@
     CGContextSetLineDash(context, 0.0, dashPattern, 2);
     CGContextAddRect(context, self.bounds);
     CGContextStrokePath(context);
-    
-    CGContextClosePath(context);
+    //CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathStroke);
 }
 
