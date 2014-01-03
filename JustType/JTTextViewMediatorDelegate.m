@@ -9,6 +9,15 @@
 #import "JTTextViewMediatorDelegate.h"
 #import "JTTextView.h"
 
+@interface JTTextView (JTTextViewMediatorDelegate)
+
+- (id<UITextViewDelegate>)actualDelegate;
+- (void)didChangeSelection;
+- (void)didChangeText;
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
+
+@end
+
 @implementation JTTextViewMediatorDelegate
 @synthesize textView;
 

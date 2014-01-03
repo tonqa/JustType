@@ -11,10 +11,9 @@
 
 @interface JTTextView : UITextView <JTTextControllerDelegate>
 
-- (id<UITextViewDelegate>)actualDelegate;
+@property (nonatomic, assign, getter = isSyntaxHighlightingUsed) BOOL useSyntaxHighlighting;
+@property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
 
-- (void)didChangeSelection;
-- (void)didChangeText;
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
+@property (nonatomic, retain) UIView *highlightView;
 
 @end

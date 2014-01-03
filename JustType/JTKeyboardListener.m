@@ -36,8 +36,8 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @property (nonatomic, retain) NSString *lastSwipeDirection;
 @property (nonatomic, assign) BOOL panGestureInProgress;
 
-
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
+@property (nonatomic, assign, getter = areGesturesEnabled) BOOL enableGestures;
 
 - (void)cleanupViewsAndGestures;
 - (void)storeStartingPointWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer;
@@ -59,6 +59,8 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @synthesize timesOccurred = _timesOccurred;
 @synthesize lastSwipeDirection = _lastSwipeDirection;
 @synthesize panGestureInProgress = _panGestureInProgress;
+@synthesize enableVisualHelp = _enableVisualHelp;
+@synthesize enableGestures = _enableGestures;
 
 # pragma mark - object lifecycle
 + (id)sharedInstance {
@@ -75,6 +77,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (id)init {
     self = [super init];
     if (self) {
+        self.enableVisualHelp = YES;
     }
     return self;
 }
@@ -114,12 +117,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     [keyboardView addSubview:transparentView];
     self.keyboardOverlayView = transparentView;
     
-    // add gesture recognizers to KeyboardView (for typing faster)
-    JTKeyboardGestureRecognizer *pan = [[JTKeyboardGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-    pan.delegate = self;
-    [keyboardView addGestureRecognizer:pan];
-    self.panGesture = pan;
-        
+    [self setEnableGestures:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -131,8 +129,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     [self.keyboardOverlayView removeFromSuperview];
     self.keyboardOverlayView = nil;
     
-    [self.panGesture.view removeGestureRecognizer:self.panGesture];
-    self.panGesture = nil;
+    [self setEnableGestures:NO];
 }
 
 # pragma mark - Gesture recognizers
@@ -166,7 +163,10 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     
     self.timesOccurred = 0;
     [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
-    [self.keyboardOverlayView fadeOutLineForDirection:self.lastSwipeDirection];
+    
+    if (self.enableVisualHelp) {
+        [self.keyboardOverlayView fadeOutLineForDirection:self.lastSwipeDirection];
+    }
     [self performSelector:@selector(doPolling) withObject:nil afterDelay:SAMPLE_TIME_SECS_INITIAL];
 }
 
@@ -298,6 +298,22 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 # pragma mark - gesture recognizer delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
+}
+
+- (void)setEnableGestures:(BOOL)enableGestures {
+    if (enableGestures != _enableGestures) {
+        if (enableGestures) {
+            // add gesture recognizers to KeyboardView (for typing faster)
+            JTKeyboardGestureRecognizer *pan = [[JTKeyboardGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+            pan.delegate = self;
+            [self.keyboardView addGestureRecognizer:pan];
+            self.panGesture = pan;
+        } else {
+            [self.panGesture.view removeGestureRecognizer:self.panGesture];
+            self.panGesture = nil;
+        }
+        _enableGestures = enableGestures;
+    }
 }
 
 @end

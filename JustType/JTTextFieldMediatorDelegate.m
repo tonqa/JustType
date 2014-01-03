@@ -9,6 +9,14 @@
 #import "JTTextFieldMediatorDelegate.h"
 #import "JTTextField.h"
 
+@interface JTTextField (JTTextFieldMediatorDelegate)
+
+- (id<UITextFieldDelegate>)actualDelegate;
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+
+@end
+
+
 @implementation JTTextFieldMediatorDelegate
 @synthesize textField = _textField;
 

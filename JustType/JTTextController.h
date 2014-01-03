@@ -29,4 +29,6 @@
 
 - (UITextRange *)textRangeFromRange:(NSRange)range;
 
+@property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
+
 @end

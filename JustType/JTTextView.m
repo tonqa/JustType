@@ -15,27 +15,19 @@
 @interface JTTextView ()
 
 @property (nonatomic, retain) JTTextController *textController;
-@property (nonatomic, retain) UITapGestureRecognizer *tapGesture;
-@property (nonatomic, retain) UILongPressGestureRecognizer *pressGesture;
-
 @property (nonatomic, assign) id<UITextViewDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextViewMediatorDelegate *mediatorDelegate;
-@property (nonatomic, retain) UIView *highlightView;
-
-@property (nonatomic, assign) BOOL isIgnoringUpdates;
 
 @end
 
 
 @implementation JTTextView
 @synthesize textController = _textController;
-@synthesize tapGesture = _tapGesture;
-@synthesize pressGesture = _pressGesture;
-
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
-@synthesize isIgnoringUpdates = _isIgnoringUpdates;
 @synthesize highlightView = _highlightView;
+@synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
+@synthesize useSyntaxCompletion = _useSyntaxCompletion;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -46,6 +38,9 @@
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
+        self.useSyntaxHighlighting = YES;
+        self.useSyntaxCompletion = YES;
+
         _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
         _mediatorDelegate.textView = self;
         [super setDelegate:_mediatorDelegate];
@@ -54,9 +49,7 @@
         
         JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
         highlightView.backgroundColor = [UIColor clearColor];
-        highlightView.userInteractionEnabled = NO;
-        [self addSubview:highlightView];
-        self.highlightView = highlightView;
+        [self setHighlightView:highlightView];
     }
     return self;
 }
@@ -73,11 +66,13 @@
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
-    CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
-    highlightRect.origin.x -= 2;
-    highlightRect.size.width += 4;
-    self.highlightView.frame = highlightRect;
-    [self.highlightView setNeedsDisplay];
+    if (self.useSyntaxHighlighting) {
+        CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
+        highlightRect.origin.x -= 2;
+        highlightRect.size.width += 4;
+        self.highlightView.frame = highlightRect;
+        [self.highlightView setNeedsDisplay];
+    }
 }
 
 #pragma mark - Overwritten methods
@@ -113,6 +108,23 @@
 
 - (void)setDelegate:(id<UITextViewDelegate>)delegate {
     self.actualDelegate = delegate;
+}
+
+#pragma mark - getters & setters
+- (void)setUseSyntaxCompletion:(BOOL)useSyntaxCompletion {
+    [self.textController setUseSyntaxCompletion:useSyntaxCompletion];
+}
+
+- (BOOL)isSyntaxCompletionUsed {
+    return [self.textController isSyntaxCompletionUsed];
+}
+
+- (void)setHighlightView:(UIView *)highlightView {
+    if (_highlightView != highlightView) {
+        highlightView.userInteractionEnabled = NO;
+        [self addSubview:highlightView];
+        _highlightView = highlightView;
+    }
 }
 
 @end

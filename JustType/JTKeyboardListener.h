@@ -12,6 +12,8 @@
 
 + (id)sharedInstance;
 
+@property (nonatomic, assign, getter = isVisualHelpEnabled) BOOL enableVisualHelp;
+
 - (void)observeKeyboardGestures:(BOOL)activate;
 
 - (BOOL)keyboardIsAvailable;

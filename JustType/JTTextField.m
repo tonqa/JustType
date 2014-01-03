@@ -19,8 +19,6 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @property (nonatomic, retain) JTTextController *textController;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, retain) UILongPressGestureRecognizer *pressGesture;
-@property (nonatomic, retain) UIView *highlightView;
-
 @property (nonatomic, assign) id<UITextFieldDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextFieldMediatorDelegate *mediatorDelegate;
 
@@ -34,6 +32,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize highlightView = _highlightView;
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
+@synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
+@synthesize useSyntaxCompletion = _useSyntaxCompletion;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -44,11 +44,12 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
+        self.useSyntaxHighlighting = YES;
+        self.useSyntaxCompletion = YES;
+        
         JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
         highlightView.backgroundColor = [UIColor clearColor];
-        highlightView.userInteractionEnabled = NO;
-        [self addSubview:highlightView];
-        self.highlightView = highlightView;
+        [self setHighlightView:highlightView];
 
         _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
         _mediatorDelegate.textField = self;
@@ -91,11 +92,13 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
-    CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
-    highlightRect.origin.x -= 2;
-    highlightRect.size.width += 4;
-    self.highlightView.frame = highlightRect;
-    [self.highlightView setNeedsDisplay];
+    if (self.useSyntaxHighlighting) {
+        CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
+        highlightRect.origin.x -= 2;
+        highlightRect.size.width += 4;
+        self.highlightView.frame = highlightRect;
+        [self.highlightView setNeedsDisplay];
+    }
 }
 
 #pragma mark - editing actions
@@ -133,6 +136,23 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         [self.textController didChangeText];
     });
     return YES;
+}
+
+#pragma mark - getters & setters
+- (void)setUseSyntaxCompletion:(BOOL)useSyntaxCompletion {
+    [self.textController setUseSyntaxCompletion:useSyntaxCompletion];
+}
+
+- (BOOL)isSyntaxCompletionUsed {
+    return [self.textController isSyntaxCompletionUsed];
+}
+
+- (void)setHighlightView:(UIView *)highlightView {
+    if (_highlightView != highlightView) {
+        highlightView.userInteractionEnabled = NO;
+        [self addSubview:highlightView];
+        _highlightView = highlightView;
+    }
 }
 
 @end

@@ -48,14 +48,18 @@
     return sharedSeperatorSuggestions;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions {
     self = [super init];
     if (self) {
         self.word = [text substringWithRange:range];
         
-        NSMutableArray *mutableSuggestions = [NSMutableArray arrayWithArray:[[self class] possibleSuggestions]];
-        [mutableSuggestions removeObject:self.word];
-        _allSuggestions = mutableSuggestions;
+        if (shouldUseSuggestions) {
+            NSMutableArray *mutableSuggestions = [NSMutableArray arrayWithArray:[[self class] possibleSuggestions]];
+            [mutableSuggestions removeObject:self.word];
+            _allSuggestions = mutableSuggestions;
+        } else {
+            _allSuggestions = [NSArray array];
+        }
 
     }
     return self;

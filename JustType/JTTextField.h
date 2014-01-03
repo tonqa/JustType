@@ -11,8 +11,9 @@
 
 @interface JTTextField : UITextField <JTTextControllerDelegate, UIGestureRecognizerDelegate>
 
-- (id<UITextFieldDelegate>)actualDelegate;
+@property (nonatomic, assign, getter = isSyntaxHighlightingUsed) BOOL useSyntaxHighlighting;
+@property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+@property (nonatomic, retain) UIView *highlightView;
 
 @end

@@ -14,7 +14,7 @@
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range;
 
 + (id)alloc;
-- (id)initWithText:(NSString *)text inRange:(NSRange)range;
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions;
 
 - (NSString *)word;
 - (NSArray *)allSuggestions;

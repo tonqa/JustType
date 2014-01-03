@@ -51,19 +51,19 @@
     return sharedLinguisticExpression;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions {
     self = [super init];
     if (self) {
         self.word = [text substringWithRange:range];;
-
-        static UITextChecker *sharedTextChecker;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            sharedTextChecker = [[UITextChecker alloc] init];
-        });
         
-        if ([self isTextCheckerAvailable]) {
-            
+        if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
+
+            static UITextChecker *sharedTextChecker;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sharedTextChecker = [[UITextChecker alloc] init];
+            });
+
             _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[self selectedLocaleIdentifier]];
             
             // this checks that all suggestions are of the same case

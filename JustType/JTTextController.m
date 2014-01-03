@@ -17,7 +17,6 @@
 
 @interface JTTextController ()
 
-@property (nonatomic, readonly) NSString *textContent;
 @property (nonatomic, retain) NSArray *syntaxWordClassNames;
 
 @property (nonatomic, assign) NSRange selectedSyntaxWordRange;
@@ -63,6 +62,7 @@
 @synthesize isIgnoringSelectionUpdates = _isIgnoringSelectionUpdates;
 @synthesize isIgnoringChangeUpdates = _isIgnoringChangeUpdates;
 @synthesize keyboardAttachmentView = _keyboardAttachmentView;
+@synthesize useSyntaxCompletion = _useSyntaxCompletion;
 
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
 extern NSString * const JTKeyboardGestureSwipeRightLong;
@@ -79,6 +79,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
              NSStringFromClass([JTSyntaxLinguisticWord class]), 
              NSStringFromClass([JTSyntaxSeperatorWord class]), nil];
         
+        self.useSyntaxCompletion = YES;
         
         NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
         [notifCenter addObserver:self selector:@selector(didSwipeLeftLong:) name:JTKeyboardGestureSwipeLeftLong object:nil];
@@ -221,10 +222,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 #pragma mark - internal methods
-- (NSString *)textContent {
-    return [self.delegate textContent];
-}
-
 - (BOOL)getRangeOfSelectedWord:(NSRange *)range atIndex:(NSInteger)index {
     
     NSInteger indexOfLastLetterOfDoc = [self endIndexOfDocument] - 1;
@@ -249,7 +246,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (index >= endIndexOfDoc) return NO;
     
     NSInteger newStartIndex = index;
-    while ([self.textContent characterAtIndex:newStartIndex] == ' ') {
+    while ([self.delegate.textContent characterAtIndex:newStartIndex] == ' ') {
         newStartIndex += 1;
         if (newStartIndex + 1 >= endIndexOfDoc) {
             return NO;
@@ -308,14 +305,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (indexOfLastLetterOfBlock < 0) return NO;
     
     BOOL anyWordsFound = YES;
-    while ([self.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
+    while ([self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
         if (indexOfLastLetterOfBlock > 0) {
             indexOfLastLetterOfBlock -= 1;
         } else {
             // this is only executed if we get to the left border of the document, 
             // then we go right as long as we can
             indexOfLastLetterOfBlock = selectedIndex;
-            while ([self.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
+            while ([self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock] == ' ') {
                 if (indexOfLastLetterOfBlock < indexOfLastLetterOfDoc) {
                     indexOfLastLetterOfBlock += 1;
                 } else {
@@ -331,7 +328,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (!anyWordsFound) return NO;
     
     while (indexOfLastLetterOfBlock < indexOfLastLetterOfDoc && 
-           [self.textContent characterAtIndex:indexOfLastLetterOfBlock+1] != ' ') {
+           [self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock+1] != ' ') {
             indexOfLastLetterOfBlock += 1;
     }
 
@@ -343,7 +340,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // go left all non-empty letters (to find begin of block)
     NSInteger indexOfFirstLetterOfBlock = indexOfLastLetterOfBlock;
     while (indexOfFirstLetterOfBlock > 0 && 
-           [self.textContent characterAtIndex:indexOfFirstLetterOfBlock-1] != ' ') {
+           [self.delegate.textContent characterAtIndex:indexOfFirstLetterOfBlock-1] != ' ') {
         indexOfFirstLetterOfBlock -= 1;
     }
     return indexOfFirstLetterOfBlock;
@@ -408,7 +405,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 - (BOOL)doesTextInRangeComplyToSyntaxWord:(NSRange)range {    
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
-        if ([syntaxClass doesMatchWordInText:self.textContent range:range]) {
+        if ([syntaxClass doesMatchWordInText:self.delegate.textContent range:range]) {
             return YES;
         }
     }
@@ -447,8 +444,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 - (id<JTSyntaxWord>)syntaxWordForTextInRange:(NSRange)range {
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
-        if ([syntaxClass doesMatchWordInText:self.textContent range:range]) {
-            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.textContent inRange:range];
+        if ([syntaxClass doesMatchWordInText:self.delegate.textContent range:range]) {
+            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion];
             return syntaxWord;
         }
     }
