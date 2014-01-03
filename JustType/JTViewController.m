@@ -36,15 +36,27 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    [self.textView setFont:[UIFont systemFontOfSize:20]];
-    [self.textField setFont:[UIFont systemFontOfSize:20]];
-
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
     
-    JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+    // make the text a little bit smaller on iPhone and larger on iPad
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self.textView setFont:[UIFont systemFontOfSize:20]];
+        [self.textField setFont:[UIFont systemFontOfSize:20]];
+    } else {
+        [self.textView setFont:[UIFont systemFontOfSize:30]];
+        [self.textField setFont:[UIFont systemFontOfSize:30]];
+    }
+
+    // get the frame for the keyboard attachment view (with suggestions)
+    CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
+    
+    // this sets up the keyboard attachment view (with suggestions)
+    // of the TextView (if available)
+    JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
     [self.textView setInputAccessoryView:textViewAttachmentView];
     
-    JTKeyboardAttachmentView *textFieldAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+    // this sets up the keyboard attachment view (with suggestions)
+    // of the TextField (if available)
+    JTKeyboardAttachmentView *textFieldAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
     [self.textField setInputAccessoryView:textFieldAttachmentView];
 }
 
@@ -59,6 +71,7 @@
 {
     [super viewWillAppear:animated];
 
+    // this is the typical Apple way to listen for keyboard notification in order to resize the TextInput element when keyboard comes up
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -95,6 +108,11 @@
     [self moveTextViewForKeyboard:aNotification up:NO];
 }
 
+/**
+ * This method resizes the TextInputView (TextField or TextView). 
+ * If the keyboard comes up the TextInputView shrinks to be smaller. 
+ * If the keyboard goes down the TextInputView is made larger again.
+ */
 - (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up {
     NSDictionary* userInfo = [aNotification userInfo];
     NSTimeInterval animationDuration;
@@ -110,18 +128,19 @@
     [UIView setAnimationCurve:animationCurve];
     
     CGRect keyboardFrame = [self.view convertRect:keyboardEndFrame toView:nil];
-    //keyboardFrame.size.height += JTViewControllerKeyboardAttachmentViewHeight();
 
+    // this resizes the TextView (if available)
     {
-    CGRect newFrame = textView.frame;
-    newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
-    textView.frame = newFrame;
+        CGRect newFrame = textView.frame;
+        newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
+        textView.frame = newFrame;
     }
 
+    // this resizes the TextField (if available)
     {
-    CGRect newFrame = textField.frame;
-    newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
-    textField.frame = newFrame;
+        CGRect newFrame = textField.frame;
+        newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
+        textField.frame = newFrame;
     }
 
     [UIView commitAnimations];
