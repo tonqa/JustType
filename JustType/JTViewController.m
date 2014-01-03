@@ -11,6 +11,13 @@
 
 #define JTViewControllerKeyboardAttachmentViewHeight() 30.0f
 
+@interface JTViewController ()
+
+- (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up;
+
+@end
+
+
 @implementation JTViewController
 @synthesize textView;
 
@@ -70,6 +77,16 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+    [self moveTextViewForKeyboard:aNotification up:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification
+{
+    [self moveTextViewForKeyboard:aNotification up:NO];
+}
+
 - (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up {
     NSDictionary* userInfo = [aNotification userInfo];
     NSTimeInterval animationDuration;
@@ -91,16 +108,6 @@
     textView.frame = newFrame;
     
     [UIView commitAnimations];
-}
-
-- (void)keyboardWillShow:(NSNotification*)aNotification
-{
-    [self moveTextViewForKeyboard:aNotification up:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification*)aNotification
-{
-    [self moveTextViewForKeyboard:aNotification up:NO];
 }
 
 @end

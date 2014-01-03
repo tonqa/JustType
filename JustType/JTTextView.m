@@ -28,6 +28,7 @@
 @synthesize highlightView = _highlightView;
 @synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
 @synthesize useSyntaxCompletion = _useSyntaxCompletion;
+@synthesize textSuggestionDelegate = _textSuggestionDelegate;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -101,6 +102,10 @@
     return YES;
 }
 
+- (void)selectSuggestionByIndex:(NSInteger)index {
+    [self.textController selectSuggestionByIndex:index];
+}
+
 #pragma mark - overwritten methods
 - (id<UITextViewDelegate>)delegate {
     return self.mediatorDelegate;
@@ -117,6 +122,14 @@
 
 - (BOOL)isSyntaxCompletionUsed {
     return [self.textController isSyntaxCompletionUsed];
+}
+
+- (id<JTTextSuggestionDelegate>)textSuggestionDelegate {
+    return [self.textController textSuggestionDelegate];
+}
+
+- (void)setTextSuggestionDelegate:(id<JTTextSuggestionDelegate>)textSuggestionDelegate {
+    [self.textController setTextSuggestionDelegate:textSuggestionDelegate];
 }
 
 - (void)setHighlightView:(UIView *)highlightView {

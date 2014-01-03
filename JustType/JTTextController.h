@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JTKeyboardAttachmentView.h"
+#import "JTTextSuggestionDelegate.h"
 
 @class JTKeyboardAttachmentView;
 @protocol JTTextControllerDelegate <NSObject>
@@ -21,14 +22,16 @@
 
 @interface JTTextController : NSObject <JTKeyboardAttachmentViewDelegate>
 
+@property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
+
 @property (nonatomic, retain) JTKeyboardAttachmentView *keyboardAttachmentView;
 @property (nonatomic, assign) UIResponder<JTTextControllerDelegate, UITextInput> *delegate;
+@property (nonatomic, assign) id<JTTextSuggestionDelegate> textSuggestionDelegate;
 
 - (void)didChangeSelection;
 - (void)didChangeText;
 
+- (void)selectSuggestionByIndex:(NSInteger)index;
 - (UITextRange *)textRangeFromRange:(NSRange)range;
-
-@property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
 
 @end

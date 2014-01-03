@@ -63,6 +63,7 @@
 @synthesize isIgnoringChangeUpdates = _isIgnoringChangeUpdates;
 @synthesize keyboardAttachmentView = _keyboardAttachmentView;
 @synthesize useSyntaxCompletion = _useSyntaxCompletion;
+@synthesize textSuggestionDelegate = _textSuggestionDelegate;
 
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
 extern NSString * const JTKeyboardGestureSwipeRightLong;
@@ -363,6 +364,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         self.selectedSyntaxWord = syntaxWord;
         self.selectedSyntaxWordSuggestionIndex = -1;
         
+        // this allows others to display suggestions
+        if ([self.textSuggestionDelegate respondsToSelector:@selector(didSelectWord:atRange:suggestions:)]) {
+            [self.textSuggestionDelegate didSelectWord:[syntaxWord word] atRange:rangeOfSelectedWord suggestions:[syntaxWord allSuggestions]];
+        }
+        
         // set changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
         [self.keyboardAttachmentView setHighlightedIndex:-1];
@@ -372,6 +378,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     } else {
         self.selectedSyntaxWord = nil;
         self.selectedSyntaxWordSuggestionIndex = -1;
+        
+        if ([self.textSuggestionDelegate respondsToSelector:@selector(didClearSelection)]) {
+            [self.textSuggestionDelegate didClearSelection];
+        }
 
         // end notification with changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:nil];
@@ -485,6 +495,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
     self.selectedSyntaxWordRange = newRange;
     self.selectedSyntaxWordSuggestionIndex = index;
+    
+    if ([self.textSuggestionDelegate respondsToSelector:@selector(didSelectSuggestionIndex:)]) {
+        [self.textSuggestionDelegate didSelectSuggestionIndex:index];
+    }
     
     [self.keyboardAttachmentView setHighlightedIndex:index];
 

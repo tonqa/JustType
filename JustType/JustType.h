@@ -13,5 +13,6 @@
 #import "JTTextField.h"
 #import "JTTextView.h"
 #import "JTKeyboardAttachmentView.h"
+#import "JTTextSuggestionDelegate.h"
 
 #endif

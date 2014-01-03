@@ -54,6 +54,7 @@
 		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
 		11DBAA651876120200566E06 /* JTDashedBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDashedBorderedView.h; sourceTree = "<group>"; };
 		11DBAA661876120200566E06 /* JTDashedBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDashedBorderedView.m; sourceTree = "<group>"; };
+		11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextSuggestionDelegate.h; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
 		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +243,7 @@
 				65B7AA01186D59BF00D16576 /* JTTextView.m */,
 				65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */,
 				65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */,
+				11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */,
 				65B7A9F3186D581300D16576 /* JTTextController.h */,
 				65B7A9F4186D581300D16576 /* JTTextController.m */,
 				11DBAA651876120200566E06 /* JTDashedBorderedView.h */,

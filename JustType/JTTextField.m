@@ -34,6 +34,7 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize mediatorDelegate = _mediatorDelegate;
 @synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
 @synthesize useSyntaxCompletion = _useSyntaxCompletion;
+@synthesize textSuggestionDelegate = _textSuggestionDelegate;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -101,9 +102,13 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     }
 }
 
-#pragma mark - editing actions
+#pragma mark - Actions forwarded to controller
 - (void)didChangeText:(id)sender {
     [self.textController didChangeText];
+}
+
+- (void)selectSuggestionByIndex:(NSInteger)index {
+    [self.textController selectSuggestionByIndex:index];
 }
 
 #pragma mark - Gesture recognizer actions
@@ -127,6 +132,14 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 - (void)setDelegate:(id<UITextFieldDelegate>)delegate {
     self.actualDelegate = delegate;
+}
+
+- (id<JTTextSuggestionDelegate>)textSuggestionDelegate {
+    return [self.textController textSuggestionDelegate];
+}
+
+- (void)setTextSuggestionDelegate:(id<JTTextSuggestionDelegate>)textSuggestionDelegate {
+    [self.textController setTextSuggestionDelegate:textSuggestionDelegate];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

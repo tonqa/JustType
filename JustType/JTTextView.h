@@ -15,5 +15,8 @@
 @property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
 
 @property (nonatomic, retain) UIView *highlightView;
+@property (nonatomic, assign) id<JTTextSuggestionDelegate> textSuggestionDelegate;
+
+- (void)selectSuggestionByIndex:(NSInteger)index;
 
 @end

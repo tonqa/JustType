@@ -10,6 +10,7 @@
 
 @class JTTextView;
 @interface JTViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet JTTextView *textView;
 
 @end
