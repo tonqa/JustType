@@ -27,9 +27,21 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
 
+    CGPoint fromPoint = CGPointMake(self.bounds.origin.x,
+                                    self.bounds.origin.y +
+                                    self.bounds.size.height);
+    CGPoint toPoint = CGPointMake(self.bounds.origin.x +
+                                  self.bounds.size.width,
+                                  self.bounds.origin.y +
+                                  self.bounds.size.height);
+    
     CGContextSetLineWidth(context, 2.0);
     CGContextSetLineDash(context, 0.0, dashPattern, 2);
-    CGContextAddRect(context, self.bounds);
+    
+    CGContextMoveToPoint(context, fromPoint.x, fromPoint.y);
+    CGContextAddLineToPoint(context, toPoint.x, toPoint.y);
+    //CGContextAddRect(context, self.bounds);
+    
     CGContextStrokePath(context);
     //CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathStroke);
