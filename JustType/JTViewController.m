@@ -8,6 +8,7 @@
 
 #import "JTViewController.h"
 #import "JTTextView.h"
+#import "JTTextField.h"
 
 #define JTViewControllerKeyboardAttachmentViewHeight() 30.0f
 
@@ -19,6 +20,7 @@
 
 
 @implementation JTViewController
+@synthesize textField;
 @synthesize textView;
 
 - (void)didReceiveMemoryWarning
@@ -32,12 +34,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     [self.textView setFont:[UIFont systemFontOfSize:20]];
+    [self.textField setFont:[UIFont systemFontOfSize:20]];
 
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, JTViewControllerKeyboardAttachmentViewHeight());
-    JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
-    [self.textView setInputAccessoryView:attachmentView];
+    
+    JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+    [self.textView setInputAccessoryView:textViewAttachmentView];
+    
+    JTKeyboardAttachmentView *textFieldAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+    [self.textField setInputAccessoryView:textFieldAttachmentView];
 }
 
 - (void)viewDidUnload
@@ -101,12 +109,21 @@
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:animationCurve];
     
-    CGRect newFrame = textView.frame;
     CGRect keyboardFrame = [self.view convertRect:keyboardEndFrame toView:nil];
     //keyboardFrame.size.height += JTViewControllerKeyboardAttachmentViewHeight();
+
+    {
+    CGRect newFrame = textView.frame;
     newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
     textView.frame = newFrame;
-    
+    }
+
+    {
+    CGRect newFrame = textField.frame;
+    newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
+    textField.frame = newFrame;
+    }
+
     [UIView commitAnimations];
 }
 

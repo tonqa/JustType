@@ -77,14 +77,6 @@
     [self scrollRangeToVisible:newRange];
 }
 
-#pragma mark - Overwritten methods
-- (void)setInputAccessoryView:(UIView *)inputAccessoryView {
-    [super setInputAccessoryView:inputAccessoryView];
-    if ([inputAccessoryView isKindOfClass:[JTKeyboardAttachmentView class]]) {
-        self.textController.keyboardAttachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
-    }
-}
-
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText {
     [self.textController didChangeText];
@@ -139,6 +131,13 @@
 
 - (void)setDelegate:(id<UITextViewDelegate>)delegate {
     self.actualDelegate = delegate;
+}
+
+- (void)setInputAccessoryView:(UIView *)inputAccessoryView {
+    [super setInputAccessoryView:inputAccessoryView];
+    if ([inputAccessoryView isKindOfClass:[JTKeyboardAttachmentView class]]) {
+        self.textController.keyboardAttachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
+    }
 }
 
 #pragma mark - getters & setters

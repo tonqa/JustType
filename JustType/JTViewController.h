@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class JTTextField;
 @class JTTextView;
 @interface JTViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet JTTextField *textField;
 @property (weak, nonatomic) IBOutlet JTTextView *textView;
 
 @end

@@ -94,11 +94,10 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
     if (self.useSyntaxHighlighting) {
-        CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
-        highlightRect.origin.x -= 2;
-        highlightRect.size.width += 4;
-        self.highlightView.frame = highlightRect;
-        [self.highlightView setNeedsDisplay];
+        NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
+        [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
+        [self setAttributedText:highlightedString];
     }
 }
 
@@ -166,6 +165,13 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     [self.textController setTextSuggestionDelegate:textSuggestionDelegate];
 }
 
+- (void)setInputAccessoryView:(UIView *)inputAccessoryView {
+    [super setInputAccessoryView:inputAccessoryView];
+    if ([inputAccessoryView isKindOfClass:[JTKeyboardAttachmentView class]]) {
+        self.textController.keyboardAttachmentView = (JTKeyboardAttachmentView *)inputAccessoryView;
+    }
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     // the selection is not immediately set in the textField, that's why we wait here for a certain amount of time
     double delayInSeconds = 0.2;
@@ -174,6 +180,11 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         [self.textController didChangeText];
     });
     return YES;
+}
+
+- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
+    [super setSelectedTextRange:selectedTextRange];
+    [self.textController didChangeText];
 }
 
 #pragma mark - getters & setters
