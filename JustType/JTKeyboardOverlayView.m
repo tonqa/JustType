@@ -118,7 +118,14 @@
     
     if (layer.startPoint.x != 0.0 || layer.endPoint.x != 0.0f) {
         
-        CGFloat width = 10.0f, arrowLength = 5.0f, arrowWidth = 5.0f;
+        CGFloat width, arrowLength, arrowWidth;
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            width = 10.0f, arrowLength = 5.0f, arrowWidth = 5.0f;
+        } else {
+            width = 20.0f, arrowLength = 10.0f, arrowWidth = 10.0f;
+        }
+        
         CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
         
         [self drawLineInContext:context fromPoint:layer.startPoint 
