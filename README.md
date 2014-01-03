@@ -9,7 +9,7 @@ Reasoning
 
 This project tries to **not change** or temper with the **iOS default behavior** of texts. The highest priority of this project is instead to be fully compatible with iOS UITextFields and UITextViews. The default keyboard and text handling shall not be modified in any imaginable way, but instead this project adds on top of both. 
 
-It **adds own gestures** (via gesture recognizers) to the keyboard, which do not interfere with the existing ones. Also it adds its own way of **syntax highlighting and syntax completion** to iOS default elements (using the UITextInput protocol of UITextView and UITextField). It uses the **default iOS syntax checker**, but changes how the syntax completion is presented. Default syntax completion is therefore switched off. 
+It **adds own gestures** (via gesture recognizers) to the keyboard, which do not interfere with the existing ones. Also it adds its own way of **syntax highlighting and syntax completion** to iOS default elements (using the UITextInput protocol of UITextView and UITextField). It uses the **default iOS syntax checker**, but changes how the syntax completion is presented. Default syntax completion UI is therefore switched off. 
 
 We want this keyboard **to be used in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
@@ -21,6 +21,21 @@ Advantages
 * **Compatiblity:** If the default iOS UIKit keyboard handling changes the keyboard gestures extension just stops working. That's why this should not be any critical for apps used in production. In fact we have an app called *'Just Type'* in the App Store.
 * **Extendability**: The keyboard and UITextInput extensions are easily extendable for developers (e.g. the behavior for other languages could easily be modified). We in fact encourage you to contribute to this project.
 
+
+Usage
+---------------------
+Actually for using this extension there are only three steps. 
+
+1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project as a dependency.
+
+2. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
+
+	[[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+
+3. For using the input elements out of the box you can use JTTextView exactly like a normal UITextView (or alternatively JTTextField like a UITextField):
+
+	JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
+	[self.view addSubview:textView];
 
 As a side note 
 ---------------------
