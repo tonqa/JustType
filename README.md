@@ -24,15 +24,15 @@ Advantages
 
 Usage
 ---------------------
-Actually for using this extension there are only three steps. 
+Actually for using this keyboard extension there are only three steps to follow. 
 
-1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project as a dependency.
+1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project source as a dependency.
 
 2. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
         [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
 
-3. For using the input elements out of the box you can use JTTextView exactly like a normal UITextView (or alternatively JTTextField like a UITextField):
+3. For using the text input elements you can use JTTextView exactly like a normal UITextView (or alternatively JTTextField like a UITextField) out of the box:
 
         JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
         [self.view addSubview: textView];
@@ -40,27 +40,42 @@ Actually for using this extension there are only three steps.
 Additional options
 ---------------------
 
-* For using the syntax completion attachment view to the keyboard you need to add the following to your text input element:
+* For using the syntax completion attachment view for the keyboard you need to add the following to your textView or textField:
 
+        CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
         JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] 
-                                                           initWithFrame:frame];
+                                      initWithFrame: attachmentViewFrame];
         [textView setInputAccessoryView: attachmentView];
 
-* If you want to deactivate the visual help (arrows) which occur while swiping then you can switch them off:
+* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off:
 
         [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 
-* Note: You can use the JTTextView and JTTextField also without intercepting gestures by not adding the keyboard listener or turning it off again:
+* Note: You can use the JTTextView and JTTextField also without intercepting gestures by not adding the keyboard listener (from step 2) at all or turning it off again:
 
-        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
 
 * If you want to turn the syntax highlighting off just use the following command on the textView / textField:
 
         textView.isSyntaxHighlightingUsed = NO;
 
-* In the case you don't want to support the syntax completion you can also turn it off:
+* In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
 
         textView.isSyntaxCompletionUsed = NO;
+
+* You can add your own highlighting style to a textView by creating and own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
+
+        UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] 
+                                         initWithFrame:CGRectZero];
+        textView.highlightView = myOwnHighlightView;
+
+* If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implementing some of the optional protocol methods:
+
+        textView.textSuggestionDelegate = self;
+
+* When you implement this protocol it will be useful to set own suggestions for the current selected word by calling the following method on the textView / textField:
+
+        [textView selectSuggestionByIndex: suggestionIndex];
 
 
 As a side note 
