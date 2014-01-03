@@ -30,12 +30,49 @@ Actually for using this extension there are only three steps.
 
 2. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
+``
 	[[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+``
 
 3. For using the input elements out of the box you can use JTTextView exactly like a normal UITextView (or alternatively JTTextField like a UITextField):
 
+``
 	JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
-	[self.view addSubview:textView];
+	[self.view addSubview: textView];
+``
+
+Additional options
+---------------------
+
+* For using the syntax completion attachment view to the keyboard you need to add the following to your text input element:
+
+``
+	JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:frame];
+	[textView setInputAccessoryView: attachmentView];
+``
+
+* If you want to deactivate the visual help (arrows) which occur while swiping then you can switch them off:
+
+``
+	[[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
+``
+
+* Note: You can use the JTTextView and JTTextField also without intercepting gestures by not adding the keyboard listener or turning it off again:
+
+``
+	[[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+``
+
+* If you want to turn the syntax highlighting off just use the following command on the textView / textField:
+``
+	textView.isSyntaxHighlightingUsed = NO;
+``
+
+* In the case you don't want to support the syntax completion you can also turn it off:
+``
+	textView.isSyntaxCompletionUsed = NO;
+``
+
 
 As a side note 
 ---------------------
