@@ -19,7 +19,7 @@ NSString * const JTKeyboardGestureSwipeUp           = @"JTKeyboardGestureSwipeUp
 NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDown";
 
 #define SWIPE_LONGSWIPE_WIDTH 100.0
-#define SAMPLE_TIME_SECS_INITIAL 0.4
+#define SAMPLE_TIME_SECS_INITIAL 0.6
 #define SAMPLE_TIME_SECS_MAX 0.3
 #define SAMPLE_TIME_SECS_MIDDLE 0.2
 #define SAMPLE_TIME_SECS_MIN 0.1
