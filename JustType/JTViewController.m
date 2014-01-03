@@ -18,8 +18,10 @@
 
 
 @implementation JTViewController
-@synthesize textField;
-@synthesize textView;
+@synthesize justTypeTextField;
+@synthesize justTypeTextView;
+@synthesize defaultTextField;
+@synthesize defaultTextView;
 
 - (void)didReceiveMemoryWarning
 {
@@ -37,11 +39,15 @@
     
     // make the text a little bit smaller on iPhone and larger on iPad
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self.textView setFont:[UIFont systemFontOfSize:20]];
-        [self.textField setFont:[UIFont systemFontOfSize:20]];
+        [self.justTypeTextView setFont:[UIFont systemFontOfSize:20]];
+        [self.justTypeTextField setFont:[UIFont systemFontOfSize:20]];
+        [self.defaultTextView setFont:[UIFont systemFontOfSize:20]];
+        [self.defaultTextField setFont:[UIFont systemFontOfSize:20]];
     } else {
-        [self.textView setFont:[UIFont systemFontOfSize:30]];
-        [self.textField setFont:[UIFont systemFontOfSize:30]];
+        [self.justTypeTextView setFont:[UIFont systemFontOfSize:30]];
+        [self.justTypeTextField setFont:[UIFont systemFontOfSize:30]];
+        [self.defaultTextView setFont:[UIFont systemFontOfSize:30]];
+        [self.defaultTextField setFont:[UIFont systemFontOfSize:30]];
     }
 
     // get the frame for the keyboard attachment view (with suggestions),
@@ -55,13 +61,17 @@
     
     // this sets up the keyboard attachment view (with suggestions)
     // of the TextView (if available)
-    JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
-    [self.textView setInputAccessoryView:textViewAttachmentView];
+    if (self.justTypeTextView) {
+        JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
+        [self.justTypeTextView setInputAccessoryView:textViewAttachmentView];
+    }
     
     // this sets up the keyboard attachment view (with suggestions)
     // of the TextField (if available)
-    JTKeyboardAttachmentView *textFieldAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
-    [self.textField setInputAccessoryView:textFieldAttachmentView];
+    if (self.justTypeTextField) {
+        JTKeyboardAttachmentView *textFieldAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
+        [self.justTypeTextField setInputAccessoryView:textFieldAttachmentView];
+    }
 }
 
 - (void)viewDidUnload
@@ -133,19 +143,10 @@
     
     CGRect keyboardFrame = [self.view convertRect:keyboardEndFrame toView:nil];
 
-    // this resizes the TextView (if available)
-    {
-        CGRect newFrame = textView.frame;
-        newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
-        textView.frame = newFrame;
-    }
-
-    // this resizes the TextField (if available)
-    {
-        CGRect newFrame = textField.frame;
-        newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
-        textField.frame = newFrame;
-    }
+    // this resizes the view
+    CGRect newFrame = self.view.frame;
+    newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
+    self.view.frame = newFrame;
 
     [UIView commitAnimations];
 }

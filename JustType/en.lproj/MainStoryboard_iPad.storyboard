@@ -137,7 +137,7 @@
                     </textField>
                     <navigationItem key="navigationItem" title="JustType TextField" id="a0y-wf-jiw"/>
                     <connections>
-                        <outlet property="textField" destination="dfa-Nz-mP7" id="Uea-eo-sD8"/>
+                        <outlet property="justTypeTextField" destination="dfa-Nz-mP7" id="Cn5-6f-E7q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
@@ -158,7 +158,7 @@
                     </textView>
                     <navigationItem key="navigationItem" title="JustType TextView" id="0yQ-Lp-oNB"/>
                     <connections>
-                        <outlet property="textView" destination="fbj-p5-Y8u" id="ifj-32-82Q"/>
+                        <outlet property="justTypeTextView" destination="fbj-p5-Y8u" id="tix-VT-CER"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xiu-a5-6B9" sceneMemberID="firstResponder"/>
@@ -168,7 +168,7 @@
         <!--View Controller - Default TextField-->
         <scene sceneID="iTS-x0-ncs">
             <objects>
-                <viewController id="4ny-fU-Q9E" sceneMemberID="viewController">
+                <viewController id="4ny-fU-Q9E" customClass="JTViewController" sceneMemberID="viewController">
                     <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="dLC-XX-2nc">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -176,6 +176,9 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <navigationItem key="navigationItem" title="Default TextField" id="i8f-DT-wc0"/>
+                    <connections>
+                        <outlet property="defaultTextField" destination="dLC-XX-2nc" id="DQT-yp-mub"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N17-wP-Bw6" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,7 +187,7 @@
         <!--View Controller - Default TextView-->
         <scene sceneID="BvN-ku-Vho">
             <objects>
-                <viewController id="6m2-LU-aRY" sceneMemberID="viewController">
+                <viewController id="6m2-LU-aRY" customClass="JTViewController" sceneMemberID="viewController">
                     <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="8OX-de-s2P">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,6 +197,9 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <navigationItem key="navigationItem" title="Default TextView" id="1Ir-lO-fY8"/>
+                    <connections>
+                        <outlet property="defaultTextView" destination="8OX-de-s2P" id="mEk-ix-iVm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgs-Hn-K9a" sceneMemberID="firstResponder"/>
             </objects>

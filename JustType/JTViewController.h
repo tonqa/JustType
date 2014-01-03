@@ -12,7 +12,10 @@
 @class JTTextView;
 @interface JTViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet JTTextField *textField;
-@property (weak, nonatomic) IBOutlet JTTextView *textView;
+@property (weak, nonatomic) IBOutlet JTTextField *justTypeTextField;
+@property (weak, nonatomic) IBOutlet JTTextView *justTypeTextView;
+
+@property (weak, nonatomic) IBOutlet UITextField *defaultTextField;
+@property (weak, nonatomic) IBOutlet UITextView *defaultTextView;
 
 @end
