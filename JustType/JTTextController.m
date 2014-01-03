@@ -426,10 +426,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         id<JTSyntaxWord> syntaxWord = [self syntaxWordForTextInRange:rangeOfSelectedWord];
         
-        if ([[syntaxWord word] isEqualToString:[self.selectedSyntaxWord word]] &&
-            self.selectedSyntaxWordRange.location == rangeOfSelectedWord.location &&
-            self.selectedSyntaxWordRange.length == rangeOfSelectedWord.length &&
-            self.selectedSyntaxWordSuggestionIndex == -1)
+        if ([[syntaxWord word] isEqualToString:[self.selectedSyntaxWord word]] && self.selectedSyntaxWordRange.location == rangeOfSelectedWord.location && self.selectedSyntaxWordSuggestionIndex == -1)
             return;
         
         self.selectedSyntaxWordRange = rangeOfSelectedWord;
