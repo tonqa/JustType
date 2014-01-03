@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const JTNotificationTextControllerDidProcessGesture;
+extern NSString * const JTNotificationKeyDirection;
+
 extern NSString * const JTKeyboardGestureSwipeLeftLong;
 extern NSString * const JTKeyboardGestureSwipeRightLong;
 extern NSString * const JTKeyboardGestureSwipeLeftShort;

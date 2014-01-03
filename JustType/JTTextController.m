@@ -15,6 +15,9 @@
 
 #define SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT 0
 
+NSString * const JTNotificationTextControllerDidProcessGesture = @"JTNotificationTextControllerDidProcessGesture";
+NSString * const JTNotificationKeyDirection = @"JTNotificationKeyDirection";
+
 @interface JTTextController ()
 
 @property (nonatomic, retain) NSArray *syntaxWordClassNames;
@@ -40,7 +43,7 @@
 - (UITextRange *)textRangeFromRange:(NSRange)range;
 - (void)selectNextSeperatorForEndOfDocument;
 - (void)trimDownLastWhitespacesToOneWhitespace;
-
+- (void)postProcessedNotificationForDirection:(NSString *)direction;
 - (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index 
                       selectedIndex:(NSInteger)selectedIndex
                       endIndexOfDoc:(NSInteger)indexOfLastLetterOfDoc;
@@ -222,29 +225,67 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self selectNextSuggestionInForwardDirection:YES];
 }
 
+- (void)selectSuggestionByIndex:(NSInteger)index {
+    if (![self.delegate isFirstResponder]) return;
+    if (!self.selectedSyntaxWord) return;
+    
+    NSString *word = nil;
+    if (index == -1) {
+        word = [self.selectedSyntaxWord word];
+    } else {
+        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
+    }
+    
+    self.isIgnoringChangeUpdates = YES;
+    
+    [self replaceRange:self.selectedSyntaxWordRange withText:word];
+    
+    NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
+    self.selectedSyntaxWordRange = newRange;
+    self.selectedSyntaxWordSuggestionIndex = index;
+    
+    if ([self.textSuggestionDelegate respondsToSelector:@selector(didSelectSuggestionIndex:)]) {
+        [self.textSuggestionDelegate didSelectSuggestionIndex:index];
+    }
+    
+    [self.keyboardAttachmentView setHighlightedIndex:index];
+    
+    [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isIgnoringChangeUpdates = NO;
+    });
+}
+
 #pragma mark - notification listeners
 - (void)didSwipeLeftLong:(NSNotification *)notification {
     [self moveToPreviousWord];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeLeftLong];
 }
 
 - (void)didSwipeRightLong:(NSNotification *)notification {
     [self moveToNextWord];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeRightLong];
 }
 
 - (void)didSwipeLeftShort:(NSNotification *)notification {
     [self moveToPreviousLetter];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeLeftShort];
 }
 
 - (void)didSwipeRightShort:(NSNotification *)notification {
     [self moveToNextLetter];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeRightShort];
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
     [self selectPreviousSuggestion];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeUp];
 }
 
 - (void)didSwipeDown:(NSNotification *)notification {
     [self selectNextSuggestion];
+    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeDown];
 }
 
 #pragma mark - internal methods
@@ -430,13 +471,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 }
 
-- (void)moveSelectionToIndex:(NSInteger)newIndex {
-    UITextPosition *startPosition = [self.delegate beginningOfDocument];
-    UITextPosition *newPosition = [self.delegate positionFromPosition:startPosition offset:newIndex];
-    UITextRange *newTextRange = [self.delegate textRangeFromPosition:newPosition toPosition:newPosition];
-    [self.delegate setSelectedTextRange:newTextRange];
-}
-
 - (BOOL)doesTextInRangeComplyToSyntaxWord:(NSRange)range {    
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
@@ -487,12 +521,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     return nil;
 }
 
-- (NSInteger)endIndexOfDocument {
-    UITextPosition *startPositionOfDoc = [self.delegate beginningOfDocument];
-    UITextPosition *endPositionOfDoc = [self.delegate endOfDocument];
-    return [self.delegate offsetFromPosition:startPositionOfDoc toPosition:endPositionOfDoc];
-}
-
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward {
     
     if (![self getSelectedIndex:NULL]) return;
@@ -501,38 +529,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSString *word;
     [self nextSuggestionInForwardDirection:forward word:&word index:&newIndex];
     [self selectSuggestionByIndex:newIndex];
-}
-
-- (void)selectSuggestionByIndex:(NSInteger)index {
-    if (![self.delegate isFirstResponder]) return;
-    if (!self.selectedSyntaxWord) return;
-    
-    NSString *word = nil;
-    if (index == -1) {
-        word = [self.selectedSyntaxWord word];
-    } else {
-        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
-    }
-
-    self.isIgnoringChangeUpdates = YES;
-
-    [self replaceRange:self.selectedSyntaxWordRange withText:word];
-    
-    NSRange newRange = NSMakeRange(self.selectedSyntaxWordRange.location, [word length]);
-    self.selectedSyntaxWordRange = newRange;
-    self.selectedSyntaxWordSuggestionIndex = index;
-    
-    if ([self.textSuggestionDelegate respondsToSelector:@selector(didSelectSuggestionIndex:)]) {
-        [self.textSuggestionDelegate didSelectSuggestionIndex:index];
-    }
-    
-    [self.keyboardAttachmentView setHighlightedIndex:index];
-
-    [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.isIgnoringChangeUpdates = NO;
-    });
 }
 
 - (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
@@ -578,14 +574,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
-- (UITextRange *)textRangeFromRange:(NSRange)range {
-    UITextPosition *startPosition = [self.delegate beginningOfDocument];
-    UITextPosition *fromPosition = [self.delegate positionFromPosition:startPosition offset:range.location];
-    UITextPosition *toPosition = [self.delegate positionFromPosition:startPosition offset:range.location+range.length];
-    UITextRange *textRange = [self.delegate textRangeFromPosition:fromPosition toPosition:toPosition];
-    return textRange;
-}
-
 - (void)selectNextSeperatorForEndOfDocument {
     NSString *word = nil;
     
@@ -622,6 +610,20 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
+#pragma mark - JTKeyboardAttachmentViewDelegate methods
+- (void)setKeyboardAttachmentView:(JTKeyboardAttachmentView *)keyboardAttachmentView {
+    if (_keyboardAttachmentView != keyboardAttachmentView) {
+        _keyboardAttachmentView.delegate = nil;
+        _keyboardAttachmentView = keyboardAttachmentView;
+        _keyboardAttachmentView.delegate = self;
+    }
+}
+
+- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index {
+    [self selectSuggestionByIndex:index];
+}
+
+#pragma mark - helper methods
 - (void)trimDownLastWhitespacesToOneWhitespace {
     // get range of the spaces after the currently selected word
     UITextPosition *beginOfDocPosition = [self.delegate beginningOfDocument];
@@ -637,23 +639,9 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSRange wordRangeToReplace = NSMakeRange(wordIndex, lastSpacesLength);
     [self replaceRange:wordRangeToReplace withText:@" "];
-
+    
 }
 
-#pragma mark - JTKeyboardAttachmentViewDelegate methods
-- (void)setKeyboardAttachmentView:(JTKeyboardAttachmentView *)keyboardAttachmentView {
-    if (_keyboardAttachmentView != keyboardAttachmentView) {
-        _keyboardAttachmentView.delegate = nil;
-        _keyboardAttachmentView = keyboardAttachmentView;
-        _keyboardAttachmentView.delegate = self;
-    }
-}
-
-- (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index {
-    [self selectSuggestionByIndex:index];
-}
-
-#pragma mark - helper methods
 - (BOOL)isEmptyCharacter:(unichar)character {
     switch (character) {
         case ' ':
@@ -665,6 +653,32 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             return YES; break;
     }
     return NO;
+}
+
+- (void)postProcessedNotificationForDirection:(NSString *)direction {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:direction forKey:JTNotificationKeyDirection];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JTNotificationTextControllerDidProcessGesture object:self userInfo:userInfo];
+}
+
+- (UITextRange *)textRangeFromRange:(NSRange)range {
+    UITextPosition *startPosition = [self.delegate beginningOfDocument];
+    UITextPosition *fromPosition = [self.delegate positionFromPosition:startPosition offset:range.location];
+    UITextPosition *toPosition = [self.delegate positionFromPosition:startPosition offset:range.location+range.length];
+    UITextRange *textRange = [self.delegate textRangeFromPosition:fromPosition toPosition:toPosition];
+    return textRange;
+}
+
+- (NSInteger)endIndexOfDocument {
+    UITextPosition *startPositionOfDoc = [self.delegate beginningOfDocument];
+    UITextPosition *endPositionOfDoc = [self.delegate endOfDocument];
+    return [self.delegate offsetFromPosition:startPositionOfDoc toPosition:endPositionOfDoc];
+}
+
+- (void)moveSelectionToIndex:(NSInteger)newIndex {
+    UITextPosition *startPosition = [self.delegate beginningOfDocument];
+    UITextPosition *newPosition = [self.delegate positionFromPosition:startPosition offset:newIndex];
+    UITextRange *newTextRange = [self.delegate textRangeFromPosition:newPosition toPosition:newPosition];
+    [self.delegate setSelectedTextRange:newTextRange];
 }
 
 @end

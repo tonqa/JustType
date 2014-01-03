@@ -9,6 +9,7 @@
 #import "JTKeyboardListener.h"
 #import "JTKeyboardOverlayView.h"
 #import "JTKeyboardGestureRecognizer.h"
+#import "JTKeyboardHeaders.h"
 
 NSString * const JTKeyboardGestureSwipeLeftLong     = @"JTKeyboardGestureSwipeLeftLong";
 NSString * const JTKeyboardGestureSwipeRightLong    = @"JTKeyboardGestureSwipeRightLong";
@@ -93,6 +94,8 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
                                                      name:UIKeyboardDidShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) 
                                                      name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textControllerDidProcessGesture:)
+                                                     name:JTNotificationTextControllerDidProcessGesture object:nil];
     } else {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self cleanupViewsAndGestures];
@@ -132,6 +135,14 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     [self setEnableGestures:NO];
 }
 
+# pragma mark - internal notifications
+- (void)textControllerDidProcessGesture:(NSNotification *)notification {
+    if (self.isVisualHelpEnabled) {
+        NSString *swipeDirection = [notification.userInfo objectForKey:JTNotificationKeyDirection];
+        [self.keyboardOverlayView fadeOutLineForDirection:swipeDirection];
+    }
+}
+
 # pragma mark - Gesture recognizers
 - (void)panned:(UIGestureRecognizer*)gestureRecognizer {
     
@@ -164,9 +175,6 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self.timesOccurred = 0;
     [self sendNotificationForSwipeDirection:self.lastSwipeDirection];
     
-    if (self.enableVisualHelp) {
-        [self.keyboardOverlayView fadeOutLineForDirection:self.lastSwipeDirection];
-    }
     [self performSelector:@selector(doPolling) withObject:nil afterDelay:SAMPLE_TIME_SECS_INITIAL];
 }
 
