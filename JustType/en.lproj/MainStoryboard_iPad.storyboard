@@ -129,20 +129,28 @@
         <scene sceneID="4">
             <objects>
                 <viewController id="2" customClass="JTViewController" sceneMemberID="viewController">
-                    <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="dfa-Nz-mP7" customClass="JTTextField">
+                    <view key="view" contentMode="scaleToFill" id="5fO-t7-TF3">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="YcO-xd-5nU" customClass="JTTextField">
+                                <rect key="frame" x="0.0" y="64" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85226307739999996" green="0.85226307739999996" blue="0.85226307739999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <navigationItem key="navigationItem" title="JustType TextField" id="a0y-wf-jiw"/>
                     <connections>
-                        <outlet property="justTypeTextField" destination="dfa-Nz-mP7" id="Cn5-6f-E7q"/>
+                        <outlet property="justTypeTextField" destination="YcO-xd-5nU" id="ze4-ls-R2R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1090" y="-1287"/>
+            <point key="canvasLocation" x="1112" y="-1329"/>
         </scene>
         <!--View Controller - JustType TextView-->
         <scene sceneID="97o-0F-eho">
@@ -169,15 +177,23 @@
         <scene sceneID="iTS-x0-ncs">
             <objects>
                 <viewController id="4ny-fU-Q9E" customClass="JTViewController" sceneMemberID="viewController">
-                    <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="dLC-XX-2nc">
+                    <view key="view" contentMode="scaleToFill" id="Wrc-DJ-y9f">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="vKK-NL-clT">
+                                <rect key="frame" x="0.0" y="64" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85226307739999996" green="0.85226307739999996" blue="0.85226307739999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <navigationItem key="navigationItem" title="Default TextField" id="i8f-DT-wc0"/>
                     <connections>
-                        <outlet property="defaultTextField" destination="dLC-XX-2nc" id="DQT-yp-mub"/>
+                        <outlet property="defaultTextField" destination="vKK-NL-clT" id="wi9-I0-hzY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N17-wP-Bw6" sceneMemberID="firstResponder"/>

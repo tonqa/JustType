@@ -150,15 +150,23 @@
         <scene sceneID="o2m-Ut-ALl">
             <objects>
                 <viewController title="JustType TextField" id="nlW-iM-fYS" userLabel="TextField View Controller" customClass="JTViewController" sceneMemberID="viewController">
-                    <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fjZ-Lq-SBg" customClass="JTTextField">
+                    <view key="view" contentMode="scaleToFill" id="9IG-br-aMm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="LzO-Ax-LHT" customClass="JTTextField">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85226307739999996" green="0.85226307739999996" blue="0.85226307739999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <navigationItem key="navigationItem" title="JustType TextField" id="Aa5-rk-zSD"/>
                     <connections>
-                        <outlet property="justTypeTextField" destination="fjZ-Lq-SBg" id="jr9-4t-Doe"/>
+                        <outlet property="justTypeTextField" destination="LzO-Ax-LHT" id="PpN-3W-T3y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ruS-iA-Y9Q" sceneMemberID="firstResponder"/>
@@ -190,20 +198,41 @@
         <scene sceneID="IX2-nB-XVS">
             <objects>
                 <viewController title="JustType TextField" id="2Mx-J6-Its" userLabel="TextField View Controller" customClass="JTViewController" sceneMemberID="viewController">
-                    <textField key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3dJ-87-VSV">
+                    <view key="view" contentMode="scaleToFill" id="6IW-fc-OeQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Uri-UN-II2">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85226307744565211" green="0.85226307744565211" blue="0.85226307744565211" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <navigationItem key="navigationItem" title="Default TextField" id="kGD-uH-EUp"/>
                     <connections>
-                        <outlet property="defaultTextField" destination="3dJ-87-VSV" id="ept-xV-ssI"/>
+                        <outlet property="defaultTextField" destination="Uri-UN-II2" id="mlB-Hz-2gB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2sN-jg-lY6" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="326" y="382"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zVs-G4-2IK">
+            <objects>
+                <viewController id="D8f-WX-clZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DKF-II-XR0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tu-iB-cWi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
