@@ -2,31 +2,33 @@
 //  JustTypeTests.m
 //  JustTypeTests
 //
-//  Created by Andrea Koglin on 27.12.13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Created by Alexander Koglin on 04.01.14.
+//
 //
 
-#import "JustTypeTests.h"
+#import <XCTest/XCTest.h>
+
+@interface JustTypeTests : XCTestCase
+
+@end
 
 @implementation JustTypeTests
 
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in JustTypeTests");
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

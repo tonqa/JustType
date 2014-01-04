@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol JTSyntaxWord <NSObject>
 
@@ -14,7 +15,7 @@
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range;
 
 + (id)alloc;
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions;
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode;
 
 - (NSString *)word;
 - (NSArray *)allSuggestions;

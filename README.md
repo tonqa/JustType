@@ -26,13 +26,17 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only three steps to follow. 
 
-1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project source as a dependency.
+1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project source as a dependency. Under *"Workspace / YourTarget / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*. 
 
-2. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
+1. You should check that the import works by adding to your *AppDelegate.m*:
+
+        #import <JustType/JustType.h>
+
+1. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
         [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
 
-3. For using the text input elements you can use JTTextView exactly like a normal UITextView (or alternatively JTTextField like a UITextField) out of the box:
+1. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
         JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
         [self.view addSubview: textView];
@@ -53,11 +57,11 @@ Additional options
                                          initWithFrame:CGRectZero];
         textView.highlightView = myOwnHighlightView;
 
-* If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implementing some of the optional protocol methods:
+* If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
 
         textView.textSuggestionDelegate = self;
 
-* When you implement this protocol it will be useful to set own suggestions for the currently selected word by calling the following method on the textView / textField:
+* When you implement this protocol it will be useful to replace suggestions for the current word by calling the following method on the textView / textField:
 
         [textView selectSuggestionByIndex: suggestionIndex];
 
@@ -69,11 +73,11 @@ Additional options
 
         textView.isSyntaxCompletionUsed = NO;
 
-* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off:
+* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off, too:
 
         [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 
-* Note: You can use the JTTextView and JTTextField also as a stand-alone for syntax highlighting and completion  without intercepting gestures. You can do this by simply not adding the keyboard listener (from step 2) at all or turning it off again:
+* Note: You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
 
         [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
 

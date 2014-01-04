@@ -7,8 +7,7 @@
 //
 
 #import "JTViewController.h"
-#import "JTTextView.h"
-#import "JTTextField.h"
+#import <JustType/JustType.h>
 
 @interface JTViewController ()
 
@@ -49,7 +48,7 @@
         [self.defaultTextView setFont:[UIFont systemFontOfSize:30]];
         [self.defaultTextField setFont:[UIFont systemFontOfSize:30]];
     }
-
+    
     // get the frame for the keyboard attachment view (with suggestions),
     // also a little bit larger on the iPad
     CGRect attachmentViewFrame;

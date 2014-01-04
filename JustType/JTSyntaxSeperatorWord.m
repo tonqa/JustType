@@ -48,7 +48,7 @@
     return sharedSeperatorSuggestions;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
     self = [super init];
     if (self) {
         self.word = [text substringWithRange:range];

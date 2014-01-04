@@ -8,13 +8,14 @@
 
 #import "JTSyntaxLinguisticWord.h"
 #import "NSString+JTExtension.h"
-
+#import <UIKit/UIKit.h>
 #import <UIKit/UITextChecker.h>
 
 @interface JTSyntaxLinguisticWord ()
 
 @property (nonatomic, copy) NSString *word;
 @property (nonatomic, copy) NSArray *allSuggestions;
+@property (nonatomic, retain) UITextInputMode *textInputMode;
 
 - (BOOL)isTextCheckerAvailable;
 - (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word;
@@ -26,6 +27,7 @@
 @implementation JTSyntaxLinguisticWord
 @synthesize word = _word;
 @synthesize allSuggestions = _allSuggestions;
+@synthesize textInputMode = _textInputMode;
 
 + (BOOL)doesMatchWord:(NSString *)word {
     return [self doesMatchWordInText:word range:[word range]];
@@ -33,7 +35,7 @@
 
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range {
     NSRegularExpression *expression = [self sharedLinguisticExpression];
-    int matchesCount = [expression numberOfMatchesInString:text options:0 range:range];
+    NSUInteger matchesCount = [expression numberOfMatchesInString:text options:0 range:range];
     return (matchesCount > 0);
 }
 
@@ -51,10 +53,11 @@
     return sharedLinguisticExpression;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
     self = [super init];
     if (self) {
-        self.word = [text substringWithRange:range];;
+        _word = [text substringWithRange:range];
+        _textInputMode = textInputMode;
         
         if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
 
@@ -70,7 +73,7 @@
             BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
             NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
                 NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
-                int matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
+                NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
                 return (matchesCount > 0) && ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
             }];
             _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
@@ -93,7 +96,7 @@
 
 - (NSString *)selectedLocaleIdentifier {
     //NSString *localeIdentifier = [[NSLocale currentLocale] localeIdentifier];
-    NSString *localeIdentifier = [UITextInputMode currentInputMode].primaryLanguage;
+    NSString *localeIdentifier = self.textInputMode.primaryLanguage;
     localeIdentifier = [localeIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
     return localeIdentifier;
 }
@@ -101,6 +104,17 @@
 - (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word {
     NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
     return [upperCaseSet characterIsMember:[word characterAtIndex:0]];
+}
+
+- (UITextInputMode *)textInputMode {
+    if (!_textInputMode) {
+        // The global method 'currentInputMode' is deprecated, so we check for compatibility reasons up to iOS 6. From iOS 7 on the inputMode is a property of the text input element and will be given by textcontroller.
+        Class textInputModeClass = [UITextInputMode class];
+        if ([textInputModeClass respondsToSelector:@selector(currentInputMode)]) {
+            return [textInputModeClass performSelector:@selector(currentInputMode)];
+        }
+    }
+    return _textInputMode;
 }
 
 @end

@@ -517,7 +517,12 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
         if ([syntaxClass doesMatchWordInText:self.delegate.textContent range:range]) {
-            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion];
+            // we need a check for the textInputMode (iOS7 only)
+            UITextInputMode *textInputMode = nil;
+            if ([self.delegate respondsToSelector:@selector(textInputMode)]) {
+                textInputMode = [self.delegate textInputMode];
+            }
+            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion textInputMode:textInputMode];
             return syntaxWord;
         }
     }

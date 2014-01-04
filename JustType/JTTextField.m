@@ -95,8 +95,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
     if (self.useSyntaxHighlighting) {
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [highlightedString removeAttribute:NSForegroundColorAttributeName range:self.text.range];
-        [highlightedString addAttribute: NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
+        //[highlightedString removeAttribute:NSForegroundColorAttributeName range:self.stri.range];
+        [highlightedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:highlightedString.string.range];
+        [highlightedString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
         [self setAttributedText:highlightedString];
     }
 }

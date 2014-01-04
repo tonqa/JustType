@@ -15,6 +15,7 @@
 @property (nonatomic, assign) CGFloat fontSize;
 
 - (void)setDisplayedWords:(NSArray *)displayedWords;
+- (CGSize)sizeOfText:(NSString *)text withFont:(UIFont *)font;
 
 @end
 
@@ -54,7 +55,7 @@
     if (!displayedWords) {
         NSString *notAvailableText = @"suggestion is not possible";
         UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:self.fontSize];
-        CGSize notAvailableSize = [notAvailableText sizeWithFont:notAvailableFont];
+        CGSize notAvailableSize = [self sizeOfText:notAvailableText withFont:notAvailableFont];
         CGRect notAvailableRect = CGRectMake(20, 0, notAvailableSize.width, self.frame.size.height);
         UILabel *notAvailableLabel = [[UILabel alloc] initWithFrame:notAvailableRect];
         notAvailableLabel.text = notAvailableText;
@@ -66,7 +67,7 @@
     
     UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
     NSString *placeholderText = @"...";
-    CGSize placeholderSize = [placeholderText sizeWithFont:systemFont];
+    CGSize placeholderSize = [self sizeOfText:placeholderText withFont:systemFont];
     CGFloat placeholderWidth = placeholderSize.width + 10;
     
     CGFloat currentX = 0;
@@ -74,7 +75,7 @@
     for (int i = 0; i < [displayedWords count]; i++) {
         
         NSString *displayedWord = [displayedWords objectAtIndex:i];
-        CGSize textSize = [displayedWord sizeWithFont:systemFont];
+        CGSize textSize = [self sizeOfText:displayedWord withFont:systemFont];
         CGFloat buttonWidth = textSize.width + 20;
         
         if (currentX+buttonWidth+placeholderWidth > self.frame.size.width) {
@@ -141,7 +142,31 @@
         font = [UIFont systemFontOfSize:i];
         if ([font lineHeight] < height) break;
     }
-    return [[font fontDescriptor] pointSize];
+    if ([font respondsToSelector:@selector(fontDescriptor)]) {
+        return [[font fontDescriptor] pointSize];
+    }
+    // this is for compatibility reasons up to iOS 6
+    return [font pointSize];
+}
+
+/**
+ * These checks are for compatibility purposes for iOS6
+ */
+- (CGSize)sizeOfText:(NSString *)text withFont:(UIFont *)font {
+    CGSize size;
+    if ([text respondsToSelector:@selector(sizeWithAttributes:)]) {
+        size = [text sizeWithAttributes:@{NSFontAttributeName:font}];
+    } else {
+        SEL aSelector = @selector(sizeWithFont:);
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[text methodSignatureForSelector:aSelector]];
+        
+        [invocation setTarget:text];
+        [invocation setSelector:aSelector];
+        [invocation setArgument:&font atIndex:2];
+        [invocation invoke];
+        [invocation getReturnValue:&size];
+    }
+    return size;
 }
 
 @end

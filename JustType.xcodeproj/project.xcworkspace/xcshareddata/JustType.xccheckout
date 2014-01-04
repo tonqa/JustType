@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>58985A54-0713-42B5-B2DE-17BA81A9923B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>JustType</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D804CD75-EC35-45C3-8593-662C6749A2AD</key>
+		<string>https://bitbucket.org/tonqa/justtype.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>JustType.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D804CD75-EC35-45C3-8593-662C6749A2AD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/tonqa/justtype.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D804CD75-EC35-45C3-8593-662C6749A2AD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D804CD75-EC35-45C3-8593-662C6749A2AD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JustType</string>
+		</dict>
+	</array>
+</dict>
+</plist>

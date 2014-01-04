@@ -7,10 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11213B66187829A600A4880F /* JTKeyboardListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */; };
+		11213B67187829B900A4880F /* JTKeyboardOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */; };
+		11213B68187829B900A4880F /* JTKeyboardAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */; };
+		11213B69187829B900A4880F /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
+		11213B6A187829B900A4880F /* JTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA04186D59E000D16576 /* JTTextField.m */; };
+		11213B6B187829B900A4880F /* JTTextFieldMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */; };
+		11213B6C187829B900A4880F /* JTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA01186D59BF00D16576 /* JTTextView.m */; };
+		11213B6D187829B900A4880F /* JTTextViewMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */; };
+		11213B6E187829B900A4880F /* JTTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F4186D581300D16576 /* JTTextController.m */; };
+		11213B6F187829B900A4880F /* JTDashedBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBAA661876120200566E06 /* JTDashedBorderedView.m */; };
+		11213B70187829B900A4880F /* JTSyntaxLinguisticWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */; };
+		11213B71187829B900A4880F /* JTSyntaxSeperatorWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */; };
+		11213B72187829B900A4880F /* NSString+JTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */; };
+		11213B73187829F000A4880F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
+		11213B7418782A2500A4880F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
+		11213B7718782CDD00A4880F /* libJustType.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 118D78AA1878288C003E2AAD /* libJustType.a */; };
+		11213B7918782EF200A4880F /* JustType.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA10186D5D1100D16576 /* JustType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B7A18782EF300A4880F /* JTKeyboardListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F0186D57D400D16576 /* JTKeyboardListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B7B18782EF300A4880F /* JTKeyboardAttachmentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA09186D5AA300D16576 /* JTKeyboardAttachmentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B7C18782EF300A4880F /* JTTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA03186D59E000D16576 /* JTTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B7D18782EF300A4880F /* JTTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA00186D59BF00D16576 /* JTTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B7E18782F2100A4880F /* JTKeyboardHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */; };
+		11213B7F18782F2100A4880F /* JTKeyboardOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA06186D5A8900D16576 /* JTKeyboardOverlayView.h */; };
+		11213B8018782F2100A4880F /* JTKeyboardGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */; };
+		11213B8118782F2100A4880F /* JTTextFieldMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */; };
+		11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */; };
+		11213B8318782F2100A4880F /* JTTextSuggestionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11213B8418782F2100A4880F /* JTTextController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F3186D581300D16576 /* JTTextController.h */; };
+		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; };
+		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
+		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
+		11213B8818782F2100A4880F /* NSString+JTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */; };
+		118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
+		118D78B81878288D003E2AAD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11676FFC187825E80058BFD1 /* XCTest.framework */; };
+		118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
+		118D78BA1878288D003E2AAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
+		118D78BD1878288D003E2AAD /* libJustType.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 118D78AA1878288C003E2AAD /* libJustType.a */; };
+		118D78C31878288D003E2AAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 118D78C11878288D003E2AAD /* InfoPlist.strings */; };
+		118D78C51878288D003E2AAD /* JustTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D78C41878288D003E2AAD /* JustTypeTests.m */; };
 		11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B6294A18753CAB008FB812 /* Default-568h@2x.png */; };
-		11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */; };
-		11DBAA671876120200566E06 /* JTDashedBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBAA661876120200566E06 /* JTDashedBorderedView.m */; };
-		6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		65B7A9BC186D56A000D16576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
@@ -20,35 +56,46 @@
 		65B7A9CB186D56A000D16576 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65B7A9C9186D56A000D16576 /* MainStoryboard_iPhone.storyboard */; };
 		65B7A9CE186D56A000D16576 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65B7A9CC186D56A000D16576 /* MainStoryboard_iPad.storyboard */; };
 		65B7A9D1186D56A000D16576 /* JTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9D0186D56A000D16576 /* JTViewController.m */; };
-		65B7A9D9186D56A000D16576 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9D8186D56A000D16576 /* SenTestingKit.framework */; };
-		65B7A9DA186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
-		65B7A9DB186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
-		65B7A9E3186D56A000D16576 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65B7A9E1186D56A000D16576 /* InfoPlist.strings */; };
-		65B7A9E6186D56A000D16576 /* JustTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9E5186D56A000D16576 /* JustTypeTests.m */; };
-		65B7A9F2186D57D400D16576 /* JTKeyboardListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */; };
-		65B7A9F5186D581300D16576 /* JTTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9F4186D581300D16576 /* JTTextController.m */; };
-		65B7A9FB186D589300D16576 /* JTSyntaxSeperatorWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */; };
-		65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */; };
-		65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA01186D59BF00D16576 /* JTTextView.m */; };
-		65B7AA05186D59E000D16576 /* JTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA04186D59E000D16576 /* JTTextField.m */; };
-		65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */; };
-		65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */; };
 		65B7AA13186D66DB00D16576 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7AA11186D66CE00D16576 /* QuartzCore.framework */; };
-		65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */; };
-		65D66F89186DFDD000302F2F /* JTTextViewMediatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		65B7A9DC186D56A000D16576 /* PBXContainerItemProxy */ = {
+		11213B7518782CD600A4880F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65B7A9AA186D56A000D16576 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 65B7A9B2186D56A000D16576;
+			remoteGlobalIDString = 118D78A91878288C003E2AAD;
+			remoteInfo = JustType;
+		};
+		118D78BB1878288D003E2AAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65B7A9AA186D56A000D16576 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 118D78A91878288C003E2AAD;
 			remoteInfo = JustType;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		118D78A81878288C003E2AAD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		11676FFC187825E80058BFD1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		118D78AA1878288C003E2AAD /* libJustType.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJustType.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		118D78AE1878288D003E2AAD /* JustType-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustType-Prefix.pch"; sourceTree = "<group>"; };
+		118D78B71878288D003E2AAD /* JustTypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		118D78C01878288D003E2AAD /* JustTypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeTests-Info.plist"; sourceTree = "<group>"; };
+		118D78C21878288D003E2AAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		118D78C41878288D003E2AAD /* JustTypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustTypeTests.m; sourceTree = "<group>"; };
 		11B6294A18753CAB008FB812 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextFieldMediatorDelegate.h; sourceTree = "<group>"; };
 		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
@@ -57,7 +104,7 @@
 		11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextSuggestionDelegate.h; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
-		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65B7A9B3186D56A000D16576 /* JustTypeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9B7186D56A000D16576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B7A9B9186D56A000D16576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B7A9BB186D56A000D16576 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -71,12 +118,7 @@
 		65B7A9CD186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		65B7A9CF186D56A000D16576 /* JTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JTViewController.h; sourceTree = "<group>"; };
 		65B7A9D0186D56A000D16576 /* JTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTViewController.m; sourceTree = "<group>"; };
-		65B7A9D7186D56A000D16576 /* JustTypeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTypeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9D8186D56A000D16576 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		65B7A9E0186D56A000D16576 /* JustTypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeTests-Info.plist"; sourceTree = "<group>"; };
-		65B7A9E2186D56A000D16576 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65B7A9E4186D56A000D16576 /* JustTypeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustTypeTests.h; sourceTree = "<group>"; };
-		65B7A9E5186D56A000D16576 /* JustTypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustTypeTests.m; sourceTree = "<group>"; };
 		65B7A9F0186D57D400D16576 /* JTKeyboardListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardListener.h; sourceTree = "<group>"; };
 		65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardListener.m; sourceTree = "<group>"; };
 		65B7A9F3186D581300D16576 /* JTTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextController.h; sourceTree = "<group>"; };
@@ -104,10 +146,32 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		118D78A71878288C003E2AAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11213B7418782A2500A4880F /* CoreGraphics.framework in Frameworks */,
+				118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */,
+				11213B73187829F000A4880F /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		118D78B41878288D003E2AAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				118D78B81878288D003E2AAD /* XCTest.framework in Frameworks */,
+				118D78BA1878288D003E2AAD /* UIKit.framework in Frameworks */,
+				118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */,
+				118D78BD1878288D003E2AAD /* libJustType.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B7A9B0186D56A000D16576 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11213B7718782CDD00A4880F /* libJustType.a in Frameworks */,
 				65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */,
 				65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */,
 				65B7A9BC186D56A000D16576 /* CoreGraphics.framework in Frameworks */,
@@ -115,24 +179,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65B7A9D3186D56A000D16576 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65B7A9D9186D56A000D16576 /* SenTestingKit.framework in Frameworks */,
-				65B7A9DA186D56A000D16576 /* UIKit.framework in Frameworks */,
-				65B7A9DB186D56A000D16576 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		118D78AC1878288D003E2AAD /* JustType */ = {
+			isa = PBXGroup;
+			children = (
+				65B7AA10186D5D1100D16576 /* JustType.h */,
+				65B7AA0C186D5AB200D16576 /* Keyboard Gestures */,
+				65B7AA0D186D5AC700D16576 /* Text Management */,
+				65B7AA0E186D5AE400D16576 /* Syntax Words */,
+				118D78AD1878288D003E2AAD /* Supporting Files */,
+			);
+			path = JustType;
+			sourceTree = "<group>";
+		};
+		118D78AD1878288D003E2AAD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				118D78AE1878288D003E2AAD /* JustType-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		118D78BE1878288D003E2AAD /* JustTypeTests */ = {
+			isa = PBXGroup;
+			children = (
+				118D78C41878288D003E2AAD /* JustTypeTests.m */,
+				118D78BF1878288D003E2AAD /* Supporting Files */,
+			);
+			path = JustTypeTests;
+			sourceTree = "<group>";
+		};
+		118D78BF1878288D003E2AAD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				118D78C01878288D003E2AAD /* JustTypeTests-Info.plist */,
+				118D78C11878288D003E2AAD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		65B7A9A8186D56A000D16576 = {
 			isa = PBXGroup;
 			children = (
-				65B7A9BD186D56A000D16576 /* JustType */,
-				65B7A9DE186D56A000D16576 /* JustTypeTests */,
+				65B7A9BD186D56A000D16576 /* JustTypeDemo */,
+				118D78AC1878288D003E2AAD /* JustType */,
+				118D78BE1878288D003E2AAD /* JustTypeTests */,
 				65B7A9B6186D56A000D16576 /* Frameworks */,
 				65B7A9B4186D56A000D16576 /* Products */,
 			);
@@ -141,8 +234,9 @@
 		65B7A9B4186D56A000D16576 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				65B7A9B3186D56A000D16576 /* JustType.app */,
-				65B7A9D7186D56A000D16576 /* JustTypeTests.octest */,
+				65B7A9B3186D56A000D16576 /* JustTypeDemo.app */,
+				118D78AA1878288C003E2AAD /* libJustType.a */,
+				118D78B71878288D003E2AAD /* JustTypeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,11 +249,12 @@
 				65B7A9B9186D56A000D16576 /* Foundation.framework */,
 				65B7A9BB186D56A000D16576 /* CoreGraphics.framework */,
 				65B7A9D8186D56A000D16576 /* SenTestingKit.framework */,
+				11676FFC187825E80058BFD1 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		65B7A9BD186D56A000D16576 /* JustType */ = {
+		65B7A9BD186D56A000D16576 /* JustTypeDemo */ = {
 			isa = PBXGroup;
 			children = (
 				65B7A9C6186D56A000D16576 /* JTAppDelegate.h */,
@@ -168,10 +263,9 @@
 				65B7A9CC186D56A000D16576 /* MainStoryboard_iPad.storyboard */,
 				65B7A9CF186D56A000D16576 /* JTViewController.h */,
 				65B7A9D0186D56A000D16576 /* JTViewController.m */,
-				65B7A9EF186D570000D16576 /* Library */,
 				65B7A9BE186D56A000D16576 /* Supporting Files */,
 			);
-			path = JustType;
+			path = JustTypeDemo;
 			sourceTree = "<group>";
 		};
 		65B7A9BE186D56A000D16576 /* Supporting Files */ = {
@@ -184,36 +278,6 @@
 				65B7A9C5186D56A000D16576 /* JustType-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65B7A9DE186D56A000D16576 /* JustTypeTests */ = {
-			isa = PBXGroup;
-			children = (
-				65B7A9E4186D56A000D16576 /* JustTypeTests.h */,
-				65B7A9E5186D56A000D16576 /* JustTypeTests.m */,
-				65B7A9DF186D56A000D16576 /* Supporting Files */,
-			);
-			path = JustTypeTests;
-			sourceTree = "<group>";
-		};
-		65B7A9DF186D56A000D16576 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65B7A9E0186D56A000D16576 /* JustTypeTests-Info.plist */,
-				65B7A9E1186D56A000D16576 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65B7A9EF186D570000D16576 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				65B7AA10186D5D1100D16576 /* JustType.h */,
-				65B7AA0C186D5AB200D16576 /* Keyboard Gestures */,
-				65B7AA0D186D5AC700D16576 /* Text Management */,
-				65B7AA0E186D5AE400D16576 /* Syntax Words */,
-			);
-			name = Library;
 			sourceTree = "<group>";
 		};
 		65B7AA0C186D5AB200D16576 /* Keyboard Gestures */ = {
@@ -268,10 +332,72 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		11213B7818782ED700A4880F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11213B7918782EF200A4880F /* JustType.h in Headers */,
+				11213B7A18782EF300A4880F /* JTKeyboardListener.h in Headers */,
+				11213B7B18782EF300A4880F /* JTKeyboardAttachmentView.h in Headers */,
+				11213B7C18782EF300A4880F /* JTTextField.h in Headers */,
+				11213B7D18782EF300A4880F /* JTTextView.h in Headers */,
+				11213B8318782F2100A4880F /* JTTextSuggestionDelegate.h in Headers */,
+				11213B7E18782F2100A4880F /* JTKeyboardHeaders.h in Headers */,
+				11213B7F18782F2100A4880F /* JTKeyboardOverlayView.h in Headers */,
+				11213B8018782F2100A4880F /* JTKeyboardGestureRecognizer.h in Headers */,
+				11213B8118782F2100A4880F /* JTTextFieldMediatorDelegate.h in Headers */,
+				11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */,
+				11213B8418782F2100A4880F /* JTTextController.h in Headers */,
+				11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */,
+				11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */,
+				11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */,
+				11213B8818782F2100A4880F /* NSString+JTExtension.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		65B7A9B2186D56A000D16576 /* JustType */ = {
+		118D78A91878288C003E2AAD /* JustType */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65B7A9E9186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustType" */;
+			buildConfigurationList = 118D78CA1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustType" */;
+			buildPhases = (
+				118D78A61878288C003E2AAD /* Sources */,
+				118D78A71878288C003E2AAD /* Frameworks */,
+				118D78A81878288C003E2AAD /* CopyFiles */,
+				11213B7818782ED700A4880F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JustType;
+			productName = JustType;
+			productReference = 118D78AA1878288C003E2AAD /* libJustType.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		118D78B61878288D003E2AAD /* JustTypeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 118D78CB1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustTypeTests" */;
+			buildPhases = (
+				118D78B31878288D003E2AAD /* Sources */,
+				118D78B41878288D003E2AAD /* Frameworks */,
+				118D78B51878288D003E2AAD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				118D78BC1878288D003E2AAD /* PBXTargetDependency */,
+			);
+			name = JustTypeTests;
+			productName = JustTypeTests;
+			productReference = 118D78B71878288D003E2AAD /* JustTypeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		65B7A9B2186D56A000D16576 /* JustTypeDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65B7A9E9186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustTypeDemo" */;
 			buildPhases = (
 				65B7A9AF186D56A000D16576 /* Sources */,
 				65B7A9B0186D56A000D16576 /* Frameworks */,
@@ -280,30 +406,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				11213B7618782CD600A4880F /* PBXTargetDependency */,
 			);
-			name = JustType;
+			name = JustTypeDemo;
 			productName = JustType;
-			productReference = 65B7A9B3186D56A000D16576 /* JustType.app */;
+			productReference = 65B7A9B3186D56A000D16576 /* JustTypeDemo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		65B7A9D6186D56A000D16576 /* JustTypeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65B7A9EC186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustTypeTests" */;
-			buildPhases = (
-				65B7A9D2186D56A000D16576 /* Sources */,
-				65B7A9D3186D56A000D16576 /* Frameworks */,
-				65B7A9D4186D56A000D16576 /* Resources */,
-				65B7A9D5186D56A000D16576 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65B7A9DD186D56A000D16576 /* PBXTargetDependency */,
-			);
-			name = JustTypeTests;
-			productName = JustTypeTests;
-			productReference = 65B7A9D7186D56A000D16576 /* JustTypeTests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -312,6 +420,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					118D78B61878288D003E2AAD = {
+						TestTargetID = 65B7A9B2186D56A000D16576;
+					};
+				};
 			};
 			buildConfigurationList = 65B7A9AD186D56A000D16576 /* Build configuration list for PBXProject "JustType" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -325,13 +438,22 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				65B7A9B2186D56A000D16576 /* JustType */,
-				65B7A9D6186D56A000D16576 /* JustTypeTests */,
+				65B7A9B2186D56A000D16576 /* JustTypeDemo */,
+				118D78A91878288C003E2AAD /* JustType */,
+				118D78B61878288D003E2AAD /* JustTypeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		118D78B51878288D003E2AAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				118D78C31878288D003E2AAD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B7A9B1186D56A000D16576 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,33 +465,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65B7A9D4186D56A000D16576 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65B7A9E3186D56A000D16576 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		65B7A9D5186D56A000D16576 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
+/* Begin PBXSourcesBuildPhase section */
+		118D78A61878288C003E2AAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
+				11213B71187829B900A4880F /* JTSyntaxSeperatorWord.m in Sources */,
+				11213B67187829B900A4880F /* JTKeyboardOverlayView.m in Sources */,
+				11213B70187829B900A4880F /* JTSyntaxLinguisticWord.m in Sources */,
+				11213B6C187829B900A4880F /* JTTextView.m in Sources */,
+				11213B6F187829B900A4880F /* JTDashedBorderedView.m in Sources */,
+				11213B6E187829B900A4880F /* JTTextController.m in Sources */,
+				11213B6A187829B900A4880F /* JTTextField.m in Sources */,
+				11213B66187829A600A4880F /* JTKeyboardListener.m in Sources */,
+				11213B72187829B900A4880F /* NSString+JTExtension.m in Sources */,
+				11213B6B187829B900A4880F /* JTTextFieldMediatorDelegate.m in Sources */,
+				11213B6D187829B900A4880F /* JTTextViewMediatorDelegate.m in Sources */,
+				11213B69187829B900A4880F /* JTKeyboardGestureRecognizer.m in Sources */,
+				11213B68187829B900A4880F /* JTKeyboardAttachmentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
+		118D78B31878288D003E2AAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				118D78C51878288D003E2AAD /* JustTypeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B7A9AF186D56A000D16576 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,41 +503,33 @@
 				65B7A9C4186D56A000D16576 /* main.m in Sources */,
 				65B7A9C8186D56A000D16576 /* JTAppDelegate.m in Sources */,
 				65B7A9D1186D56A000D16576 /* JTViewController.m in Sources */,
-				65B7A9F2186D57D400D16576 /* JTKeyboardListener.m in Sources */,
-				65B7A9F5186D581300D16576 /* JTTextController.m in Sources */,
-				65B7A9FB186D589300D16576 /* JTSyntaxSeperatorWord.m in Sources */,
-				11DAFAA418747D260050CAC3 /* JTTextFieldMediatorDelegate.m in Sources */,
-				65B7A9FE186D590F00D16576 /* JTSyntaxLinguisticWord.m in Sources */,
-				65B7AA02186D59BF00D16576 /* JTTextView.m in Sources */,
-				65B7AA05186D59E000D16576 /* JTTextField.m in Sources */,
-				11DBAA671876120200566E06 /* JTDashedBorderedView.m in Sources */,
-				65B7AA08186D5A8900D16576 /* JTKeyboardOverlayView.m in Sources */,
-				65B7AA0B186D5AA400D16576 /* JTKeyboardAttachmentView.m in Sources */,
-				65B7AA16186D6E1700D16576 /* NSString+JTExtension.m in Sources */,
-				65D66F89186DFDD000302F2F /* JTTextViewMediatorDelegate.m in Sources */,
-				6581EFE11872F7AA00AFFB1D /* JTKeyboardGestureRecognizer.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65B7A9D2186D56A000D16576 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65B7A9E6186D56A000D16576 /* JustTypeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		65B7A9DD186D56A000D16576 /* PBXTargetDependency */ = {
+		11213B7618782CD600A4880F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 65B7A9B2186D56A000D16576 /* JustType */;
-			targetProxy = 65B7A9DC186D56A000D16576 /* PBXContainerItemProxy */;
+			target = 118D78A91878288C003E2AAD /* JustType */;
+			targetProxy = 11213B7518782CD600A4880F /* PBXContainerItemProxy */;
+		};
+		118D78BC1878288D003E2AAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 118D78A91878288C003E2AAD /* JustType */;
+			targetProxy = 118D78BB1878288D003E2AAD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		118D78C11878288D003E2AAD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				118D78C21878288D003E2AAD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		65B7A9C0186D56A000D16576 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -436,17 +554,111 @@
 			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
-		65B7A9E1186D56A000D16576 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65B7A9E2186D56A000D16576 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		118D78C61878288D003E2AAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DSTROOT = /tmp/JustType.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = JustType;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		118D78C71878288D003E2AAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DSTROOT = /tmp/JustType.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = JustType;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		118D78C81878288D003E2AAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JustTypeDemo.app/JustTypeDemo";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		118D78C91878288D003E2AAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JustTypeDemo.app/JustTypeDemo";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		65B7A9E7186D56A000D16576 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -476,7 +688,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -505,7 +717,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -517,8 +729,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
-				INFOPLIST_FILE = "JustType/JustType-Info.plist";
+				GCC_PREFIX_HEADER = "JustTypeDemo/JustType-Prefix.pch";
+				INFOPLIST_FILE = "JustTypeDemo/JustType-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -528,50 +744,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
-				INFOPLIST_FILE = "JustType/JustType-Info.plist";
+				GCC_PREFIX_HEADER = "JustTypeDemo/JustType-Prefix.pch";
+				INFOPLIST_FILE = "JustTypeDemo/JustType-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		65B7A9ED186D56A000D16576 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JustType.app/JustType";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
-				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		65B7A9EE186D56A000D16576 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JustType.app/JustType";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
-				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		118D78CA1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustType" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				118D78C61878288D003E2AAD /* Debug */,
+				118D78C71878288D003E2AAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		118D78CB1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustTypeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				118D78C81878288D003E2AAD /* Debug */,
+				118D78C91878288D003E2AAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		65B7A9AD186D56A000D16576 /* Build configuration list for PBXProject "JustType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -581,20 +785,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		65B7A9E9186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustType" */ = {
+		65B7A9E9186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustTypeDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65B7A9EA186D56A000D16576 /* Debug */,
 				65B7A9EB186D56A000D16576 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65B7A9EC186D56A000D16576 /* Build configuration list for PBXNativeTarget "JustTypeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65B7A9ED186D56A000D16576 /* Debug */,
-				65B7A9EE186D56A000D16576 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
