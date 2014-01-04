@@ -35,6 +35,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
 @synthesize useSyntaxCompletion = _useSyntaxCompletion;
 @synthesize textSuggestionDelegate = _textSuggestionDelegate;
+@synthesize unhighlightedColor = _unhighlightedColor;
+@synthesize highlightedColor = _highlightedColor;
 
 #pragma mark - Object lifecycle
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -42,6 +44,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
     if (self) {
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         
+        _unhighlightedColor = [UIColor blackColor];
+        _highlightedColor = [UIColor grayColor];
         _textController = [[JTTextController alloc] init];
         _textController.delegate = self;
         
@@ -95,9 +99,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
     if (self.useSyntaxHighlighting) {
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        //[highlightedString removeAttribute:NSForegroundColorAttributeName range:self.stri.range];
-        [highlightedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:highlightedString.string.range];
-        [highlightedString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:newRange];
+        //[highlightedString removeAttribute:NSForegroundColorAttributeName range:highlightedString.string.range];
+        [highlightedString addAttribute:NSForegroundColorAttributeName value:self.unhighlightedColor range:highlightedString.string.range];
+        [highlightedString addAttribute:NSForegroundColorAttributeName value:self.highlightedColor range:newRange];
         [self setAttributedText:highlightedString];
     }
 }

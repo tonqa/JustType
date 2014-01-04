@@ -14,6 +14,8 @@
 @property (nonatomic, assign, getter = isSyntaxHighlightingUsed) BOOL useSyntaxHighlighting;
 @property (nonatomic, assign, getter = isSyntaxCompletionUsed) BOOL useSyntaxCompletion;
 
+@property (nonatomic, retain) UIColor *unhighlightedColor;
+@property (nonatomic, retain) UIColor *highlightedColor;
 @property (nonatomic, retain) UIView *highlightView;
 @property (nonatomic, assign) id<JTTextSuggestionDelegate> textSuggestionDelegate;
 
