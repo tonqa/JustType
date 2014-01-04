@@ -16,7 +16,7 @@
 
 @property (nonatomic, retain) UIColor *unhighlightedColor;
 @property (nonatomic, retain) UIColor *highlightedColor;
-@property (nonatomic, retain) UIView *highlightView;
+
 @property (nonatomic, assign) id<JTTextSuggestionDelegate> textSuggestionDelegate;
 
 - (void)moveToPreviousWord;

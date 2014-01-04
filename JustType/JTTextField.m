@@ -29,7 +29,6 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize textController = _textController;
 @synthesize tapGesture = _tapGesture;
 @synthesize pressGesture = _pressGesture;
-@synthesize highlightView = _highlightView;
 @synthesize actualDelegate = _actualDelegate;
 @synthesize mediatorDelegate = _mediatorDelegate;
 @synthesize useSyntaxHighlighting = _useSyntaxHighlighting;
@@ -52,10 +51,6 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
         self.useSyntaxHighlighting = YES;
         self.useSyntaxCompletion = YES;
         
-        JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
-        highlightView.backgroundColor = [UIColor clearColor];
-        [self setHighlightView:highlightView];
-
         _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
         _mediatorDelegate.textField = self;
         [super setDelegate:_mediatorDelegate];
@@ -199,14 +194,6 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 - (BOOL)isSyntaxCompletionUsed {
     return [self.textController isSyntaxCompletionUsed];
-}
-
-- (void)setHighlightView:(UIView *)highlightView {
-    if (_highlightView != highlightView) {
-        highlightView.userInteractionEnabled = NO;
-        [self addSubview:highlightView];
-        _highlightView = highlightView;
-    }
 }
 
 @end
