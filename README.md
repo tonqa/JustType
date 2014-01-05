@@ -1,6 +1,8 @@
 Just Type - The iOS keyboard for everyone
 ==============
 
+[![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
+[![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 
 Reasoning
 ---------------------
@@ -26,7 +28,13 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only three steps to follow. 
 
-1. Add the static library to your project by installing it via pod, dragging the compiled JustType.a in your project or linking the project source as a dependency. Under *"Workspace / YourTarget / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*. 
+1. Add the static library to your project by installing it via [CocoaPods](http://www.cocoapods.org), dragging the compiled *libJustType.a* in your project or linking the project source as a dependency. Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*. 
+
+        $ cd <Your Project>
+        $ edit Podfile
+        platform :ios
+        pod 'JustType',       '~> 1.0'
+        $ pod install
 
 1. You should check that the import works by adding to your *AppDelegate.m*:
 
