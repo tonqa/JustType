@@ -8,7 +8,6 @@
 
 #import <objc/runtime.h>
 #import "JTTextField.h"
-#import "NSString+JTExtension.h"
 #import "JTTextFieldMediatorDelegate.h"
 #import "JTDashedBorderedView.h"
 
@@ -94,8 +93,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
     if (self.useSyntaxHighlighting) {
         NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+        NSRange wordLength = NSMakeRange(0, [highlightedString.string length]);
         //[highlightedString removeAttribute:NSForegroundColorAttributeName range:highlightedString.string.range];
-        [highlightedString addAttribute:NSForegroundColorAttributeName value:self.unhighlightedColor range:highlightedString.string.range];
+        [highlightedString addAttribute:NSForegroundColorAttributeName value:self.unhighlightedColor range:wordLength];
         [highlightedString addAttribute:NSForegroundColorAttributeName value:self.highlightedColor range:newRange];
         [self setAttributedText:highlightedString];
     }

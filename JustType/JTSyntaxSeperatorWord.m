@@ -7,23 +7,18 @@
 //
 
 #import "JTSyntaxSeperatorWord.h"
-#import "NSString+JTExtension.h"
 
 @interface JTSyntaxSeperatorWord ()
 
-@property (nonatomic, copy) NSString *word;
+@property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSArray *allSuggestions;
 
 @end
 
 
 @implementation JTSyntaxSeperatorWord
-@synthesize word = _word;
+@synthesize text = _text;
 @synthesize allSuggestions = _allSuggestions;
-
-+ (BOOL)doesMatchWord:(NSString *)word {
-    return [self doesMatchWordInText:word range:[word range]];
-}
 
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range {
     static NSRegularExpression *sharedSeperatorExpression;
@@ -51,11 +46,11 @@
 - (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
     self = [super init];
     if (self) {
-        self.word = [text substringWithRange:range];
+        self.text = [text substringWithRange:range];
         
         if (shouldUseSuggestions) {
             NSMutableArray *mutableSuggestions = [NSMutableArray arrayWithArray:[[self class] possibleSuggestions]];
-            [mutableSuggestions removeObject:self.word];
+            [mutableSuggestions removeObject:self.text];
             _allSuggestions = mutableSuggestions;
         } else {
             _allSuggestions = [NSArray array];
@@ -66,7 +61,7 @@
 }
 
 - (void)dealloc {
-    self.word = nil;
+    self.text = nil;
 }
 
 @end

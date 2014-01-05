@@ -48,6 +48,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (void)doPolling;
 - (void)stopPollingAndCleanGesture;
 - (void)recomputeSwipeDirection;
+- (BOOL)keyboardIsAvailable;
 
 @end
 

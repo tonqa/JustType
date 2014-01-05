@@ -231,7 +231,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSString *word = nil;
     if (index == -1) {
-        word = [self.selectedSyntaxWord word];
+        word = [self.selectedSyntaxWord text];
     } else {
         word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
     }
@@ -426,7 +426,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         id<JTSyntaxWord> syntaxWord = [self syntaxWordForTextInRange:rangeOfSelectedWord];
         
-        if ([[syntaxWord word] isEqualToString:[self.selectedSyntaxWord word]] && self.selectedSyntaxWordRange.location == rangeOfSelectedWord.location && self.selectedSyntaxWordSuggestionIndex == -1)
+        if ([[syntaxWord text] isEqualToString:[self.selectedSyntaxWord text]] && self.selectedSyntaxWordRange.location == rangeOfSelectedWord.location && self.selectedSyntaxWordSuggestionIndex == -1)
             return;
         
         self.selectedSyntaxWordRange = rangeOfSelectedWord;
@@ -435,7 +435,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         // this allows others to display suggestions
         if ([self.textSuggestionDelegate respondsToSelector:@selector(didSelectWord:atRange:suggestions:)]) {
-            [self.textSuggestionDelegate didSelectWord:[syntaxWord word] atRange:rangeOfSelectedWord suggestions:[syntaxWord allSuggestions]];
+            [self.textSuggestionDelegate didSelectWord:[syntaxWord text] atRange:rangeOfSelectedWord suggestions:[syntaxWord allSuggestions]];
         }
         
         // set changed syntax word
@@ -558,7 +558,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
     
     if (*currentIndex == -1) {
-        *word = [self.selectedSyntaxWord word];
+        *word = [self.selectedSyntaxWord text];
     } else {
         *word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:*currentIndex];
     }

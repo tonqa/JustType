@@ -9,7 +9,6 @@
 #import "JTTextView.h"
 #import "JTTextViewMediatorDelegate.h"
 #import "JTKeyboardAttachmentView.h"
-#import "NSString+JTExtension.h"
 #import "JTDashedBorderedView.h"
 
 @interface JTTextView ()

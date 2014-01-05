@@ -7,13 +7,12 @@
 //
 
 #import "JTSyntaxLinguisticWord.h"
-#import "NSString+JTExtension.h"
 #import <UIKit/UIKit.h>
 #import <UIKit/UITextChecker.h>
 
 @interface JTSyntaxLinguisticWord ()
 
-@property (nonatomic, copy) NSString *word;
+@property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSArray *allSuggestions;
 @property (nonatomic, retain) UITextInputMode *textInputMode;
 
@@ -25,13 +24,9 @@
 
 
 @implementation JTSyntaxLinguisticWord
-@synthesize word = _word;
+@synthesize text = _text;
 @synthesize allSuggestions = _allSuggestions;
 @synthesize textInputMode = _textInputMode;
-
-+ (BOOL)doesMatchWord:(NSString *)word {
-    return [self doesMatchWordInText:word range:[word range]];
-}
 
 + (BOOL)doesMatchWordInText:(NSString *)text range:(NSRange)range {
     NSRegularExpression *expression = [self sharedLinguisticExpression];
@@ -56,7 +51,7 @@
 - (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
     self = [super init];
     if (self) {
-        _word = [text substringWithRange:range];
+        _text = [text substringWithRange:range];
         _textInputMode = textInputMode;
         
         if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
@@ -70,7 +65,7 @@
             _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[self selectedLocaleIdentifier]];
             
             // this checks that all suggestions are of the same case
-            BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.word];
+            BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.text];
             NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
                 NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
                 NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
@@ -86,7 +81,7 @@
 }
 
 - (void)dealloc {
-    self.word = nil;
+    self.text = nil;
 }
 
 #pragma mark - private methods

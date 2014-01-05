@@ -19,7 +19,6 @@
 		11213B6F187829B900A4880F /* JTDashedBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DBAA661876120200566E06 /* JTDashedBorderedView.m */; };
 		11213B70187829B900A4880F /* JTSyntaxLinguisticWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */; };
 		11213B71187829B900A4880F /* JTSyntaxSeperatorWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */; };
-		11213B72187829B900A4880F /* NSString+JTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */; };
 		11213B73187829F000A4880F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		11213B7418782A2500A4880F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
 		11213B7718782CDD00A4880F /* libJustType.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 118D78AA1878288C003E2AAD /* libJustType.a */; };
@@ -38,7 +37,6 @@
 		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; };
 		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
-		11213B8818782F2100A4880F /* NSString+JTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */; };
 		118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		118D78B81878288D003E2AAD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11676FFC187825E80058BFD1 /* XCTest.framework */; };
 		118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -139,8 +137,6 @@
 		65B7AA0F186D5CC600D16576 /* JTKeyboardHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardHeaders.h; sourceTree = "<group>"; };
 		65B7AA10186D5D1100D16576 /* JustType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustType.h; sourceTree = "<group>"; };
 		65B7AA11186D66CE00D16576 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JTExtension.h"; sourceTree = "<group>"; };
-		65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JTExtension.m"; sourceTree = "<group>"; };
 		65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextViewMediatorDelegate.h; sourceTree = "<group>"; };
 		65D66F88186DFDD000302F2F /* JTTextViewMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextViewMediatorDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,8 +320,6 @@
 				65B7A9FD186D590F00D16576 /* JTSyntaxLinguisticWord.m */,
 				65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */,
 				65B7A9FA186D589300D16576 /* JTSyntaxSeperatorWord.m */,
-				65B7AA14186D6E1700D16576 /* NSString+JTExtension.h */,
-				65B7AA15186D6E1700D16576 /* NSString+JTExtension.m */,
 			);
 			name = "Syntax Words";
 			sourceTree = "<group>";
@@ -352,7 +346,6 @@
 				11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */,
 				11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */,
 				11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */,
-				11213B8818782F2100A4880F /* NSString+JTExtension.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +473,6 @@
 				11213B6E187829B900A4880F /* JTTextController.m in Sources */,
 				11213B6A187829B900A4880F /* JTTextField.m in Sources */,
 				11213B66187829A600A4880F /* JTKeyboardListener.m in Sources */,
-				11213B72187829B900A4880F /* NSString+JTExtension.m in Sources */,
 				11213B6B187829B900A4880F /* JTTextFieldMediatorDelegate.m in Sources */,
 				11213B6D187829B900A4880F /* JTTextViewMediatorDelegate.m in Sources */,
 				11213B69187829B900A4880F /* JTKeyboardGestureRecognizer.m in Sources */,

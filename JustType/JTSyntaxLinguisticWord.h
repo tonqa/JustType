@@ -8,6 +8,9 @@
 
 #import "JTSyntaxWord.h"
 
+/**
+ *  A syntax word that applies to 'linguistic' words which can be translated by the syntax checker.
+ */
 @interface JTSyntaxLinguisticWord : NSObject<JTSyntaxWord>
 
 @end

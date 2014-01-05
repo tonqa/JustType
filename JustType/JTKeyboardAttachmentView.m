@@ -39,7 +39,7 @@
 
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
     if (syntaxWord) {
-        NSArray *allWords = [NSArray arrayWithObject:syntaxWord.word];
+        NSArray *allWords = [NSArray arrayWithObject:syntaxWord.text];
         allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];
         [self setDisplayedWords:allWords];
     } else {
