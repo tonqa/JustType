@@ -43,7 +43,13 @@
 		118D78BA1878288D003E2AAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		118D78BD1878288D003E2AAD /* libJustType.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 118D78AA1878288C003E2AAD /* libJustType.a */; };
 		118D78C31878288D003E2AAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 118D78C11878288D003E2AAD /* InfoPlist.strings */; };
-		118D78C51878288D003E2AAD /* JustTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D78C41878288D003E2AAD /* JustTypeTests.m */; };
+		1196FFB31879CBB900642982 /* JTKeyboardListenerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */; };
+		1196FFB51879CBCA00642982 /* JTKeyboardAttachmentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */; };
+		1196FFB71879CBF500642982 /* JTTextControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB61879CBF500642982 /* JTTextControllerTests.m */; };
+		1196FFB91879CC5100642982 /* JTTextSuggestionDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */; };
+		1196FFBB1879CC8100642982 /* JTTextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFBA1879CC8100642982 /* JTTextFieldTests.m */; };
+		1196FFBD1879CC8D00642982 /* JTTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFBC1879CC8D00642982 /* JTTextViewTests.m */; };
+		1196FFD0187A0E1D00642982 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1196FFC8187A0E1D00642982 /* libOCMock.a */; };
 		11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B6294A18753CAB008FB812 /* Default-568h@2x.png */; };
 		11FCDAEB1879C0C300D0E9CB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11FCDAEA1879C0C300D0E9CB /* Media.xcassets */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
@@ -94,7 +100,21 @@
 		118D78B71878288D003E2AAD /* JustTypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D78C01878288D003E2AAD /* JustTypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeTests-Info.plist"; sourceTree = "<group>"; };
 		118D78C21878288D003E2AAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		118D78C41878288D003E2AAD /* JustTypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustTypeTests.m; sourceTree = "<group>"; };
+		1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardListenerTests.m; sourceTree = "<group>"; };
+		1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardAttachmentViewTests.m; sourceTree = "<group>"; };
+		1196FFB61879CBF500642982 /* JTTextControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextControllerTests.m; sourceTree = "<group>"; };
+		1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextSuggestionDelegateTests.m; sourceTree = "<group>"; };
+		1196FFBA1879CC8100642982 /* JTTextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldTests.m; sourceTree = "<group>"; };
+		1196FFBC1879CC8D00642982 /* JTTextViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextViewTests.m; sourceTree = "<group>"; };
+		1196FFC8187A0E1D00642982 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = libraries/libOCMock.a; sourceTree = "<group>"; };
+		1196FFCA187A0E1D00642982 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		1196FFCB187A0E1D00642982 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		1196FFCC187A0E1D00642982 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		1196FFCD187A0E1D00642982 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		1196FFCE187A0E1D00642982 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		1196FFCF187A0E1D00642982 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		1196FFD1187A102100642982 /* JTKeyboardListener+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTKeyboardListener+TestsPrivate.h"; sourceTree = "<group>"; };
+		1196FFD5187A84CE00642982 /* JTKeyboardAttachmentView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTKeyboardAttachmentView+TestsPrivate.h"; sourceTree = "<group>"; };
 		11B6294A18753CAB008FB812 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		11DAFAA218747D260050CAC3 /* JTTextFieldMediatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextFieldMediatorDelegate.h; sourceTree = "<group>"; };
 		11DAFAA318747D260050CAC3 /* JTTextFieldMediatorDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldMediatorDelegate.m; sourceTree = "<group>"; };
@@ -162,6 +182,7 @@
 				118D78BA1878288D003E2AAD /* UIKit.framework in Frameworks */,
 				118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */,
 				118D78BD1878288D003E2AAD /* libJustType.a in Frameworks */,
+				1196FFD0187A0E1D00642982 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +224,15 @@
 		118D78BE1878288D003E2AAD /* JustTypeTests */ = {
 			isa = PBXGroup;
 			children = (
-				118D78C41878288D003E2AAD /* JustTypeTests.m */,
+				1196FFD4187A104B00642982 /* Internal Test Categories */,
+				1196FFC7187A0DE600642982 /* Libraries */,
 				118D78BF1878288D003E2AAD /* Supporting Files */,
+				1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */,
+				1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */,
+				1196FFB61879CBF500642982 /* JTTextControllerTests.m */,
+				1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */,
+				1196FFBA1879CC8100642982 /* JTTextFieldTests.m */,
+				1196FFBC1879CC8D00642982 /* JTTextViewTests.m */,
 			);
 			path = JustTypeTests;
 			sourceTree = "<group>";
@@ -216,6 +244,38 @@
 				118D78C11878288D003E2AAD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1196FFC7187A0DE600642982 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1196FFC8187A0E1D00642982 /* libOCMock.a */,
+				1196FFC9187A0E1D00642982 /* OCMock */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		1196FFC9187A0E1D00642982 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				1196FFCA187A0E1D00642982 /* NSNotificationCenter+OCMAdditions.h */,
+				1196FFCB187A0E1D00642982 /* OCMArg.h */,
+				1196FFCC187A0E1D00642982 /* OCMConstraint.h */,
+				1196FFCD187A0E1D00642982 /* OCMock.h */,
+				1196FFCE187A0E1D00642982 /* OCMockObject.h */,
+				1196FFCF187A0E1D00642982 /* OCMockRecorder.h */,
+			);
+			name = OCMock;
+			path = libraries/OCMock;
+			sourceTree = "<group>";
+		};
+		1196FFD4187A104B00642982 /* Internal Test Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1196FFD1187A102100642982 /* JTKeyboardListener+TestsPrivate.h */,
+				1196FFD5187A84CE00642982 /* JTKeyboardAttachmentView+TestsPrivate.h */,
+			);
+			name = "Internal Test Categories";
 			sourceTree = "<group>";
 		};
 		65B7A9A8186D56A000D16576 = {
@@ -488,7 +548,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				118D78C51878288D003E2AAD /* JustTypeTests.m in Sources */,
+				1196FFB71879CBF500642982 /* JTTextControllerTests.m in Sources */,
+				1196FFB31879CBB900642982 /* JTKeyboardListenerTests.m in Sources */,
+				1196FFB51879CBCA00642982 /* JTKeyboardAttachmentViewTests.m in Sources */,
+				1196FFBD1879CC8D00642982 /* JTTextViewTests.m in Sources */,
+				1196FFB91879CC5100642982 /* JTTextSuggestionDelegateTests.m in Sources */,
+				1196FFBB1879CC8100642982 /* JTTextFieldTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,8 +685,24 @@
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/JustTypeTests/libraries",
+				);
 				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Alexander/Development/JustType/JustTypeTests,
+					/Users/Alexander/Development/JustType/JustTypeTests/libraries,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -647,8 +728,24 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JustType/JustType-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/JustTypeTests/libraries",
+				);
 				INFOPLIST_FILE = "JustTypeTests/JustTypeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Alexander/Development/JustType/JustTypeTests,
+					/Users/Alexander/Development/JustType/JustTypeTests/libraries,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

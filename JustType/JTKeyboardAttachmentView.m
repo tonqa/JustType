@@ -10,7 +10,6 @@
 
 @interface JTKeyboardAttachmentView ()
 
-@property (nonatomic, retain) UILabel *label;
 @property (nonatomic, retain) NSArray *buttons;
 @property (nonatomic, assign) CGFloat fontSize;
 
@@ -23,7 +22,6 @@
 @synthesize selectedSyntaxWord = _selectedSyntaxWord;
 @synthesize highlightedIndex = _highlightedIndex;
 @synthesize buttons = _buttons;
-@synthesize label = _label;
 @synthesize delegate = _delegate;
 @synthesize fontSize = _fontSize;
 
@@ -33,11 +31,14 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor whiteColor];
+        self.highlightedIndex = -1;
     }
     return self;
 }
 
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
+    _highlightedIndex = -1;
+
     if (syntaxWord) {
         NSArray *allWords = [NSArray arrayWithObject:syntaxWord.text];
         allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];

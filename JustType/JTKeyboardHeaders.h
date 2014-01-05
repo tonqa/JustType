@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 /**
+ *  The notification identifier for posting that a gesture was recognized. This notification type triggers that the text input element can do the appropriate scrolling or editing.
+ */
+extern NSString * const JTNotificationTextControllerDidRecognizeGesture;
+
+/**
  *  The notification identifier for confirming that a gesture was processed. This notification type triggers that an arrow for confirmation is displayed on top of the keyboard afterwards.
  */
 extern NSString * const JTNotificationTextControllerDidProcessGesture;

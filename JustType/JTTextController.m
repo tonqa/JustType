@@ -15,6 +15,7 @@
 
 #define SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT 0
 
+NSString * const JTNotificationTextControllerDidRecognizeGesture = @"JTNotificationTextControllerDidRecognizeGesture";
 NSString * const JTNotificationTextControllerDidProcessGesture = @"JTNotificationTextControllerDidProcessGesture";
 NSString * const JTNotificationKeyDirection = @"JTNotificationKeyDirection";
 
@@ -86,12 +87,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         self.useSyntaxCompletion = YES;
         
         NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
-        [notifCenter addObserver:self selector:@selector(didSwipeLeftLong:) name:JTKeyboardGestureSwipeLeftLong object:nil];
-        [notifCenter addObserver:self selector:@selector(didSwipeRightLong:) name:JTKeyboardGestureSwipeRightLong object:nil];
-        [notifCenter addObserver:self selector:@selector(didSwipeLeftShort:) name:JTKeyboardGestureSwipeLeftShort object:nil];
-        [notifCenter addObserver:self selector:@selector(didSwipeRightShort:) name:JTKeyboardGestureSwipeRightShort object:nil];
-        [notifCenter addObserver:self selector:@selector(didSwipeUp:) name:JTKeyboardGestureSwipeUp object:nil];
-        [notifCenter addObserver:self selector:@selector(didSwipeDown:) name:JTKeyboardGestureSwipeDown object:nil];
+        [notifCenter addObserver:self selector:@selector(didSwipe:) name:JTNotificationTextControllerDidRecognizeGesture object:nil];
     }
     return self;
 }
@@ -258,6 +254,28 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 #pragma mark - notification listeners
+- (void)didSwipe:(NSNotification *)notification {
+    NSString *direction = [notification.userInfo objectForKey:JTNotificationKeyDirection];
+    
+    SEL action;
+    if ([direction isEqualToString:JTKeyboardGestureSwipeLeftLong]) {
+        action = @selector(didSwipeLeftLong:);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeLeftShort]) {
+        action = @selector(didSwipeLeftShort:);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightLong]) {
+        action = @selector(didSwipeRightLong:);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightShort]) {
+        action = @selector(didSwipeRightShort:);
+    } else if ([direction isEqualToString:JTKeyboardGestureSwipeUp]) {
+        action = @selector(didSwipeUp:);
+    } else {
+        action = @selector(didSwipeDown:);
+    }
+    
+    // we do this here because performSelector: throws a warning that this would not be typesafe.
+    ((void (*)(id, SEL, NSNotification *))[self methodForSelector:action])(self, action, notification);
+}
+
 - (void)didSwipeLeftLong:(NSNotification *)notification {
     [self moveToPreviousWord];
     [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeLeftLong];
