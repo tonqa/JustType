@@ -15,6 +15,8 @@ It **adds own gestures** (via gesture recognizers) to the keyboard, which do not
 
 We want this keyboard **to be used in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
+![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1.png)
+![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2.png)
 
 Advantages
 ---------------------
@@ -28,15 +30,13 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only three steps to follow. 
 
-1. Add the static library to your project by installing it via [CocoaPods](http://www.cocoapods.org), dragging the compiled *libJustType.a* in your project or linking the project source as a dependency. 
+1. Add the static library to your project by either dragging the already compiled *libJustType.a* in your project or linking the JustType project sources as a project dependency or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
-        $ cd <Your Project>
-        $ edit Podfile
+        $ cd <Your Project>  # go to your project
+        $ vim Podfile        # create Podfile (and save)
         platform :ios
-        pod 'JustType',       '~> 1.0'
-        $ pod install
-
-Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*. 
+        pod 'JustType', '~> 1.0'
+        $ pod install        # install libraries from Podfile
 
 1. You should check that the import works by adding to your *AppDelegate.m*:
 
@@ -50,6 +50,8 @@ Hint: Under *"Workspace / Target / Build Settings"* you should check that the op
 
         JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
         [self.view addSubview: textView];
+
+Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.
 
 Additional options
 ---------------------
