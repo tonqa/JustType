@@ -4,6 +4,9 @@ Just Type - The iOS keyboard for everyone
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 
+![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
+![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
+
 Reasoning
 ---------------------
 
@@ -14,9 +17,6 @@ This project tries to **not change** or temper with the **iOS default behavior**
 It **adds own gestures** (via gesture recognizers) to the keyboard, which do not interfere with the existing ones. Also it adds its own way of **syntax highlighting and syntax completion** to iOS default elements (using the UITextInput protocol of UITextView and UITextField). It uses the **default iOS syntax checker**, but changes how the syntax completion is presented. Default syntax completion UI is therefore switched off. 
 
 We want this keyboard **to be used in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
-
-![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
-![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
 Advantages
 ---------------------
@@ -34,8 +34,8 @@ Actually for using this keyboard extension there are only three steps to follow.
 
         $ cd <Your Project>  # go to your project
         $ vim Podfile        # create Podfile (and save)
-        platform :ios
-        pod 'JustType', '~> 1.0'
+          > platform :ios
+          > pod 'JustType'
         $ pod install        # install libraries from Podfile
 
 1. You should check that the import works by adding to your *AppDelegate.m*:

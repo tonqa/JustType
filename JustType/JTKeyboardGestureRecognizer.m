@@ -2,8 +2,8 @@
 //  JTKeyboardGestureRecognizer.m
 //  JustType
 //
-//  Created by Andrea Koglin on 31.12.13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Created by Alexander Koglin on 31.12.13.
+//  Copyright (c) 2013 Alexander Koglin. All rights reserved.
 //
 
 #import "JTKeyboardGestureRecognizer.h"
