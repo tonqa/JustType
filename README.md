@@ -15,8 +15,8 @@ It **adds own gestures** (via gesture recognizers) to the keyboard, which do not
 
 We want this keyboard **to be used in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
-![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1.png)
-![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2.png)
+![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
+![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
 Advantages
 ---------------------
