@@ -45,6 +45,7 @@
 		118D78C31878288D003E2AAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 118D78C11878288D003E2AAD /* InfoPlist.strings */; };
 		118D78C51878288D003E2AAD /* JustTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 118D78C41878288D003E2AAD /* JustTypeTests.m */; };
 		11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B6294A18753CAB008FB812 /* Default-568h@2x.png */; };
+		11FCDAEB1879C0C300D0E9CB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11FCDAEA1879C0C300D0E9CB /* Media.xcassets */; };
 		65B7A9B8186D56A000D16576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
 		65B7A9BA186D56A000D16576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		65B7A9BC186D56A000D16576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
@@ -100,9 +101,10 @@
 		11DBAA651876120200566E06 /* JTDashedBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDashedBorderedView.h; sourceTree = "<group>"; };
 		11DBAA661876120200566E06 /* JTDashedBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDashedBorderedView.m; sourceTree = "<group>"; };
 		11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTTextSuggestionDelegate.h; sourceTree = "<group>"; };
+		11FCDAEA1879C0C300D0E9CB /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
-		65B7A9B3186D56A000D16576 /* JustTypeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9B7186D56A000D16576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B7A9B9186D56A000D16576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B7A9BB186D56A000D16576 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -230,7 +232,7 @@
 		65B7A9B4186D56A000D16576 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				65B7A9B3186D56A000D16576 /* JustTypeDemo.app */,
+				65B7A9B3186D56A000D16576 /* JustType.app */,
 				118D78AA1878288C003E2AAD /* libJustType.a */,
 				118D78B71878288D003E2AAD /* JustTypeTests.xctest */,
 			);
@@ -272,6 +274,7 @@
 				65B7A9C3186D56A000D16576 /* main.m */,
 				11B6294A18753CAB008FB812 /* Default-568h@2x.png */,
 				65B7A9C5186D56A000D16576 /* JustType-Prefix.pch */,
+				11FCDAEA1879C0C300D0E9CB /* Media.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -403,7 +406,7 @@
 			);
 			name = JustTypeDemo;
 			productName = JustType;
-			productReference = 65B7A9B3186D56A000D16576 /* JustTypeDemo.app */;
+			productReference = 65B7A9B3186D56A000D16576 /* JustType.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -451,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11FCDAEB1879C0C300D0E9CB /* Media.xcassets in Resources */,
 				65B7A9C2186D56A000D16576 /* InfoPlist.strings in Resources */,
 				11B6294B18753CAB008FB812 /* Default-568h@2x.png in Resources */,
 				65B7A9CB186D56A000D16576 /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -720,6 +724,8 @@
 		65B7A9EA186D56A000D16576 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JustTypeDemo/JustType-Prefix.pch";
 				INFOPLIST_FILE = "JustTypeDemo/JustType-Info.plist";
@@ -727,7 +733,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JustType;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -735,6 +741,8 @@
 		65B7A9EB186D56A000D16576 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JustTypeDemo/JustType-Prefix.pch";
 				INFOPLIST_FILE = "JustTypeDemo/JustType-Info.plist";
@@ -742,7 +750,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JustType;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
