@@ -22,7 +22,6 @@ NSString * const JTNotificationKeyDirection = @"JTNotificationKeyDirection";
 @interface JTTextController ()
 
 @property (nonatomic, retain) NSArray *syntaxWordClassNames;
-
 @property (nonatomic, assign) NSRange selectedSyntaxWordRange;
 @property (nonatomic, retain) id<JTSyntaxWord> selectedSyntaxWord;
 @property (nonatomic, assign) NSInteger selectedSyntaxWordSuggestionIndex;
@@ -44,10 +43,8 @@ NSString * const JTNotificationKeyDirection = @"JTNotificationKeyDirection";
 - (UITextRange *)textRangeFromRange:(NSRange)range;
 - (void)selectNextSeperatorForEndOfDocument;
 - (void)trimDownLastWhitespacesToOneWhitespace;
-- (void)postProcessedNotificationForDirection:(NSString *)direction;
-- (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index 
-                      selectedIndex:(NSInteger)selectedIndex
-                      endIndexOfDoc:(NSInteger)indexOfLastLetterOfDoc;
+- (void)postDidProcessNotificationForDirection:(NSString *)direction;
+- (BOOL)findEndIndexOfSelectedBlock:(NSInteger *)index selectedIndex:(NSInteger)selectedIndex endIndexOfDoc:(NSInteger)indexOfLastLetterOfDoc;
 - (NSInteger)findStartIndexOfSelectedBlockWithEndIndex:(NSInteger)indexOfLastLetterOfBlock;
 - (BOOL)updateRange:(NSRange *)range withSelectedIndex:(NSInteger)selectedIndex 
   startIndexOfBlock:(NSInteger)indexOfFirstLetterOfBlock 
@@ -278,32 +275,32 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 
 - (void)didSwipeLeftLong:(NSNotification *)notification {
     [self moveToPreviousWord];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeLeftLong];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeLeftLong];
 }
 
 - (void)didSwipeRightLong:(NSNotification *)notification {
     [self moveToNextWord];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeRightLong];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeRightLong];
 }
 
 - (void)didSwipeLeftShort:(NSNotification *)notification {
     [self moveToPreviousLetter];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeLeftShort];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeLeftShort];
 }
 
 - (void)didSwipeRightShort:(NSNotification *)notification {
     [self moveToNextLetter];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeRightShort];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeRightShort];
 }
 
 - (void)didSwipeUp:(NSNotification *)notification {
     [self selectPreviousSuggestion];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeUp];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeUp];
 }
 
 - (void)didSwipeDown:(NSNotification *)notification {
     [self selectNextSuggestion];
-    [self postProcessedNotificationForDirection:JTKeyboardGestureSwipeDown];
+    [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeDown];
 }
 
 #pragma mark - internal methods
@@ -681,7 +678,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     return NO;
 }
 
-- (void)postProcessedNotificationForDirection:(NSString *)direction {
+- (void)postDidProcessNotificationForDirection:(NSString *)direction {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:direction forKey:JTNotificationKeyDirection];
     [[NSNotificationCenter defaultCenter] postNotificationName:JTNotificationTextControllerDidProcessGesture object:self userInfo:userInfo];
 }

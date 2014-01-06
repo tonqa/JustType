@@ -94,6 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		110110BD187B553700B5CFB8 /* JTTextController+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextController+TestsPrivate.h"; sourceTree = "<group>"; };
+		110110BE187B553700B5CFB8 /* JTTextField+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextField+TestsPrivate.h"; sourceTree = "<group>"; };
+		110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextView+TestsPrivate.h"; sourceTree = "<group>"; };
 		11676FFC187825E80058BFD1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		118D78AA1878288C003E2AAD /* libJustType.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJustType.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D78AE1878288D003E2AAD /* JustType-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustType-Prefix.pch"; sourceTree = "<group>"; };
@@ -124,7 +127,7 @@
 		11FCDAEA1879C0C300D0E9CB /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardGestureRecognizer.h; sourceTree = "<group>"; };
 		6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardGestureRecognizer.m; sourceTree = "<group>"; };
-		65B7A9B3186D56A000D16576 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65B7A9B3186D56A000D16576 /* JustTypeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B7A9B7186D56A000D16576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B7A9B9186D56A000D16576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B7A9BB186D56A000D16576 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -272,6 +275,9 @@
 		1196FFD4187A104B00642982 /* Internal Test Categories */ = {
 			isa = PBXGroup;
 			children = (
+				110110BD187B553700B5CFB8 /* JTTextController+TestsPrivate.h */,
+				110110BE187B553700B5CFB8 /* JTTextField+TestsPrivate.h */,
+				110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */,
 				1196FFD1187A102100642982 /* JTKeyboardListener+TestsPrivate.h */,
 				1196FFD5187A84CE00642982 /* JTKeyboardAttachmentView+TestsPrivate.h */,
 			);
@@ -292,7 +298,7 @@
 		65B7A9B4186D56A000D16576 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				65B7A9B3186D56A000D16576 /* JustType.app */,
+				65B7A9B3186D56A000D16576 /* JustTypeDemo.app */,
 				118D78AA1878288C003E2AAD /* libJustType.a */,
 				118D78B71878288D003E2AAD /* JustTypeTests.xctest */,
 			);
@@ -466,7 +472,7 @@
 			);
 			name = JustTypeDemo;
 			productName = JustType;
-			productReference = 65B7A9B3186D56A000D16576 /* JustType.app */;
+			productReference = 65B7A9B3186D56A000D16576 /* JustTypeDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -830,7 +836,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = JustType;
+				PRODUCT_NAME = JustTypeDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -847,7 +853,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = JustType;
+				PRODUCT_NAME = JustTypeDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

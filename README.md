@@ -7,6 +7,8 @@ Just Type - The iOS keyboard for everyone
 ![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
 ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
+Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better.
+
 Reasoning
 ---------------------
 
@@ -16,7 +18,7 @@ This project tries to **not change** or temper with the **iOS default behavior**
 
 It **adds own gestures** (via gesture recognizers) to the keyboard, which do not interfere with the existing ones. Also it adds its own way of **syntax highlighting and syntax completion** to iOS default elements (using the UITextInput protocol of UITextView and UITextField). It uses the **default iOS syntax checker**, but changes how the syntax completion is presented. Default syntax completion UI is therefore switched off. 
 
-We want this keyboard **to be used in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
+We want this keyboard **to be usable in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
 Advantages
 ---------------------
@@ -30,7 +32,7 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only three steps to follow. 
 
-1. Add the static library to your project by either dragging the already compiled *libJustType.a* in your project or linking the JustType project sources as a project dependency or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
+1. Add the static library to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
         $ cd <Your Project>  # go to your project
         $ vim Podfile        # create Podfile (and save)

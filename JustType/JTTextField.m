@@ -21,6 +21,8 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @property (nonatomic, assign) id<UITextFieldDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextFieldMediatorDelegate *mediatorDelegate;
 
+- (void)setupView;
+
 @end
 
 
@@ -37,41 +39,52 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 @synthesize highlightedColor = _highlightedColor;
 
 #pragma mark - Object lifecycle
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupView];
+    }
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.autocorrectionType = UITextAutocorrectionTypeNo;
-        
-        _unhighlightedColor = [UIColor blackColor];
-        _highlightedColor = [UIColor grayColor];
-        _textController = [[JTTextController alloc] init];
-        _textController.delegate = self;
-        
-        self.useSyntaxHighlighting = YES;
-        self.useSyntaxCompletion = YES;
-        
-        _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
-        _mediatorDelegate.textField = self;
-        [super setDelegate:_mediatorDelegate];
-
-        [self addTarget:self action:@selector(didChangeText:) forControlEvents:UIControlEventEditingChanged];
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-        [tapGesture addTarget:self action:@selector(didSingleTap:)];
-        tapGesture.cancelsTouchesInView = YES;
-        tapGesture.delegate = self;
-        [self addGestureRecognizer:tapGesture];
-        self.tapGesture = tapGesture;
-        
-        UILongPressGestureRecognizer *pressGesture = [[UILongPressGestureRecognizer alloc] init];
-        [pressGesture addTarget:self action:@selector(didSingleTap:)];
-        pressGesture.cancelsTouchesInView = YES;
-        pressGesture.delegate = self;
-        [self addGestureRecognizer:pressGesture];
-        self.pressGesture = pressGesture;
-
+        [self setupView];
     }
     return self;
+}
+
+- (void)setupView {
+    self.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    _unhighlightedColor = [UIColor blackColor];
+    _highlightedColor = [UIColor grayColor];
+    _textController = [[JTTextController alloc] init];
+    _textController.delegate = self;
+    
+    self.useSyntaxHighlighting = YES;
+    self.useSyntaxCompletion = YES;
+    
+    _mediatorDelegate = [[JTTextFieldMediatorDelegate alloc] init];
+    _mediatorDelegate.textField = self;
+    [super setDelegate:_mediatorDelegate];
+    
+    [self addTarget:self action:@selector(didChangeText:) forControlEvents:UIControlEventEditingChanged];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    [tapGesture addTarget:self action:@selector(didSingleTap:)];
+    tapGesture.cancelsTouchesInView = YES;
+    tapGesture.delegate = self;
+    [self addGestureRecognizer:tapGesture];
+    self.tapGesture = tapGesture;
+    
+    UILongPressGestureRecognizer *pressGesture = [[UILongPressGestureRecognizer alloc] init];
+    [pressGesture addTarget:self action:@selector(didSingleTap:)];
+    pressGesture.cancelsTouchesInView = YES;
+    pressGesture.delegate = self;
+    [self addGestureRecognizer:pressGesture];
+    self.pressGesture = pressGesture;
 }
 
 - (void)dealloc {

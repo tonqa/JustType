@@ -17,6 +17,8 @@
 @property (nonatomic, assign) id<UITextViewDelegate> actualDelegate;
 @property (nonatomic, retain) JTTextViewMediatorDelegate *mediatorDelegate;
 
+- (void)setupView;
+
 @end
 
 
@@ -30,28 +32,40 @@
 @synthesize textSuggestionDelegate = _textSuggestionDelegate;
 
 #pragma mark - Object lifecycle
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupView];
+    }
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.autocorrectionType = UITextAutocorrectionTypeNo;
-
-        _textController = [[JTTextController alloc] init];
-        _textController.delegate = self;
-        
-        self.useSyntaxHighlighting = YES;
-        self.useSyntaxCompletion = YES;
-
-        _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
-        _mediatorDelegate.textView = self;
-        [super setDelegate:_mediatorDelegate];
-                
-        self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-        
-        JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
-        highlightView.backgroundColor = [UIColor clearColor];
-        [self setHighlightView:highlightView];
+        [self setupView];
     }
     return self;
+}
+
+- (void)setupView {
+    self.autocorrectionType = UITextAutocorrectionTypeNo;
+
+    _textController = [[JTTextController alloc] init];
+    _textController.delegate = self;
+    
+    self.useSyntaxHighlighting = YES;
+    self.useSyntaxCompletion = YES;
+
+    _mediatorDelegate = [[JTTextViewMediatorDelegate alloc] init];
+    _mediatorDelegate.textView = self;
+    [super setDelegate:_mediatorDelegate];
+            
+    self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    
+    JTDashedBorderedView *highlightView = [[JTDashedBorderedView alloc] initWithFrame:CGRectZero];
+    highlightView.backgroundColor = [UIColor clearColor];
+    [self setHighlightView:highlightView];
 }
 
 - (void)dealloc {
