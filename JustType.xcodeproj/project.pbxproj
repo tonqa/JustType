@@ -46,7 +46,6 @@
 		1196FFB31879CBB900642982 /* JTKeyboardListenerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */; };
 		1196FFB51879CBCA00642982 /* JTKeyboardAttachmentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */; };
 		1196FFB71879CBF500642982 /* JTTextControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB61879CBF500642982 /* JTTextControllerTests.m */; };
-		1196FFB91879CC5100642982 /* JTTextSuggestionDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */; };
 		1196FFBB1879CC8100642982 /* JTTextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFBA1879CC8100642982 /* JTTextFieldTests.m */; };
 		1196FFBD1879CC8D00642982 /* JTTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196FFBC1879CC8D00642982 /* JTTextViewTests.m */; };
 		1196FFD0187A0E1D00642982 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1196FFC8187A0E1D00642982 /* libOCMock.a */; };
@@ -72,12 +71,12 @@
 			remoteGlobalIDString = 118D78A91878288C003E2AAD;
 			remoteInfo = JustType;
 		};
-		118D78BB1878288D003E2AAD /* PBXContainerItemProxy */ = {
+		119FD1BE187BD7B8006521C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65B7A9AA186D56A000D16576 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 118D78A91878288C003E2AAD;
-			remoteInfo = JustType;
+			remoteGlobalIDString = 65B7A9B2186D56A000D16576;
+			remoteInfo = JustTypeDemo;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -106,7 +105,6 @@
 		1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardListenerTests.m; sourceTree = "<group>"; };
 		1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardAttachmentViewTests.m; sourceTree = "<group>"; };
 		1196FFB61879CBF500642982 /* JTTextControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextControllerTests.m; sourceTree = "<group>"; };
-		1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextSuggestionDelegateTests.m; sourceTree = "<group>"; };
 		1196FFBA1879CC8100642982 /* JTTextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextFieldTests.m; sourceTree = "<group>"; };
 		1196FFBC1879CC8D00642982 /* JTTextViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTTextViewTests.m; sourceTree = "<group>"; };
 		1196FFC8187A0E1D00642982 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = libraries/libOCMock.a; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 				1196FFB21879CBB900642982 /* JTKeyboardListenerTests.m */,
 				1196FFB41879CBCA00642982 /* JTKeyboardAttachmentViewTests.m */,
 				1196FFB61879CBF500642982 /* JTTextControllerTests.m */,
-				1196FFB81879CC5100642982 /* JTTextSuggestionDelegateTests.m */,
 				1196FFBA1879CC8100642982 /* JTTextFieldTests.m */,
 				1196FFBC1879CC8D00642982 /* JTTextViewTests.m */,
 			);
@@ -450,7 +447,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				118D78BC1878288D003E2AAD /* PBXTargetDependency */,
+				119FD1BF187BD7B8006521C2 /* PBXTargetDependency */,
 			);
 			name = JustTypeTests;
 			productName = JustTypeTests;
@@ -558,7 +555,6 @@
 				1196FFB31879CBB900642982 /* JTKeyboardListenerTests.m in Sources */,
 				1196FFB51879CBCA00642982 /* JTKeyboardAttachmentViewTests.m in Sources */,
 				1196FFBD1879CC8D00642982 /* JTTextViewTests.m in Sources */,
-				1196FFB91879CC5100642982 /* JTTextSuggestionDelegateTests.m in Sources */,
 				1196FFBB1879CC8100642982 /* JTTextFieldTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,10 +577,10 @@
 			target = 118D78A91878288C003E2AAD /* JustType */;
 			targetProxy = 11213B7518782CD600A4880F /* PBXContainerItemProxy */;
 		};
-		118D78BC1878288D003E2AAD /* PBXTargetDependency */ = {
+		119FD1BF187BD7B8006521C2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 118D78A91878288C003E2AAD /* JustType */;
-			targetProxy = 118D78BB1878288D003E2AAD /* PBXContainerItemProxy */;
+			target = 65B7A9B2186D56A000D16576 /* JustTypeDemo */;
+			targetProxy = 119FD1BE187BD7B8006521C2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
