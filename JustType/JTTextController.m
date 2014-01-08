@@ -164,6 +164,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (![self getRangeOfNextWord:&newWordRange fromIndex:endIndexOfSelectedWord + 1]) {
         self.isIgnoringChangeUpdates = YES;
         [self selectNextSeperatorForEndOfDocument];
+        [self moveSelectionToIndex:[self endIndexOfDocument]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.isIgnoringChangeUpdates = NO;
         });
@@ -598,6 +599,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectNextSeperatorForEndOfDocument {
+    return;
+    
     NSString *word = nil;
     
     // get range of the spaces after the currently selected word
