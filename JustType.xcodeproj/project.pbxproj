@@ -37,6 +37,8 @@
 		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; };
 		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
+		116E9694187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */; };
+		116E9695187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */; };
 		118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		118D78B81878288D003E2AAD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11676FFC187825E80058BFD1 /* XCTest.framework */; };
 		118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -97,6 +99,8 @@
 		110110BE187B553700B5CFB8 /* JTTextField+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextField+TestsPrivate.h"; sourceTree = "<group>"; };
 		110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextView+TestsPrivate.h"; sourceTree = "<group>"; };
 		11676FFC187825E80058BFD1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardOverlayFrameAnimation.h; sourceTree = "<group>"; };
+		116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardOverlayFrameAnimation.m; sourceTree = "<group>"; };
 		118D78AA1878288C003E2AAD /* libJustType.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJustType.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		118D78AE1878288D003E2AAD /* JustType-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustType-Prefix.pch"; sourceTree = "<group>"; };
 		118D78B71878288D003E2AAD /* JustTypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,6 +354,8 @@
 				65B7A9F1186D57D400D16576 /* JTKeyboardListener.m */,
 				65B7AA06186D5A8900D16576 /* JTKeyboardOverlayView.h */,
 				65B7AA07186D5A8900D16576 /* JTKeyboardOverlayView.m */,
+				116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */,
+				116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */,
 				65B7AA09186D5AA300D16576 /* JTKeyboardAttachmentView.h */,
 				65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */,
 				6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */,
@@ -406,6 +412,7 @@
 				11213B7E18782F2100A4880F /* JTKeyboardHeaders.h in Headers */,
 				11213B7F18782F2100A4880F /* JTKeyboardOverlayView.h in Headers */,
 				11213B8018782F2100A4880F /* JTKeyboardGestureRecognizer.h in Headers */,
+				116E9694187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h in Headers */,
 				11213B8118782F2100A4880F /* JTTextFieldMediatorDelegate.h in Headers */,
 				11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */,
 				11213B8418782F2100A4880F /* JTTextController.h in Headers */,
@@ -533,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11213B71187829B900A4880F /* JTSyntaxSeperatorWord.m in Sources */,
+				116E9695187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m in Sources */,
 				11213B67187829B900A4880F /* JTKeyboardOverlayView.m in Sources */,
 				11213B70187829B900A4880F /* JTSyntaxLinguisticWord.m in Sources */,
 				11213B6C187829B900A4880F /* JTTextView.m in Sources */,

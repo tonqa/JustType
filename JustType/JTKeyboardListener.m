@@ -140,7 +140,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (void)textControllerDidProcessGesture:(NSNotification *)notification {
     if (self.isVisualHelpEnabled) {
         NSString *swipeDirection = [notification.userInfo objectForKey:JTNotificationKeyDirection];
-        [self.keyboardOverlayView fadeOutLineForDirection:swipeDirection];
+        [self.keyboardOverlayView visualizeDirection:swipeDirection];
     }
 }
 
