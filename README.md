@@ -1,29 +1,37 @@
-Just Type - The iOS keyboard for everyone
-==============
-
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
+
+JustType for iOS
+==============
+
+A keyboard extension using swipe gestures
+---------------------
+
+Built to be used in any iOS text editor and all text-intensive iOS apps.
 
 ![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
 ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
-Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better.
+Features
+---------------------
+
+JustType **adds own gestures** to the keyboard, which do not interfere with the default keyboard. It allows to **smart jump** between words of texts by swiping left and right on the keyboard. It adds **highlighting** and **suggestions** for currently selected words to iOS default text inputs. It does that by using the **default iOS syntax checker**.
 
 Reasoning
 ---------------------
 
-**The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. For going to the next sentence you need to type a dot and a space, of which the former you can not directly reach without using shift (thus 3 touches). Also though there is a built-in syntax checker, you can never directly see what words it suggests. We can do better!
+Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better.
+
+**The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. You can not directly make the word upper or lower case if you are in between a word. Also though there is a built-in syntax checker, you can only choose all suggestions by holding on a word. You never directly see what words it suggests. We can do better!
 
 This project tries to **not change** or temper with the **iOS default behavior** of texts. The highest priority of this project is instead to be fully compatible with iOS UITextFields and UITextViews. The default keyboard and text handling shall not be modified in any imaginable way, but instead this project adds on top of both. 
 
-It **adds own gestures** (via gesture recognizers) to the keyboard, which do not interfere with the existing ones. Also it adds its own way of **syntax highlighting and syntax completion** to iOS default elements (using the UITextInput protocol of UITextView and UITextField). It uses the **default iOS syntax checker**, but changes how the syntax completion is presented. Default syntax completion UI is therefore switched off. 
-
-We want this keyboard **to be usable in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
+We want this extension **to be usable in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
 Advantages
 ---------------------
 
-* **Performance:** This implementation uses the default UIKit text navigation provided by UITextInput protocol of UITextView and UITextField, which is of course very fast.
+* **Performance:** This implementation uses the default UIKit text navigation provided by UITextInput protocol of UITextView and UITextField, which is of course very fast. Also it uses only one gesture recognizer for all gestures on the keyboard.
 * **Compatiblity:** This framework is compatible with iOS 6 and 7. It builds on the default UIKit. If the keyboard handling in later iOS versions changes the keyboard gestures extension just stops working. That's why this should not be any critical for apps used in production. In fact we have a demo app called *'Just Type'* in the App Store ourselves.
 * **Extendability**: The keyboard and UITextInput extensions are easily extendable for developers (e.g. the behavior for gestures could easily be modified). We in fact encourage you to contribute to this project.
 
