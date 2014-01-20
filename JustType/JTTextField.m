@@ -116,7 +116,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText:(id)sender {
-    [self.textController didChangeText];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.textController didChangeText];
+    });
 }
 
 - (void)moveToNextWord {
@@ -197,7 +199,9 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange];
-    [self.textController didChangeText];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.textController didChangeText];
+    });
 }
 
 #pragma mark - getters & setters

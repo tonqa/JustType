@@ -433,9 +433,12 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // highlight / print out the result
     NSRange rangeOfSelectedWord;
     NSInteger selectedTextIndex;
+    // NSLog(@"willChangeWithEnforced: %@", @(enforced));
     if ([self getSelectedIndex:&selectedTextIndex] &&
         [self getRangeOfSelectedWord:&rangeOfSelectedWord atIndex:selectedTextIndex]) {
         
+        //NSLog(@"didChange: '%@'", self.delegate.textContent);
+
         if (self.selectedSyntaxWord && !enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
             return;
         }
@@ -599,7 +602,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectNextSeperatorForEndOfDocument {
-    return;
+    //return;
     
     NSString *word = nil;
     

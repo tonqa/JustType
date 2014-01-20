@@ -9,7 +9,7 @@
 #import "JTKeyboardGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-#define SWIPE_PIXEL_THRESHOLD 0.01f
+#define SWIPE_PIXEL_THRESHOLD 5.0f
 #define SWIPE_TIMEINTERVAL_THRESHOLD 0.1
 
 @interface JTKeyboardGestureRecognizer ()

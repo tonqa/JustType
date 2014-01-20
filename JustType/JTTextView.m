@@ -92,11 +92,15 @@
 
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText {
-    [self.textController didChangeText];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.textController didChangeText];
+    });
 }
 
 - (void)didChangeSelection {
-    [self.textController didChangeSelection];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.textController didChangeSelection];
+    });
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
