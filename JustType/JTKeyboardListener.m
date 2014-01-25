@@ -172,12 +172,7 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
 
 - (void)textControllerDidExecuteAction:(NSNotification *)notification {
     NSString *action = [notification.userInfo objectForKey:JTNotificationKeyAction];
-    if ([action isEqualToString:JTKeyboardActionCapitalized]) {
-        [self.keyboardOverlayView visualizeDirection:JTKeyboardGestureSwipeUp];
-    } else if ([action isEqualToString:JTKeyboardActionLowercased]) {
-        [self.keyboardOverlayView visualizeDirection:JTKeyboardGestureSwipeDown];
-    }
-    
+    [self.keyboardOverlayView visualizeDirection:action];
 }
 
 # pragma mark - Gesture recognizers

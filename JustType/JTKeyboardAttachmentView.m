@@ -270,7 +270,7 @@
         UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:self.fontSize];
         CGSize notAvailableSize = [self sizeOfText:notAvailableText
                                           withFont:notAvailableFont];
-        CGRect notAvailableRect = CGRectMake(0, 0, notAvailableSize.width,
+        CGRect notAvailableRect = CGRectMake(0, 0, notAvailableSize.width+10,
                                              self.frame.size.height);
         
         _notAvailableLabel = [[JTEdgeInsetLabel alloc] initWithFrame:notAvailableRect];

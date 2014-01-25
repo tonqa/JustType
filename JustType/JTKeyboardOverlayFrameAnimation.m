@@ -38,22 +38,10 @@ toPoint:(CGPoint)endPoint width:(CGFloat)width length:(CGFloat)length;
     CGPoint startPoint, endPoint;
     CGRect frame = view.frame;
     
-    if ([direction isEqualToString:JTKeyboardGestureSwipeLeftLong]) {
-        startPoint = CGPointMake(frame.size.width/2, frame.size.height/2);
-        endPoint = CGPointMake(frame.size.width*1./4., frame.size.height/2);
-    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightLong]) {
-        startPoint = CGPointMake(frame.size.width/2, frame.size.height/2);
-        endPoint = CGPointMake(frame.size.width*3./4., frame.size.height/2);
-    } else if ([direction isEqualToString:JTKeyboardGestureSwipeLeftShort]) {
-        startPoint = CGPointMake(frame.size.width/2, frame.size.height/2);
-        endPoint = CGPointMake(frame.size.width*3./8., frame.size.height/2);
-    } else if ([direction isEqualToString:JTKeyboardGestureSwipeRightShort]) {
-        startPoint = CGPointMake(frame.size.width/2, frame.size.height/2);
-        endPoint = CGPointMake(frame.size.width*5./8., frame.size.height/2);
-    } else if ([direction isEqualToString:JTKeyboardGestureSwipeUp]) {
+    if ([direction isEqualToString:JTKeyboardActionCapitalized]) {
         startPoint = CGPointMake(frame.size.width/2, frame.size.height*5./8.);
         endPoint = CGPointMake(frame.size.width/2, frame.size.height*3./8.);
-    } else if ([direction isEqualToString:JTKeyboardGestureSwipeDown]) {
+    } else if ([direction isEqualToString:JTKeyboardActionLowercased]) {
         startPoint = CGPointMake(frame.size.width/2, frame.size.height*3./8.);
         endPoint = CGPointMake(frame.size.width/2, frame.size.height*5./8.);
     }
