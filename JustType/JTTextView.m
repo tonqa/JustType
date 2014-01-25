@@ -10,6 +10,7 @@
 #import "JTTextViewMediatorDelegate.h"
 #import "JTKeyboardAttachmentView.h"
 #import "JTDashedBorderedView.h"
+#import "JTKeyboardHeaders.h"
 
 @interface JTTextView ()
 
@@ -92,15 +93,27 @@
 
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    // some text handling has changed since iOS7,
+    // text handling should be asynchronous since then
+    if (IS_BELOW_IOS7()) {
         [self.textController didChangeText];
-    });
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.textController didChangeText];
+        });
+    }
 }
 
 - (void)didChangeSelection {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    // some text handling has changed since iOS7,
+    // text handling should be asynchronous since then
+    if (IS_BELOW_IOS7()) {
         [self.textController didChangeSelection];
-    });
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.textController didChangeSelection];
+        });
+    }
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {

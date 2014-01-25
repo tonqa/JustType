@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define IS_BELOW_IOS7() (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
+
 /**
  *  The notification identifier for posting that a gesture was recognized. This notification type triggers that the text input element can do the appropriate scrolling or editing.
  */

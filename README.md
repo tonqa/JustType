@@ -20,7 +20,7 @@ JustType **adds own gestures** to the keyboard, which do not interfere with the 
 Reasoning
 ---------------------
 
-Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better.
+Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better with the traditional text input.
 
 **The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. You can not directly make the word upper or lower case if you are in between a word. Also though there is a built-in syntax checker, you can only choose all suggestions by holding on a word. You never directly see what words it suggests. We can do better!
 
@@ -31,6 +31,7 @@ We want this extension **to be usable in all apps**, therefore we made it the mo
 Advantages
 ---------------------
 
+* **Broad language support**: Practically every language is supported, because no keyboard functionality is replaced. All languages which work in iOS also work with JustType.
 * **Performance:** This implementation uses the default UIKit text navigation provided by UITextInput protocol of UITextView and UITextField, which is of course very fast. Also it uses only one gesture recognizer for all gestures on the keyboard.
 * **Compatiblity:** This framework is compatible with iOS 6 and 7. It builds on the default UIKit. If the keyboard handling in later iOS versions changes the keyboard gestures extension just stops working. That's why this should not be any critical for apps used in production. In fact we have a demo app called *'Just Type'* in the App Store ourselves.
 * **Extendability**: The keyboard and UITextInput extensions are easily extendable for developers (e.g. the behavior for gestures could easily be modified). We in fact encourage you to contribute to this project.
@@ -38,7 +39,7 @@ Advantages
 
 Usage
 ---------------------
-Actually for using this keyboard extension there are only three steps to follow. 
+Actually for using this keyboard extension there are only four steps to follow. 
 
 1. Add the static library to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
@@ -119,6 +120,8 @@ You will hopefully join us in using this project. We would also be grateful if t
 
 Creative Commons License
 --------------------
+JustType is under the CC0 license, which means that all copyrights have been waived. So enjoy!
+
         JustType by Alexander Koglin
         
         To the extent possible under law, the person who associated CC0 with

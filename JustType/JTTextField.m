@@ -10,6 +10,7 @@
 #import "JTTextField.h"
 #import "JTTextFieldMediatorDelegate.h"
 #import "JTDashedBorderedView.h"
+#import "JTKeyboardHeaders.h"
 
 UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput> textInput);
 
@@ -116,9 +117,13 @@ UIKIT_STATIC_INLINE void mySelectionDidChange(id self, SEL _cmd, id<UITextInput>
 
 #pragma mark - Actions forwarded to controller
 - (void)didChangeText:(id)sender {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if (IS_BELOW_IOS7()) {
         [self.textController didChangeText];
-    });
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.textController didChangeText];
+        });
+    }
 }
 
 - (void)moveToNextWord {

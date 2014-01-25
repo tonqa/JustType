@@ -9,7 +9,7 @@
 #import "JTKeyboardAttachmentView.h"
 #import "JTEdgeInsetLabel.h"
 
-#define LETTERSPACING_HEIGHT 13.0
+#define JTKEYBOARD_ATTACHMENT_SPACING 12.0
 
 @interface JTKeyboardAttachmentView ()
 
@@ -199,7 +199,7 @@
 # pragma mark - helper methods
 - (CGFloat)fontSize {
     if (!_fontSize) {
-        _fontSize = [self fontSizeForRectHeight:MAX(0, self.frame.size.height - LETTERSPACING_HEIGHT)];
+        _fontSize = [self fontSizeForRectHeight:MAX(0, self.frame.size.height - JTKEYBOARD_ATTACHMENT_SPACING)];
     }
     return _fontSize;
 }
@@ -248,7 +248,7 @@
         }
         
         // the unicode char is smaller, thus we add eight points
-        UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize+8];
+        UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize+10];
         CGSize textSize = [self sizeOfText:capitalizeArrowText
                                   withFont:capitalizeFont];
         CGFloat upButtonWidth = textSize.width + 40;
