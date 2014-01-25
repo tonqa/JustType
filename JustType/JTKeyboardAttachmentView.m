@@ -7,13 +7,22 @@
 //
 
 #import "JTKeyboardAttachmentView.h"
+#import "JTEdgeInsetLabel.h"
+
+#define LETTERSPACING_HEIGHT 13.0
 
 @interface JTKeyboardAttachmentView ()
 
-@property (nonatomic, retain) NSArray *buttons;
 @property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, assign) BOOL allowCapitalization;
+@property (nonatomic, assign) NSUInteger currentPage;
 
-- (void)setDisplayedWords:(NSArray *)displayedWords;
+@property (nonatomic, retain) NSArray *allButtons;
+@property (nonatomic, retain) UIButton *upButton;
+@property (nonatomic, retain) JTEdgeInsetLabel *notAvailableLabel;
+@property (nonatomic, retain) UIButton *backButton;
+@property (nonatomic, retain) UIButton *nextButton;
+
 - (CGSize)sizeOfText:(NSString *)text withFont:(UIFont *)font;
 
 @end
@@ -21,7 +30,7 @@
 @implementation JTKeyboardAttachmentView
 @synthesize selectedSyntaxWord = _selectedSyntaxWord;
 @synthesize highlightedIndex = _highlightedIndex;
-@synthesize buttons = _buttons;
+@synthesize allButtons = _allButtons;
 @synthesize delegate = _delegate;
 @synthesize fontSize = _fontSize;
 
@@ -37,116 +46,150 @@
 }
 
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
-    _highlightedIndex = -1;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        _highlightedIndex = -1;
+        _selectedSyntaxWord = syntaxWord;
+        _allowCapitalization = syntaxWord.canBeCapitalized;
 
-    if (syntaxWord) {
-        NSArray *allWords = [NSArray arrayWithObject:syntaxWord.text];
-        allWords = [allWords arrayByAddingObjectsFromArray:[syntaxWord allSuggestions]];
-        [self setDisplayedWords:allWords];
-    } else {
-        [self setDisplayedWords:nil];
-    }
+        if (syntaxWord) {
+            NSMutableArray *allWords = [NSMutableArray arrayWithObject:syntaxWord.text];
+            [allWords addObjectsFromArray:[syntaxWord allSuggestions]];
+            NSMutableArray *allButtons = [NSMutableArray arrayWithCapacity:allWords.count];
+            
+            for (int i = 0; i < allWords.count; i++) {
+                NSString *text = [allWords objectAtIndex:i];
+                UIButton *button = [self createButtonWithText:text tag:i];
+                [allButtons addObject:button];
+            }
+            
+            _allButtons = [allButtons copy];
+        } else {
+            _allButtons = nil;
+        }
+        
+        [self updateAndStopAtPage:NO withNumber:0];
+    }];
 }
 
-- (void)setDisplayedWords:(NSArray *)displayedWords {
+- (void)updateAndStopAtPage:(BOOL)shouldStop withNumber:(NSUInteger)stopPage {
+    
     for (UIView *subview in self.subviews) {
         [subview removeFromSuperview];
     }
 
-    if (!displayedWords) {
-        NSString *notAvailableText = @"suggestion is not possible";
-        UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:self.fontSize];
-        CGSize notAvailableSize = [self sizeOfText:notAvailableText withFont:notAvailableFont];
-        CGRect notAvailableRect = CGRectMake(20, 0, notAvailableSize.width, self.frame.size.height);
-        UILabel *notAvailableLabel = [[UILabel alloc] initWithFrame:notAvailableRect];
-        notAvailableLabel.text = notAvailableText;
-        notAvailableLabel.font = notAvailableFont;
-        notAvailableLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:notAvailableLabel];
+    if (!self.allButtons) {
+        [self addSubview:self.notAvailableLabel];
+        return;
     }
-    
-    
-    UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
-    NSString *placeholderText = @"...";
-    CGSize placeholderSize = [self sizeOfText:placeholderText withFont:systemFont];
-    CGFloat placeholderWidth = placeholderSize.width + 10;
 
-    CGFloat currentX = 0;
-    NSMutableArray *wordViews = [NSMutableArray array];
+    CGFloat upButtonWidth = 0.0f;
+    if (self.allowCapitalization) {
+        upButtonWidth = self.upButton.frame.size.width;
+        self.upButton.frame = CGRectMake(self.frame.size.width-upButtonWidth, 0,
+                                         upButtonWidth, self.frame.size.height);
+        [self addSubview:self.upButton];
+    }
 
-    UIFont *capitalizeFont = [UIFont systemFontOfSize:20];
-    NSString *capitalizeArrowText = @"\u21F3";
-    CGSize textSize = [self sizeOfText:capitalizeArrowText withFont:capitalizeFont];
-    CGFloat upButtonWidth = textSize.width + 40;
+    CGFloat xPos = 0;
+    CGFloat pageNo = 0;
+    BOOL foundHighlightedIndex = NO;
+    BOOL isFirstPage = YES;
 
-    for (int i = 0; i < [displayedWords count]; i++) {
+    UIButton *button;
+    CGFloat buttonWidth, summedUpWidth;
+    CGFloat backButtonWidth = 0.0f;
+    CGFloat nextButtonWidth = self.nextButton.frame.size.width;
+
+    NSMutableArray *displayedButtons = [NSMutableArray array];
+    for (int index = 0; index < [self.allButtons count]; index++) {
         
-        NSString *displayedWord = [displayedWords objectAtIndex:i];
-        CGSize textSize = [self sizeOfText:displayedWord withFont:systemFont];
-        CGFloat buttonWidth = textSize.width + 20;
+        button = [self.allButtons objectAtIndex:index];
+        buttonWidth = button.frame.size.width;
         
-        if (currentX+buttonWidth+placeholderWidth+upButtonWidth > self.frame.size.width) {
+        //if it is the last button then 'no next button' (width is 0)
+        if (index+1 != [self.allButtons count]) {
+            nextButtonWidth = 0.0f;
+        }
+
+        summedUpWidth = xPos + backButtonWidth + buttonWidth +
+                        nextButtonWidth + upButtonWidth;
+        
+        BOOL buttonDoesFit = (summedUpWidth <= self.frame.size.width);
+        if (!buttonDoesFit) {
             
-            CGRect labelRect = CGRectMake(currentX + 5, 0,
-                                          placeholderSize.width,
-                                          self.frame.size.height);
-            UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:labelRect];
-            placeholderLabel.text = placeholderText;
-            placeholderLabel.font = systemFont;
-            [self addSubview:placeholderLabel];
-            
-            break;
+            // if we found stop page or highlighted index then quit
+            // else increase page number and go on
+            if ((shouldStop && pageNo == stopPage) ||
+                (!shouldStop && foundHighlightedIndex)) {
+                
+                break;
+                
+            } else {
+                xPos = 0.0f;
+                pageNo++;
+                isFirstPage = NO;
+                displayedButtons = [NSMutableArray array];
+                backButtonWidth = self.backButton.frame.size.width;
+            }
         }
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button.titleLabel setFont:systemFont];
-        [button setTag:i-1];
-        [button setTitle:displayedWord forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(currentX, 0, buttonWidth, self.frame.size.height)];
-        [button addTarget:self action:@selector(touched:)
-         forControlEvents:UIControlEventTouchUpInside];
-        
-        currentX += buttonWidth;
-        
-        [self addSubview:button];
-        [wordViews addObject:button];
+        // this adds the button
+        foundHighlightedIndex = foundHighlightedIndex || (index == self.highlightedIndex+1);
+        button.frame = CGRectMake(xPos + backButtonWidth, 0.0f,
+                                  button.frame.size.width,
+                                  self.frame.size.height);
+        [displayedButtons addObject:button];
+        xPos += buttonWidth;
     }
     
-    UIButton *upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [upButton.titleLabel setFont:capitalizeFont];
-    [upButton setTitle:capitalizeArrowText forState:UIControlStateNormal];
-    [upButton setFrame:CGRectMake(self.frame.size.width-upButtonWidth, 0,
-                                  upButtonWidth, self.frame.size.height)];
-    [upButton addTarget:self action:@selector(switchcase:)
-       forControlEvents:UIControlEventTouchUpInside];
-
-    [self addSubview:upButton];
-    [wordViews addObject:upButton];
+    for (UIButton *displayedButton in displayedButtons) {
+        [self addSubview:displayedButton];
+    }
     
-    self.buttons = wordViews;
+    // not on first page => back button
+    if (!isFirstPage) {
+        self.backButton.frame = CGRectMake(0, 0, self.backButton.frame.size.width,
+                                           self.frame.size.height);
+        [self addSubview:self.backButton];
+    }
+
+    // not on last page => next button
+    if (self.allButtons.lastObject != displayedButtons.lastObject) {
+        self.nextButton.frame = CGRectMake(xPos + backButtonWidth, 0,
+                                           self.nextButton.frame.size.width,
+                                           self.frame.size.height);
+        [self addSubview:self.nextButton];
+    }
+
+    self.currentPage = pageNo;
 }
 
 - (void)setHighlightedIndex:(NSInteger)highlightedIndex {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        NSInteger oldButtonIndex = _highlightedIndex+1;
-        NSInteger buttonIndex = highlightedIndex+1;
-        
-        if (oldButtonIndex < [self.buttons count]) {
-            UIButton *oldButton = [self.buttons objectAtIndex:oldButtonIndex];
-            [oldButton setHighlighted:NO];
-        }
 
-        if (buttonIndex < [self.buttons count]) {
-            UIButton *button = [self.buttons objectAtIndex:buttonIndex];
-            [button setHighlighted:YES];
-        }
+        NSInteger oldButtonIndex = _highlightedIndex+1;
+        UIButton *oldButton = [self.allButtons objectAtIndex:oldButtonIndex];
+        [oldButton setHighlighted:NO];
+
+        NSInteger newButtonIndex = highlightedIndex+1;
+        UIButton *newButton = [self.allButtons objectAtIndex:newButtonIndex];
+        [newButton setHighlighted:YES];
 
         _highlightedIndex = highlightedIndex;
+        [self updateAndStopAtPage:NO withNumber:0];
     }];
 }
 
-- (IBAction)touched:(id)sender {
-    [self.delegate keyboardAttachmentView:self didSelectIndex:[((UIButton *)sender) tag]];
+- (IBAction)touchedWord:(UIButton *)sender {
+    [self.delegate keyboardAttachmentView:self didSelectIndex:sender.tag-1];
+}
+
+- (IBAction)touchedLastPage:(id)sender {
+    [self updateAndStopAtPage:YES withNumber:self.currentPage-1];
+}
+
+- (IBAction)touchedNextPage:(id)sender {
+    [self updateAndStopAtPage:YES withNumber:self.currentPage+1];
 }
 
 - (IBAction)switchcase:(id)sender {
@@ -156,7 +199,7 @@
 # pragma mark - helper methods
 - (CGFloat)fontSize {
     if (!_fontSize) {
-        _fontSize = [self fontSizeForRectHeight:MAX(0, self.frame.size.height - 15)];
+        _fontSize = [self fontSizeForRectHeight:MAX(0, self.frame.size.height - LETTERSPACING_HEIGHT)];
     }
     return _fontSize;
 }
@@ -192,6 +235,94 @@
         [invocation getReturnValue:&size];
     }
     return size;
+}
+
+- (UIButton *)upButton {
+    if (!_upButton) {
+        // the unicode char is smaller, thus we add eight points
+        UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize+8];
+        NSString *capitalizeArrowText = @"\u21F3";
+        CGSize textSize = [self sizeOfText:capitalizeArrowText
+                                  withFont:capitalizeFont];
+        CGFloat upButtonWidth = textSize.width + 40;
+        
+        _upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _upButton.frame = CGRectMake(0, 0, upButtonWidth, 0);
+        _upButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+        [_upButton.titleLabel setFont:capitalizeFont];
+        [_upButton setTitle:capitalizeArrowText forState:UIControlStateNormal];
+        [_upButton addTarget:self action:@selector(switchcase:)
+           forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _upButton;
+}
+
+- (UILabel *)notAvailableLabel {
+    if (!_notAvailableLabel) {
+        NSString *notAvailableText = @"suggestion is not possible";
+        UIFont *notAvailableFont = [UIFont italicSystemFontOfSize:self.fontSize];
+        CGSize notAvailableSize = [self sizeOfText:notAvailableText
+                                          withFont:notAvailableFont];
+        CGRect notAvailableRect = CGRectMake(0, 0, notAvailableSize.width,
+                                             self.frame.size.height);
+        
+        _notAvailableLabel = [[JTEdgeInsetLabel alloc] initWithFrame:notAvailableRect];
+        _notAvailableLabel.text = notAvailableText;
+        _notAvailableLabel.font = notAvailableFont;
+        _notAvailableLabel.textColor = [UIColor lightGrayColor];
+        _notAvailableLabel.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    }
+    return _notAvailableLabel;
+}
+
+- (UIButton *)backButton {
+    if (!_backButton) {
+        UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
+        NSString *placeholderText = @"...";
+        CGSize placeholderSize = [self sizeOfText:placeholderText withFont:systemFont];
+        
+        _backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _backButton.frame = CGRectMake(0, 0, placeholderSize.width+10, 0);
+        _backButton.titleLabel.font = systemFont;
+        _backButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
+        [_backButton setTitle:placeholderText forState:UIControlStateNormal];
+        [_backButton addTarget:self action:@selector(touchedLastPage:)
+              forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backButton;
+}
+
+- (UIButton *)nextButton {
+    if (!_nextButton) {
+        UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
+        NSString *placeholderText = @"...";
+        CGSize placeholderSize = [self sizeOfText:placeholderText withFont:systemFont];
+        
+        _nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _nextButton.frame = CGRectMake(0, 0, placeholderSize.width+10, 0);
+        _nextButton.titleLabel.font = systemFont;
+        _nextButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
+        [_nextButton setTitle:placeholderText forState:UIControlStateNormal];
+        [_nextButton addTarget:self action:@selector(touchedNextPage:)
+              forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _nextButton;
+}
+
+- (UIButton *)createButtonWithText:(NSString *)text tag:(NSInteger)index {
+    UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
+    CGSize textSize = [self sizeOfText:text withFont:systemFont];
+    CGFloat buttonWidth = textSize.width + 20;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button.titleLabel setFont:systemFont];
+    [button setTag:index];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, buttonWidth, self.frame.size.height)];
+    [button addTarget:self action:@selector(touchedWord:)
+     forControlEvents:UIControlEventTouchUpInside];
+
+    return button;
 }
 
 @end

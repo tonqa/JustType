@@ -64,4 +64,8 @@
     self.text = nil;
 }
 
+- (BOOL)canBeCapitalized {
+    return NO;
+}
+
 @end

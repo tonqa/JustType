@@ -37,6 +37,8 @@
 		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; };
 		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
+		11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */; };
+		11656C4E18941391009FC208 /* JTEdgeInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */; };
 		116E9694187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */; };
 		116E9695187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */; };
 		118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -98,6 +100,8 @@
 		110110BD187B553700B5CFB8 /* JTTextController+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextController+TestsPrivate.h"; sourceTree = "<group>"; };
 		110110BE187B553700B5CFB8 /* JTTextField+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextField+TestsPrivate.h"; sourceTree = "<group>"; };
 		110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextView+TestsPrivate.h"; sourceTree = "<group>"; };
+		11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTEdgeInsetLabel.h; sourceTree = "<group>"; };
+		11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTEdgeInsetLabel.m; sourceTree = "<group>"; };
 		11676FFC187825E80058BFD1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardOverlayFrameAnimation.h; sourceTree = "<group>"; };
 		116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardOverlayFrameAnimation.m; sourceTree = "<group>"; };
@@ -360,6 +364,8 @@
 				65B7AA0A186D5AA400D16576 /* JTKeyboardAttachmentView.m */,
 				6581EFDF1872F7A900AFFB1D /* JTKeyboardGestureRecognizer.h */,
 				6581EFE01872F7A900AFFB1D /* JTKeyboardGestureRecognizer.m */,
+				11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */,
+				11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */,
 			);
 			name = "Keyboard Gestures";
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 				11213B8118782F2100A4880F /* JTTextFieldMediatorDelegate.h in Headers */,
 				11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */,
 				11213B8418782F2100A4880F /* JTTextController.h in Headers */,
+				11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */,
 				11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */,
 				11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */,
 				11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */,
@@ -548,6 +555,7 @@
 				11213B6E187829B900A4880F /* JTTextController.m in Sources */,
 				11213B6A187829B900A4880F /* JTTextField.m in Sources */,
 				11213B66187829A600A4880F /* JTKeyboardListener.m in Sources */,
+				11656C4E18941391009FC208 /* JTEdgeInsetLabel.m in Sources */,
 				11213B6B187829B900A4880F /* JTTextFieldMediatorDelegate.m in Sources */,
 				11213B6D187829B900A4880F /* JTTextViewMediatorDelegate.m in Sources */,
 				11213B69187829B900A4880F /* JTKeyboardGestureRecognizer.m in Sources */,

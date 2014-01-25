@@ -52,4 +52,11 @@
  */
 - (NSArray *)allSuggestions;
 
+/**
+ *  Tells if the word can be turned from upper to lower case and back
+ *
+ *  @return a boolean which tells if capitalization is possible
+ */
+- (BOOL)canBeCapitalized;
+
 @end

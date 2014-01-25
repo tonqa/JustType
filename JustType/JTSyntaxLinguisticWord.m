@@ -112,4 +112,8 @@
     return _textInputMode;
 }
 
+- (BOOL)canBeCapitalized {
+    return YES;
+}
+
 @end
