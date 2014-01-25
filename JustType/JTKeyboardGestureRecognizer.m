@@ -9,8 +9,15 @@
 #import "JTKeyboardGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-#define SWIPE_PIXEL_THRESHOLD 5.0f
-#define SWIPE_TIMEINTERVAL_THRESHOLD 0.1
+#ifdef DEBUG
+    #define SWIPE_PIXEL_THRESHOLD 30.0f
+    #define SWIPE_TIMEINTERVAL_THRESHOLD 0.5
+#else
+    // thresholds should be narrower
+    // when swiping on a real device
+    #define SWIPE_PIXEL_THRESHOLD 30.0f
+    #define SWIPE_TIMEINTERVAL_THRESHOLD 0.1
+#endif
 
 @interface JTKeyboardGestureRecognizer ()
 
@@ -61,7 +68,6 @@
         
         if (-[self.startTime timeIntervalSinceNow] >= SWIPE_TIMEINTERVAL_THRESHOLD) {
             self.state = UIGestureRecognizerStateFailed;
-            //NSLog(@"failed");
             return;
         }
 
@@ -71,7 +77,6 @@
         if ([self distanceBetween:self.startPoint and:currentPoint] >= SWIPE_PIXEL_THRESHOLD) {
             self.state = UIGestureRecognizerStateBegan;
             self.wasRecognized = YES;
-            //NSLog(@"recognized");
         }
     } else if (self.wasRecognized) {
         // if gesture was already recognized, then sent regular point updates

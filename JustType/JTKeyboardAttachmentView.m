@@ -70,18 +70,26 @@
     NSString *placeholderText = @"...";
     CGSize placeholderSize = [self sizeOfText:placeholderText withFont:systemFont];
     CGFloat placeholderWidth = placeholderSize.width + 10;
-    
+
     CGFloat currentX = 0;
     NSMutableArray *wordViews = [NSMutableArray array];
+
+    UIFont *capitalizeFont = [UIFont systemFontOfSize:20];
+    NSString *capitalizeArrowText = @"\u21F3";
+    CGSize textSize = [self sizeOfText:capitalizeArrowText withFont:capitalizeFont];
+    CGFloat upButtonWidth = textSize.width + 40;
+
     for (int i = 0; i < [displayedWords count]; i++) {
         
         NSString *displayedWord = [displayedWords objectAtIndex:i];
         CGSize textSize = [self sizeOfText:displayedWord withFont:systemFont];
         CGFloat buttonWidth = textSize.width + 20;
         
-        if (currentX+buttonWidth+placeholderWidth > self.frame.size.width) {
+        if (currentX+buttonWidth+placeholderWidth+upButtonWidth > self.frame.size.width) {
             
-            CGRect labelRect = CGRectMake(currentX + 5, 0, placeholderSize.width, self.frame.size.height);
+            CGRect labelRect = CGRectMake(currentX + 5, 0,
+                                          placeholderSize.width,
+                                          self.frame.size.height);
             UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:labelRect];
             placeholderLabel.text = placeholderText;
             placeholderLabel.font = systemFont;
@@ -95,13 +103,25 @@
         [button setTag:i-1];
         [button setTitle:displayedWord forState:UIControlStateNormal];
         [button setFrame:CGRectMake(currentX, 0, buttonWidth, self.frame.size.height)];
-        [button addTarget:self action:@selector(touched:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(touched:)
+         forControlEvents:UIControlEventTouchUpInside];
         
         currentX += buttonWidth;
         
         [self addSubview:button];
         [wordViews addObject:button];
     }
+    
+    UIButton *upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [upButton.titleLabel setFont:capitalizeFont];
+    [upButton setTitle:capitalizeArrowText forState:UIControlStateNormal];
+    [upButton setFrame:CGRectMake(self.frame.size.width-upButtonWidth, 0,
+                                  upButtonWidth, self.frame.size.height)];
+    [upButton addTarget:self action:@selector(switchcase:)
+       forControlEvents:UIControlEventTouchUpInside];
+
+    [self addSubview:upButton];
+    [wordViews addObject:upButton];
     
     self.buttons = wordViews;
 }
@@ -127,6 +147,10 @@
 
 - (IBAction)touched:(id)sender {
     [self.delegate keyboardAttachmentView:self didSelectIndex:[((UIButton *)sender) tag]];
+}
+
+- (IBAction)switchcase:(id)sender {
+    [self.delegate switchcaseForKeyboardAttachmentView:self];
 }
 
 # pragma mark - helper methods

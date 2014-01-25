@@ -652,6 +652,24 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self selectSuggestionByIndex:index];
 }
 
+- (void)switchcaseForKeyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView {
+    if (![self getSelectedIndex:NULL]) return;
+    
+    NSRange wordRangeToReplace = self.selectedSyntaxWordRange;
+    NSString *switchedCaseWord = self.selectedSyntaxWord.text;
+    NSCharacterSet *characterSet = [NSCharacterSet uppercaseLetterCharacterSet];
+    BOOL isUppercase = [characterSet characterIsMember:[switchedCaseWord characterAtIndex:0]];
+    
+    if (isUppercase) {
+        switchedCaseWord = [switchedCaseWord lowercaseString];
+    } else {
+        switchedCaseWord = [switchedCaseWord capitalizedString];
+    }
+    
+    [self replaceRange:wordRangeToReplace withText:switchedCaseWord];
+    [self computeSyntaxWordWithForcedRecomputation:YES];
+}
+
 #pragma mark - helper methods
 - (void)trimDownLastWhitespacesToOneWhitespace {
     // get range of the spaces after the currently selected word

@@ -24,6 +24,8 @@
  */
 - (void)keyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView didSelectIndex:(NSInteger)index;
 
+- (void)switchcaseForKeyboardAttachmentView:(JTKeyboardAttachmentView *)attachmentView;
+
 @end
 
 /**

@@ -24,7 +24,12 @@ NSString * const JTKeyboardGestureSwipeRightShort   = @"JTKeyboardGestureSwipeRi
 NSString * const JTKeyboardGestureSwipeUp           = @"JTKeyboardGestureSwipeUp";
 NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDown";
 
-#define SWIPE_LONGSWIPE_WIDTH 100.0
+#define SWIPE_SHORTSLOWSWIPE_WIDTH 40.0
+#define SWIPE_SHORTFASTSWIPE_WIDTH 80.0
+#define SWIPE_LONGSLOWSWIPE_WIDTH 120.0
+#define SWIPE_LONGFASTSWIPE_WIDTH 160.0
+
+
 #define SAMPLE_TIME_SECS_INITIAL 0.6
 #define SAMPLE_TIME_SECS_MAX 0.3
 #define SAMPLE_TIME_SECS_MIDDLE 0.2
@@ -42,6 +47,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @property (nonatomic, assign) enum JTKeyboardSwipeDirection lastSwipeDirection;
 @property (nonatomic, retain) NSString *lastSwipeGestureType;
 @property (nonatomic, assign) BOOL panGestureInProgress;
+@property (nonatomic, assign) CGFloat pollingTime;
 
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
 @property (nonatomic, assign, getter = areGesturesEnabled) BOOL enableGestures;
@@ -52,7 +58,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (void)checkGestureResult;
 - (void)doPolling;
 - (void)stopPollingAndCleanGesture;
-- (void)recomputeSwipeDirection;
+- (void)recomputeSwipe;
 - (BOOL)keyboardIsAvailable;
 
 @end
@@ -68,6 +74,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @synthesize panGestureInProgress = _panGestureInProgress;
 @synthesize enableVisualHelp = _enableVisualHelp;
 @synthesize enableGestures = _enableGestures;
+@synthesize pollingTime = _pollingTime;
 
 # pragma mark - object lifecycle
 + (id)sharedInstance {
@@ -85,6 +92,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self = [super init];
     if (self) {
         self.enableVisualHelp = YES;
+        [self stopPollingAndCleanGesture];
     }
     return self;
 }
@@ -154,32 +162,28 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
+        self.panGestureInProgress = YES;
         self.gestureStartingPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
         self.gestureMovementPoint = self.gestureStartingPoint;
-        self.panGestureInProgress = YES;
         
         // we give it a small time for deciding between a short and a long swipe
         [self performSelector:@selector(checkGestureResult) withObject:nil afterDelay:SAMPLE_TIME_SECS_MIDDLE];
-        
+
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         
         self.gestureMovementPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
         
-    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        
-        self.panGestureInProgress = NO;
-        
-    } else if (gestureRecognizer.state == UIGestureRecognizerStateFailed ||
+    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+               gestureRecognizer.state == UIGestureRecognizerStateFailed ||
                gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         
-        [self stopPollingAndCleanGesture];
+        self.panGestureInProgress = NO;
     }
 }
 
 - (void)checkGestureResult {
 
-    [self recomputeSwipeDirection];
-    [self sendNotificationForLastSwipeGesture];
+    [self recomputeSwipe];
 
     // now after the first swipe we wait a quite high amount of time until we begin the high-density polling for the 'long-duration swipe'.
     [self performSelector:@selector(doPolling) withObject:nil afterDelay:SAMPLE_TIME_SECS_INITIAL];
@@ -187,11 +191,9 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 - (void)doPolling {
     if (self.panGestureInProgress) {
-        [self recomputeSwipeDirection];
-        [self sendNotificationForLastSwipeGesture];
+        [self recomputeSwipe];
 
-        NSTimeInterval delay = SAMPLE_TIME_SECS_MIDDLE;
-        [self performSelector:@selector(doPolling) withObject:nil afterDelay:delay];
+        [self performSelector:@selector(doPolling) withObject:nil afterDelay:self.pollingTime];
     } else {
         [self stopPollingAndCleanGesture];
     }
@@ -204,6 +206,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self.gestureMovementPoint = CGPointZero;
     self.lastSwipeGestureType = nil;
     self.lastSwipeDirection = JTKeyboardSwipeDirectionNone;
+    self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
     self.panGestureInProgress = NO;
 }
 
@@ -212,25 +215,27 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self.gestureStartingPoint = [gestureRecognizer locationInView:self.keyboardOverlayView];
 }
 
-- (void)recomputeSwipeDirection {
+- (void)recomputeSwipe {
     
     CGPoint diffPoint = CGPointMake(self.gestureMovementPoint.x - self.gestureStartingPoint.x,
                                     self.gestureMovementPoint.y - self.gestureStartingPoint.y);
 
     if (self.lastSwipeDirection == JTKeyboardSwipeDirectionHorizontal) {
         [self determineHorizontalSwipeGestureWithDiff:diffPoint];
-        
+        [self sendNotificationForLastSwipeGesture];
+
     } else if (self.lastSwipeDirection == JTKeyboardSwipeDirectionVertical) {
         /* do nothing */
-            
-    } else if (self.lastSwipeDirection == JTKeyboardSwipeDirectionNone) {
-        [self determineSwipeDirectionWithDiff:diffPoint];
         
+    } else if (self.lastSwipeDirection == JTKeyboardSwipeDirectionNone) {
+        [self determineAllSwipeGestureDirectionsWithDiff:diffPoint];
+        [self sendNotificationForLastSwipeGesture];
+
     }
 
 }
 
-- (void)determineSwipeDirectionWithDiff:(CGPoint)diffPoint {
+- (void)determineAllSwipeGestureDirectionsWithDiff:(CGPoint)diffPoint {
     CGPoint absDiffPoint = CGPointMake(ABS(diffPoint.x), ABS(diffPoint.y));
     
     if (absDiffPoint.x >= absDiffPoint.y) {
@@ -246,16 +251,40 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 
 - (void)determineHorizontalSwipeGestureWithDiff:(CGPoint)diffPoint {
     if (diffPoint.x < 0) {
-        if (-diffPoint.x <= SWIPE_LONGSWIPE_WIDTH) {
+        CGFloat x = -diffPoint.x;
+        if (x <= SWIPE_SHORTSLOWSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
+        
+        } else if (x <= SWIPE_SHORTFASTSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MIN;
+
+        } else if (x <= SWIPE_LONGSLOWSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
+
         } else {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MIN;
         }
     } else {
-        if (diffPoint.x <= SWIPE_LONGSWIPE_WIDTH) {
+        CGFloat x = diffPoint.x;
+        if (x <= SWIPE_SHORTSLOWSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeRightShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
+            
+        } else if (x <= SWIPE_SHORTFASTSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeRightShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MIN;
+            
+        } else if (x <= SWIPE_LONGSLOWSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeRightLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
+            
         } else {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeRightLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MIN;
         }
     }
 }
