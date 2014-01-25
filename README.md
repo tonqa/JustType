@@ -42,7 +42,7 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only four steps to follow. 
 
-1. Add the static library to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
+1. Add the framework to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
         $ cd <Your Project>  # go to your project
         $ vim Podfile        # create Podfile (and save)
