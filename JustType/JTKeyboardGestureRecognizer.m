@@ -9,7 +9,7 @@
 #import "JTKeyboardGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-#ifdef DEBUG
+#if TARGET_IPHONE_SIMULATOR
     #define SWIPE_PIXEL_THRESHOLD 30.0f
     #define SWIPE_TIMEINTERVAL_THRESHOLD 0.5
 #else

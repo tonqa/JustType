@@ -21,6 +21,11 @@
  */
 - (void)visualizeDirection:(NSString *)direction;
 
+- (void)draggingBeganFromPoint:(CGPoint)fromPoint;
+- (void)visualizeDragFromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+                    horizontal:(BOOL)isHorizontal;
+- (void)draggingStopped;
+
 @end
 
 /**

@@ -239,9 +239,16 @@
 
 - (UIButton *)upButton {
     if (!_upButton) {
+        NSString *capitalizeArrowText;
+        
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+            capitalizeArrowText = @"^ ";
+        } else {
+            capitalizeArrowText = @"\u21F3";
+        }
+        
         // the unicode char is smaller, thus we add eight points
         UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize+8];
-        NSString *capitalizeArrowText = @"\u21F3";
         CGSize textSize = [self sizeOfText:capitalizeArrowText
                                   withFont:capitalizeFont];
         CGFloat upButtonWidth = textSize.width + 40;

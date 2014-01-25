@@ -25,15 +25,15 @@
     CGFloat dashPattern[]= {5.0, 2};
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
+    CGContextSetRGBStrokeColor(context, 0.0, 0.0, 1.0, 1.0);
 
-    CGPoint fromPoint = CGPointMake(self.bounds.origin.x,
+    CGPoint fromPoint = CGPointMake(self.bounds.origin.x + 2,
                                     self.bounds.origin.y +
-                                    self.bounds.size.height);
+                                    self.bounds.size.height - 4);
     CGPoint toPoint = CGPointMake(self.bounds.origin.x +
-                                  self.bounds.size.width,
+                                  self.bounds.size.width + 2,
                                   self.bounds.origin.y +
-                                  self.bounds.size.height);
+                                  self.bounds.size.height - 4);
     
     CGContextSetLineWidth(context, 2.0);
     CGContextSetLineDash(context, 0.0, dashPattern, 2);

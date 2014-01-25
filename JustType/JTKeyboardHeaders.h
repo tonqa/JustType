@@ -14,14 +14,24 @@
 extern NSString * const JTNotificationTextControllerDidRecognizeGesture;
 
 /**
- *  The notification identifier for confirming that a gesture was processed. This notification type triggers that an arrow for confirmation is displayed on top of the keyboard afterwards.
+ *  The notification identifier for confirming that a gesture was processed. This notification type triggers that circle point for confirmation are displayed on top of the keyboard afterwards.
  */
 extern NSString * const JTNotificationTextControllerDidProcessGesture;
+
+/**
+ *  The notification identifier for confirming that an action was executed. This notification type triggers that an arrow for confirmation is displayed on top of the keyboard afterwards.
+ */
+extern NSString * const JTNotificationTextControllerDidExecuteAction;
 
 /**
  *  Key for the userInfo dictionary of the notification with type JTNotificationTextControllerDidProcessGesture indicating the direction of the swipe.
  */
 extern NSString * const JTNotificationKeyDirection;
+
+/**
+ *  Key for the userInfo dictionary of the notification with type JTNotificationTextControllerDidExecuteAction indicating an executed action.
+ */
+extern NSString * const JTNotificationKeyAction;
 
 /**
  *  All currently supported gesture type constants.
@@ -51,3 +61,13 @@ extern NSString * const JTKeyboardGestureSwipeUp;
  *  A gesture type constant for a long swipe downwards.
  */
 extern NSString * const JTKeyboardGestureSwipeDown;
+
+/**
+ *  An action type constant for a upwards capitalization.
+ */
+extern NSString * const JTKeyboardActionCapitalized;
+
+/**
+ *  An action type constant to make the first letter lowercase.
+ */
+extern NSString * const JTKeyboardActionLowercased;

@@ -58,6 +58,10 @@ toPoint:(CGPoint)endPoint width:(CGFloat)width length:(CGFloat)length;
         endPoint = CGPointMake(frame.size.width/2, frame.size.height*5./8.);
     }
     
+    [self startAnimationForView:view fromPoint:startPoint toPoint:endPoint];
+}
+
+- (void)startAnimationForView:(UIView *)view fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
     JTKeyboardOverviewLayer *layer = [[JTKeyboardOverviewLayer alloc] init];
     layer.frame = view.layer.bounds;
     layer.masksToBounds = NO;
@@ -65,16 +69,18 @@ toPoint:(CGPoint)endPoint width:(CGFloat)width length:(CGFloat)length;
     layer.shadowOffset = CGSizeMake(0, 1);
     layer.shadowRadius = 0.5;
     layer.shadowOpacity = 0.2;
+    layer.opacity = 0.35;
     layer.delegate = self;
-    layer.startPoint = startPoint;
-    layer.endPoint = endPoint;
+    layer.startPoint = fromPoint;
+    layer.endPoint = toPoint;
     [layer setNeedsDisplay];
     [view.layer addSublayer:layer];
     self.layer = layer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [animation setFromValue:[NSNumber numberWithFloat:0.25]];
+    [animation setFromValue:[NSNumber numberWithFloat:0.35]];
     [animation setToValue:[NSNumber numberWithFloat:0.0]];
+    [animation setBeginTime:CACurrentMediaTime() + 0.8f];
     [animation setDuration:1.0f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [animation setRemovedOnCompletion:NO];
@@ -106,7 +112,7 @@ toPoint:(CGPoint)endPoint width:(CGFloat)width length:(CGFloat)length;
         CGFloat width, arrowLength, arrowWidth;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            width = 10.0f, arrowLength = 5.0f, arrowWidth = 4.0f;
+            width = 10.0f, arrowLength = 8.0f, arrowWidth = 6.0f;
         } else {
             width = 20.0f, arrowLength = 10.0f, arrowWidth = 8.0f;
         }

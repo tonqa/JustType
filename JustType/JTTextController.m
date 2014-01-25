@@ -17,7 +17,9 @@
 
 NSString * const JTNotificationTextControllerDidRecognizeGesture = @"JTNotificationTextControllerDidRecognizeGesture";
 NSString * const JTNotificationTextControllerDidProcessGesture = @"JTNotificationTextControllerDidProcessGesture";
+NSString * const JTNotificationTextControllerDidExecuteAction = @"JTNotificationTextControllerDidExecuteAction";
 NSString * const JTNotificationKeyDirection = @"JTNotificationKeyDirection";
+NSString * const JTNotificationKeyAction = @"JTNotificationKeyAction";
 
 @interface JTTextController ()
 
@@ -662,8 +664,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     if (isUppercase) {
         switchedCaseWord = [switchedCaseWord lowercaseString];
+        [self postDidProcessNotificationForAction:JTKeyboardActionLowercased];
     } else {
         switchedCaseWord = [switchedCaseWord capitalizedString];
+        [self postDidProcessNotificationForAction:JTKeyboardActionCapitalized];
     }
     
     [self replaceRange:wordRangeToReplace withText:switchedCaseWord];
@@ -705,6 +709,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 - (void)postDidProcessNotificationForDirection:(NSString *)direction {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:direction forKey:JTNotificationKeyDirection];
     [[NSNotificationCenter defaultCenter] postNotificationName:JTNotificationTextControllerDidProcessGesture object:self userInfo:userInfo];
+}
+
+- (void)postDidProcessNotificationForAction:(NSString *)action {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:action forKey:JTNotificationKeyAction];
+    [[NSNotificationCenter defaultCenter] postNotificationName:JTNotificationTextControllerDidExecuteAction object:self userInfo:userInfo];
 }
 
 - (UITextRange *)textRangeFromRange:(NSRange)range {

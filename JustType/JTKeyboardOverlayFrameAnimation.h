@@ -21,5 +21,6 @@
 @property (nonatomic, weak) id<JTKeyboardOverlayFrameAnimationDelegate> delegate;
 
 - (void)startAnimationForView:(UIView *)view arrowDirection:(NSString *)direction;
+- (void)startAnimationForView:(UIView *)view fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint ;
 
 @end

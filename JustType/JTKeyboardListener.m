@@ -24,6 +24,9 @@ NSString * const JTKeyboardGestureSwipeRightShort   = @"JTKeyboardGestureSwipeRi
 NSString * const JTKeyboardGestureSwipeUp           = @"JTKeyboardGestureSwipeUp";
 NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDown";
 
+NSString * const JTKeyboardActionCapitalized        = @"JTKeyboardActionCapitalized";
+NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercased";
+
 #define SWIPE_SHORTSLOWSWIPE_WIDTH 40.0
 #define SWIPE_SHORTFASTSWIPE_WIDTH 80.0
 #define SWIPE_LONGSLOWSWIPE_WIDTH 120.0
@@ -48,6 +51,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 @property (nonatomic, retain) NSString *lastSwipeGestureType;
 @property (nonatomic, assign) BOOL panGestureInProgress;
 @property (nonatomic, assign) CGFloat pollingTime;
+@property (nonatomic, assign) NSUInteger numberOfEvents;
 
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
 @property (nonatomic, assign, getter = areGesturesEnabled) BOOL enableGestures;
@@ -110,6 +114,9 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
                                                      name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textControllerDidProcessGesture:)
                                                      name:JTNotificationTextControllerDidProcessGesture object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textControllerDidExecuteAction:)
+                                                     name:JTNotificationTextControllerDidExecuteAction object:nil];
+        
     } else {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self cleanupViewsAndGestures];
@@ -152,9 +159,25 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 # pragma mark - internal notifications
 - (void)textControllerDidProcessGesture:(NSNotification *)notification {
     if (self.isVisualHelpEnabled) {
-        NSString *swipeDirection = [notification.userInfo objectForKey:JTNotificationKeyDirection];
-        [self.keyboardOverlayView visualizeDirection:swipeDirection];
+        
+        if (self.numberOfEvents == 0) {
+            [self.keyboardOverlayView draggingBeganFromPoint:self.gestureStartingPoint];
+        }
+        
+        BOOL isHorizontalSwipe = (self.lastSwipeDirection == JTKeyboardSwipeDirectionHorizontal);
+        [self.keyboardOverlayView visualizeDragFromPoint:self.gestureStartingPoint toPoint:self.gestureMovementPoint horizontal:isHorizontalSwipe];
     }
+    self.numberOfEvents++;
+}
+
+- (void)textControllerDidExecuteAction:(NSNotification *)notification {
+    NSString *action = [notification.userInfo objectForKey:JTNotificationKeyAction];
+    if ([action isEqualToString:JTKeyboardActionCapitalized]) {
+        [self.keyboardOverlayView visualizeDirection:JTKeyboardGestureSwipeUp];
+    } else if ([action isEqualToString:JTKeyboardActionLowercased]) {
+        [self.keyboardOverlayView visualizeDirection:JTKeyboardGestureSwipeDown];
+    }
+    
 }
 
 # pragma mark - Gesture recognizers
@@ -167,7 +190,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
         self.gestureMovementPoint = self.gestureStartingPoint;
         
         // we give it a small time for deciding between a short and a long swipe
-        [self performSelector:@selector(checkGestureResult) withObject:nil afterDelay:SAMPLE_TIME_SECS_MIDDLE];
+        [self performSelector:@selector(checkGestureResult) withObject:nil afterDelay:SAMPLE_TIME_SECS_MIN];
 
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         
@@ -178,6 +201,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
                gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         
         self.panGestureInProgress = NO;
+
     }
 }
 
@@ -192,10 +216,10 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 - (void)doPolling {
     if (self.panGestureInProgress) {
         [self recomputeSwipe];
-
         [self performSelector:@selector(doPolling) withObject:nil afterDelay:self.pollingTime];
     } else {
         [self stopPollingAndCleanGesture];
+        [self.keyboardOverlayView draggingStopped];
     }
 }
 
@@ -208,6 +232,7 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
     self.lastSwipeDirection = JTKeyboardSwipeDirectionNone;
     self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
     self.panGestureInProgress = NO;
+    self.numberOfEvents = 0;
 }
 
 - (void)storeStartingPointWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
