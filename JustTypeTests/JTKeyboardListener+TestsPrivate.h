@@ -19,7 +19,7 @@
 @property (nonatomic, assign) CGPoint gestureStartingPoint;
 @property (nonatomic, assign) CGPoint gestureMovementPoint;
 @property (nonatomic, assign) NSUInteger timesOccurred;
-@property (nonatomic, retain) NSString *lastSwipeDirection;
+@property (nonatomic, retain) NSString *lastSwipeGestureType;
 @property (nonatomic, assign) BOOL panGestureInProgress;
 
 @property (nonatomic, retain) JTKeyboardOverlayView *keyboardOverlayView;
@@ -27,12 +27,11 @@
 
 - (void)cleanupViewsAndGestures;
 - (void)storeStartingPointWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer;
-- (void)sendNotificationForLastSwipeDirection;
-- (void)sendNotificationForSwipeDirection:(NSString *)swipeDirection;
+- (void)sendNotificationForLastSwipeGesture;
 - (void)checkGestureResult;
 - (void)doPolling;
 - (void)stopPollingAndCleanGesture;
-- (void)recomputeSwipeDirection;
+- (void)recomputeSwipe;
 - (BOOL)keyboardIsAvailable;
 
 @end

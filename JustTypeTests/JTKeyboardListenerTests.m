@@ -46,43 +46,43 @@
     
     mock.gestureStartingPoint = CGPointMake(200, 200);
 
-    XCTAssertNil(mock.lastSwipeDirection, @"Last swipe direction should be nil initially");
+    XCTAssertNil(mock.lastSwipeGestureType, @"Last swipe direction should be nil initially");
     
     /*
      Test if short right gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(300, 200);
+    mock.gestureMovementPoint = CGPointMake(250, 200);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeRightShort, @"Short right keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeRightShort, @"Short right keyboard gesture should have been recognized");
 
     /*
      Test if long right gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(400, 200);
+    mock.gestureMovementPoint = CGPointMake(300, 200);
 
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
 
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeRightLong, @"Long right keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeRightLong, @"Long right keyboard gesture should have been recognized");
 
     /*
      Test if short left gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(100, 200);
+    mock.gestureMovementPoint = CGPointMake(150, 200);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeLeftShort, @"Short left keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeLeftShort, @"Short left keyboard gesture should have been recognized");
 
     /*
      Test if long left gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(0, 200);
+    mock.gestureMovementPoint = CGPointMake(100, 200);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeLeftLong, @"Long left keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeLeftLong, @"Long left keyboard gesture should have been recognized");
 }
 
 - (void)testRecomputeSwipeAndCleanup {
@@ -94,16 +94,16 @@
     mock.gestureStartingPoint = CGPointMake(200, 200);
     mock.gestureMovementPoint = CGPointMake(300, 200);
 
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
 
-    XCTAssertNotNil(mock.lastSwipeDirection, @"Swipe direction should have been set");
+    XCTAssertNotNil(mock.lastSwipeGestureType, @"Swipe direction should have been set");
 
     /*
      Test if gesture movement is properly reset
      */
     [mock stopPollingAndCleanGesture];
     
-    XCTAssertNil(mock.lastSwipeDirection, @"Last swipe direction should be nilled again");
+    XCTAssertNil(mock.lastSwipeGestureType, @"Last swipe direction should be nilled again");
 }
 
 - (void)testRecomputeSwipeVerticalFails
@@ -115,37 +115,37 @@
     
     mock.gestureStartingPoint = CGPointMake(200, 200);
     
-    XCTAssertNil(mock.lastSwipeDirection, @"Last swipe direction should be nil initially");
+    XCTAssertNil(mock.lastSwipeGestureType, @"Last swipe direction should be nil initially");
     
     /*
      Test if short right gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(300, 200);
+    mock.gestureMovementPoint = CGPointMake(250, 200);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeRightShort, @"Short right keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeRightShort, @"Short right keyboard gesture should have been recognized");
     
     /*
      Test if up gesture movement is not possible any more during one gesture
      */
     mock.gestureMovementPoint = CGPointMake(200, 0);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertNotEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeUp, @"Swipe up keyboard gesture should not be possible during horizontal movement");
+    XCTAssertNotEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeUp, @"Swipe up keyboard gesture should not be possible during horizontal movement");
     
     /*
      Test if down gesture movement is not possible any more during one gesture
      */
     mock.gestureMovementPoint = CGPointMake(200, 400);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertNotEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeDown, @"Swipe down keyboard gesture should not be possible during horizontal movement");
+    XCTAssertNotEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeDown, @"Swipe down keyboard gesture should not be possible during horizontal movement");
 }
 
-- (void)testRecomputeSwipeVerticalSucceeds
+- (void)testRecomputeSwipeUpSucceeds
 {
     /*
      Initial setup
@@ -154,33 +154,45 @@
     
     mock.gestureStartingPoint = CGPointMake(200, 200);
     
-    XCTAssertNil(mock.lastSwipeDirection, @"Last swipe direction should be nil initially");
+    XCTAssertNil(mock.lastSwipeGestureType, @"Last swipe direction should be nil initially");
     
     /*
      Test if up gesture movement is recognized
      */
     mock.gestureMovementPoint = CGPointMake(200, 0);
     
-    [mock recomputeSwipeDirection];
+    [mock recomputeSwipe];
     
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeUp, @"Up keyboard gesture should have been recognized");
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeUp, @"Up keyboard gesture should have been recognized");
+}
+
+- (void)testRecomputeSwipeDownSucceeds
+{
+    /*
+     Initial setup
+     */
+    JTKeyboardListener *mock = [self mockedKeyboardListener];
+    
+    mock.gestureStartingPoint = CGPointMake(200, 200);
+    
+    XCTAssertNil(mock.lastSwipeGestureType, @"Last swipe direction should be nil initially");
     
     /*
      Test if down gesture movement is recognized
      */
     mock.gestureMovementPoint = CGPointMake(200, 400);
-    
-    [mock recomputeSwipeDirection];
-    
-    XCTAssertEqualObjects(mock.lastSwipeDirection, JTKeyboardGestureSwipeDown, @"Down keyboard gesture should have been recognized");
+
+    [mock recomputeSwipe];
+
+    XCTAssertEqualObjects(mock.lastSwipeGestureType, JTKeyboardGestureSwipeDown, @"Down keyboard gesture should have been recognized");
 }
 
-- (void)testSendNotificationForLastSwipeDirection {
+- (void)testSendNotificationForLastSwipeGesture {
     
     NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
     JTKeyboardListener *mock = [self mockedKeyboardListener];
     NSString *swipeDirection = JTKeyboardGestureSwipeLeftLong;
-    mock.lastSwipeDirection = swipeDirection;
+    mock.lastSwipeGestureType = swipeDirection;
     
     /*
      set up observer mock
@@ -194,7 +206,7 @@
     /*
      call the method sending the notifcation
      */
-    [mock sendNotificationForLastSwipeDirection];
+    [mock sendNotificationForLastSwipeGesture];
     
     /*
      verify notification

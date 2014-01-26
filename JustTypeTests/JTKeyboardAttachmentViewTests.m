@@ -49,7 +49,7 @@
     
     XCTAssertEqual(attachmentView.highlightedIndex, -1,
                    @"There should not be any highlighting initially");
-    XCTAssertEqual([attachmentView.buttons count],
+    XCTAssertEqual([attachmentView.allButtons count],
                    [linguisticWord.allSuggestions count]+1,
                    @"There should have been created the right amount of buttons");
 }
@@ -64,7 +64,7 @@
     
     XCTAssertEqual(attachmentView.highlightedIndex, -1,
                    @"There should not be any highlighting initially");
-    XCTAssertEqual([attachmentView.buttons count],
+    XCTAssertEqual([attachmentView.allButtons count],
                    [seperatorWord.allSuggestions count]+1,
                    @"There should have been created the right amount of buttons");
 }

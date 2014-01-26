@@ -10,7 +10,7 @@
 
 @interface JTKeyboardAttachmentView (TestsPrivate)
 
-@property (nonatomic, retain) NSArray *buttons;
+@property (nonatomic, retain) NSArray *allButtons;
 @property (nonatomic, assign) CGFloat fontSize;
 
 - (void)setDisplayedWords:(NSArray *)displayedWords;

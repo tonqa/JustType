@@ -46,27 +46,27 @@
 }
 
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        _highlightedIndex = -1;
-        _selectedSyntaxWord = syntaxWord;
-        _allowCapitalization = syntaxWord.canBeCapitalized;
-
-        if (syntaxWord) {
-            NSMutableArray *allWords = [NSMutableArray arrayWithObject:syntaxWord.text];
-            [allWords addObjectsFromArray:[syntaxWord allSuggestions]];
-            NSMutableArray *allButtons = [NSMutableArray arrayWithCapacity:allWords.count];
-            
-            for (int i = 0; i < allWords.count; i++) {
-                NSString *text = [allWords objectAtIndex:i];
-                UIButton *button = [self createButtonWithText:text tag:i];
-                [allButtons addObject:button];
-            }
-            
-            _allButtons = [allButtons copy];
-        } else {
-            _allButtons = nil;
+    _highlightedIndex = -1;
+    _selectedSyntaxWord = syntaxWord;
+    _allowCapitalization = syntaxWord.canBeCapitalized;
+    
+    if (syntaxWord) {
+        NSMutableArray *allWords = [NSMutableArray arrayWithObject:syntaxWord.text];
+        [allWords addObjectsFromArray:[syntaxWord allSuggestions]];
+        NSMutableArray *allButtons = [NSMutableArray arrayWithCapacity:allWords.count];
+        
+        for (int i = 0; i < allWords.count; i++) {
+            NSString *text = [allWords objectAtIndex:i];
+            UIButton *button = [self createButtonWithText:text tag:i];
+            [allButtons addObject:button];
         }
         
+        _allButtons = [allButtons copy];
+    } else {
+        _allButtons = nil;
+    }
+
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self updateAndStopAtPage:NO withNumber:0];
     }];
 }
