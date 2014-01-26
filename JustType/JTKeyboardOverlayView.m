@@ -50,9 +50,10 @@
     return nil;
 }
 
-- (void)visualizeDragFromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+- (void)visualizeDragFromPoint:(CGPoint)fromPoint
+                       toPoint:(CGPoint)toPoint
                     horizontal:(BOOL)isHorizontal {
-    
+
     CGPoint planarPoint;
     if (isHorizontal) {
         planarPoint = CGPointMake(toPoint.x, fromPoint.y);

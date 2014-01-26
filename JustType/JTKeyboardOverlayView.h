@@ -21,9 +21,28 @@
  */
 - (void)visualizeDirection:(NSString *)direction;
 
+/**
+ *  This should be called when the dragging began
+ *  in order to set up the initial values for dragging.
+ *
+ *  @param fromPoint the starting point where touchdown happened
+ */
 - (void)draggingBeganFromPoint:(CGPoint)fromPoint;
-- (void)visualizeDragFromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+
+/**
+ *  This should be called to update the snap behavior.
+ *
+ *  @param fromPoint    the starting point where touchdown happened
+ *  @param toPoint      the point where the cursor currently is
+ *  @param isHorizontal indicates if the action is being horizontal or vertical
+ */
+- (void)visualizeDragFromPoint:(CGPoint)fromPoint
+                       toPoint:(CGPoint)toPoint
                     horizontal:(BOOL)isHorizontal;
+
+/**
+ *  This is the teardown call to hide all visuals for dragging.
+ */
 - (void)draggingStopped;
 
 @end
