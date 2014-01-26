@@ -8,10 +8,6 @@
 
 #import "JTAppDelegate.h"
 #import <JustType/JustType.h>
-#import <JustType/JTKeyboardListener.h>
-#import <JustType/JTTextField.h>
-#import <JustType/JTTextView.h>
-#import <JustType/JTKeyboardAttachmentView.h>
 
 @implementation JTAppDelegate
 

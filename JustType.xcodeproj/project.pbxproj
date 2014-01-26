@@ -39,8 +39,19 @@
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
 		11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */; };
 		11656C4E18941391009FC208 /* JTEdgeInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */; };
+		11656C8B1894868B009FC208 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
+		11656C8C1894868B009FC208 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9BB186D56A000D16576 /* CoreGraphics.framework */; };
+		11656C8D1894868B009FC208 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B7186D56A000D16576 /* UIKit.framework */; };
+		11656C931894868B009FC208 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11656C911894868B009FC208 /* InfoPlist.strings */; };
+		11656C951894868B009FC208 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656C941894868B009FC208 /* main.m */; };
+		11656C991894868B009FC208 /* JTAppStoreAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656C981894868B009FC208 /* JTAppStoreAppDelegate.m */; };
+		11656C9C1894868B009FC208 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11656C9A1894868B009FC208 /* Main_iPhone.storyboard */; };
+		11656C9F1894868B009FC208 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11656C9D1894868B009FC208 /* Main_iPad.storyboard */; };
+		11656CA21894868B009FC208 /* JTAppStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656CA11894868B009FC208 /* JTAppStoreViewController.m */; };
 		116E9694187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */; };
 		116E9695187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */; };
+		11812F5618948968000AE29C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11FCDAEA1879C0C300D0E9CB /* Media.xcassets */; };
+		11812F5718948A58000AE29C /* libJustType.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 118D78AA1878288C003E2AAD /* libJustType.a */; };
 		118D78AB1878288C003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
 		118D78B81878288D003E2AAD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11676FFC187825E80058BFD1 /* XCTest.framework */; };
 		118D78B91878288D003E2AAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -75,6 +86,13 @@
 			remoteGlobalIDString = 118D78A91878288C003E2AAD;
 			remoteInfo = JustType;
 		};
+		11812F5818948A5E000AE29C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65B7A9AA186D56A000D16576 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 118D78A91878288C003E2AAD;
+			remoteInfo = JustType;
+		};
 		119FD1BE187BD7B8006521C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65B7A9AA186D56A000D16576 /* Project object */;
@@ -102,6 +120,17 @@
 		110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextView+TestsPrivate.h"; sourceTree = "<group>"; };
 		11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTEdgeInsetLabel.h; sourceTree = "<group>"; };
 		11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTEdgeInsetLabel.m; sourceTree = "<group>"; };
+		11656C8A1894868B009FC208 /* JustTypeAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11656C901894868B009FC208 /* JustTypeAppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeAppStore-Info.plist"; sourceTree = "<group>"; };
+		11656C921894868B009FC208 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		11656C941894868B009FC208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		11656C961894868B009FC208 /* JustTypeAppStore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustTypeAppStore-Prefix.pch"; sourceTree = "<group>"; };
+		11656C971894868B009FC208 /* JTAppStoreAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JTAppStoreAppDelegate.h; sourceTree = "<group>"; };
+		11656C981894868B009FC208 /* JTAppStoreAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTAppStoreAppDelegate.m; sourceTree = "<group>"; };
+		11656C9B1894868B009FC208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		11656C9E1894868B009FC208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		11656CA01894868B009FC208 /* JTAppStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JTAppStoreViewController.h; sourceTree = "<group>"; };
+		11656CA11894868B009FC208 /* JTAppStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTAppStoreViewController.m; sourceTree = "<group>"; };
 		11676FFC187825E80058BFD1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		116E9692187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTKeyboardOverlayFrameAnimation.h; sourceTree = "<group>"; };
 		116E9693187D2A6E00675CAC /* JTKeyboardOverlayFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTKeyboardOverlayFrameAnimation.m; sourceTree = "<group>"; };
@@ -173,6 +202,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		11656C871894868B009FC208 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11812F5718948A58000AE29C /* libJustType.a in Frameworks */,
+				11656C8C1894868B009FC208 /* CoreGraphics.framework in Frameworks */,
+				11656C8D1894868B009FC208 /* UIKit.framework in Frameworks */,
+				11656C8B1894868B009FC208 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		118D78A71878288C003E2AAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +250,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11656C8E1894868B009FC208 /* JustTypeAppStore */ = {
+			isa = PBXGroup;
+			children = (
+				11656C971894868B009FC208 /* JTAppStoreAppDelegate.h */,
+				11656C981894868B009FC208 /* JTAppStoreAppDelegate.m */,
+				11656C9A1894868B009FC208 /* Main_iPhone.storyboard */,
+				11656C9D1894868B009FC208 /* Main_iPad.storyboard */,
+				11656CA01894868B009FC208 /* JTAppStoreViewController.h */,
+				11656CA11894868B009FC208 /* JTAppStoreViewController.m */,
+				11656C8F1894868B009FC208 /* Supporting Files */,
+			);
+			path = JustTypeAppStore;
+			sourceTree = "<group>";
+		};
+		11656C8F1894868B009FC208 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11656C901894868B009FC208 /* JustTypeAppStore-Info.plist */,
+				11656C911894868B009FC208 /* InfoPlist.strings */,
+				11656C941894868B009FC208 /* main.m */,
+				11656C961894868B009FC208 /* JustTypeAppStore-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		118D78AC1878288D003E2AAD /* JustType */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				65B7A9BD186D56A000D16576 /* JustTypeDemo */,
+				11656C8E1894868B009FC208 /* JustTypeAppStore */,
 				118D78AC1878288D003E2AAD /* JustType */,
 				118D78BE1878288D003E2AAD /* JustTypeTests */,
 				65B7A9B6186D56A000D16576 /* Frameworks */,
@@ -306,6 +372,7 @@
 				65B7A9B3186D56A000D16576 /* JustTypeDemo.app */,
 				118D78AA1878288C003E2AAD /* libJustType.a */,
 				118D78B71878288D003E2AAD /* JustTypeTests.xctest */,
+				11656C8A1894868B009FC208 /* JustTypeAppStore.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -432,6 +499,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		11656C891894868B009FC208 /* JustTypeAppStore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11656CB71894868D009FC208 /* Build configuration list for PBXNativeTarget "JustTypeAppStore" */;
+			buildPhases = (
+				11656C861894868B009FC208 /* Sources */,
+				11656C871894868B009FC208 /* Frameworks */,
+				11656C881894868B009FC208 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11812F5918948A5E000AE29C /* PBXTargetDependency */,
+			);
+			name = JustTypeAppStore;
+			productName = JustTypeAppStore;
+			productReference = 11656C8A1894868B009FC208 /* JustTypeAppStore.app */;
+			productType = "com.apple.product-type.application";
+		};
 		118D78A91878288C003E2AAD /* JustType */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 118D78CA1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustType" */;
@@ -505,6 +590,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 65B7A9A8186D56A000D16576;
 			productRefGroup = 65B7A9B4186D56A000D16576 /* Products */;
@@ -512,6 +598,7 @@
 			projectRoot = "";
 			targets = (
 				65B7A9B2186D56A000D16576 /* JustTypeDemo */,
+				11656C891894868B009FC208 /* JustTypeAppStore */,
 				118D78A91878288C003E2AAD /* JustType */,
 				118D78B61878288D003E2AAD /* JustTypeTests */,
 			);
@@ -519,6 +606,17 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		11656C881894868B009FC208 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11656C9F1894868B009FC208 /* Main_iPad.storyboard in Resources */,
+				11656C9C1894868B009FC208 /* Main_iPhone.storyboard in Resources */,
+				11812F5618948968000AE29C /* Media.xcassets in Resources */,
+				11656C931894868B009FC208 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		118D78B51878288D003E2AAD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -542,6 +640,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		11656C861894868B009FC208 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11656C991894868B009FC208 /* JTAppStoreAppDelegate.m in Sources */,
+				11656C951894868B009FC208 /* main.m in Sources */,
+				11656CA21894868B009FC208 /* JTAppStoreViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		118D78A61878288C003E2AAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,6 +701,11 @@
 			target = 118D78A91878288C003E2AAD /* JustType */;
 			targetProxy = 11213B7518782CD600A4880F /* PBXContainerItemProxy */;
 		};
+		11812F5918948A5E000AE29C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 118D78A91878288C003E2AAD /* JustType */;
+			targetProxy = 11812F5818948A5E000AE29C /* PBXContainerItemProxy */;
+		};
 		119FD1BF187BD7B8006521C2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 65B7A9B2186D56A000D16576 /* JustTypeDemo */;
@@ -601,6 +714,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		11656C911894868B009FC208 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11656C921894868B009FC208 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		11656C9A1894868B009FC208 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11656C9B1894868B009FC208 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		11656C9D1894868B009FC208 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11656C9E1894868B009FC208 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
 		118D78C11878288D003E2AAD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -636,6 +773,61 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		11656CB81894868D009FC208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustTypeAppStore/JustTypeAppStore-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "JustTypeAppStore/JustTypeAppStore-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		11656CB91894868D009FC208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JustTypeAppStore/JustTypeAppStore-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "JustTypeAppStore/JustTypeAppStore-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		118D78C61878288D003E2AAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -873,6 +1065,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		11656CB71894868D009FC208 /* Build configuration list for PBXNativeTarget "JustTypeAppStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11656CB81894868D009FC208 /* Debug */,
+				11656CB91894868D009FC208 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		118D78CA1878288D003E2AAD /* Build configuration list for PBXNativeTarget "JustType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
