@@ -10,7 +10,7 @@
 
 @implementation JTEdgeInsetLabel
 
-- (id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
