@@ -20,7 +20,7 @@ JustType **adds own gestures** to the keyboard, which do not interfere with the 
 Reasoning
 ---------------------
 
-Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built an interface on top of the existing UIKit of iOS, which integrates much better with the traditional text input.
+Recently, there has been quite a lot buzz around keyboards for iOS. We liked the [Flex keyboard](http://fleksy.com/) as well as [some other prototypes](http://www.youtube.com/watch?v=RGQTaHGQ04Q) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. These were amazing projects, but there is a lack of keyboard extensions for the native iOS UI. We want something to be more built-in. So we built a framework on top of the existing UIKit of iOS, which integrates much better with the traditional text input.
 
 **The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. You can not directly make the word upper or lower case if you are in between a word. Also though there is a built-in syntax checker, you can only choose all suggestions by holding on a word. You never directly see what words it suggests. We can do better!
 
