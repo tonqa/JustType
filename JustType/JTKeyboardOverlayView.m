@@ -13,8 +13,6 @@
 @interface JTKeyboardOverlayView ()
 
 @property (nonatomic, retain) NSMutableArray *frameAnimations;
-@property (nonatomic, retain) UIView *startCircleView;
-@property (nonatomic, retain) UIView *endCircleView;
 @property (nonatomic, retain) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UISnapBehavior *snapBehavior;
 
@@ -28,12 +26,25 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        UIColor *startCircleColor = nil;
+        if ([self.window respondsToSelector:@selector(tintColor)]) {
+            startCircleColor = self.window.tintColor;
+        }
+        
+        if (!startCircleColor) {
+            // there is no tint color until iOS6
+            startCircleColor = [UIColor blueColor];
+        }
+        
+        UIColor *endCircleColor = [self complementaryColorForColor:startCircleColor];
+        
         _startCircleView = [self createCircleViewWithSize:CGSizeMake(40, 40)];
-        _startCircleView.backgroundColor = [UIColor blueColor];
+        _startCircleView.backgroundColor = startCircleColor;
         [self addSubview:_startCircleView];
 
         _endCircleView = [self createCircleViewWithSize:CGSizeMake(50, 50)];
-        _endCircleView.backgroundColor = [UIColor redColor];
+        _endCircleView.backgroundColor = endCircleColor;
         [self addSubview:_endCircleView];
 
         _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
@@ -123,13 +134,23 @@
     stetchAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.1, 1.1)];
     stetchAnimation.removedOnCompletion = NO;
     stetchAnimation.fillMode = kCAFillModeForwards;
-    stetchAnimation.duration = arc4random() % 100 / 100.0f;
+    stetchAnimation.duration = (arc4random() % 50 / 50.0f) + 0.3f;
     stetchAnimation.repeatCount = HUGE_VALF;
     stetchAnimation.autoreverses = YES;
     [stetchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [circleView.layer addAnimation:stetchAnimation forKey:@"animations"];
 
     return circleView;
+}
+
+- (UIColor *)complementaryColorForColor:(UIColor *)color {
+    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    
+    CGFloat red = components[0];
+    CGFloat green = components[1];
+    CGFloat blue = components[2];
+    
+    return [UIColor colorWithRed:1-red green:1-green blue:1-blue alpha:1];
 }
 
 @end

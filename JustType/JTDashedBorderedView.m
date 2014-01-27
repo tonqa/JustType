@@ -19,13 +19,27 @@
     return self;
 }
 
+- (UIColor *)strokeColor {
+    if (!_strokeColor) {
+        if ([self.window respondsToSelector:@selector(tintColor)]) {
+            _strokeColor = self.window.tintColor;
+        }
+        
+        if (!_strokeColor) {
+            // there is no tint color until iOS6
+            _strokeColor = [UIColor grayColor];
+        }
+    }
+    return _strokeColor;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    CGFloat dashPattern[]= {5.0, 1};
     
+    CGFloat dashPattern[]= {5.0, 1};
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetRGBStrokeColor(context, 0.0, 0.0, 1.0, 1.0);
+    CGContextSetStrokeColorWithColor(context, self.strokeColor.CGColor);
 
     CGPoint fromPoint = CGPointMake(self.bounds.origin.x,
                                     self.bounds.origin.y +

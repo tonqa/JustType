@@ -52,4 +52,7 @@
  */
 @interface JTKeyboardOverlayView : UIView <JTKeyboardOverlayViewProtocol, JTKeyboardOverlayFrameAnimationDelegate>
 
+@property (nonatomic, retain) UIView *startCircleView;
+@property (nonatomic, retain) UIView *endCircleView;
+
 @end

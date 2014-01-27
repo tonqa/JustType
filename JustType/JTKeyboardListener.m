@@ -27,14 +27,16 @@ NSString * const JTKeyboardGestureSwipeDown         = @"JTKeyboardGestureSwipeDo
 NSString * const JTKeyboardActionCapitalized        = @"JTKeyboardActionCapitalized";
 NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercased";
 
-#define SWIPE_SHORTSLOWSWIPE_WIDTH 40.0
+#define SWIPE_SHORTSLOWSWIPE_WIDTH 30.0
+#define SWIPE_SHORTMEDIUMSWIPE_WIDTH 55.0
 #define SWIPE_SHORTFASTSWIPE_WIDTH 80.0
-#define SWIPE_LONGSLOWSWIPE_WIDTH 120.0
-#define SWIPE_LONGFASTSWIPE_WIDTH 160.0
+#define SWIPE_LONGSLOWSWIPE_WIDTH 105.0
+#define SWIPE_LONGMEDIUMSWIPE_WIDTH 130.0
+#define SWIPE_LONGFASTSWIPE_WIDTH 155.0
 
 
 #define SAMPLE_TIME_SECS_INITIAL 0.6
-#define SAMPLE_TIME_SECS_MAX 0.3
+#define SAMPLE_TIME_SECS_MAX 0.4
 #define SAMPLE_TIME_SECS_MIDDLE 0.2
 #define SAMPLE_TIME_SECS_MIN 0.1
 
@@ -245,7 +247,8 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
         [self sendNotificationForLastSwipeGesture];
 
     } else if (self.lastSwipeDirection == JTKeyboardSwipeDirectionVertical) {
-        /* do nothing */
+        [self determineVerticalSwipeGestureWithDiff:diffPoint];
+        [self sendNotificationForLastSwipeGesture];
         
     } else if (self.lastSwipeDirection == JTKeyboardSwipeDirectionNone) {
         [self determineAllSwipeGestureDirectionsWithDiff:diffPoint];
@@ -274,13 +277,21 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
         CGFloat x = -diffPoint.x;
         if (x <= SWIPE_SHORTSLOWSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MAX;
+
+        } else if (x <= SWIPE_SHORTMEDIUMSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftShort;
             self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
-        
+
         } else if (x <= SWIPE_SHORTFASTSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftShort;
             self.pollingTime = SAMPLE_TIME_SECS_MIN;
 
         } else if (x <= SWIPE_LONGSLOWSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MAX;
+
+        } else if (x <= SWIPE_LONGMEDIUMSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeLeftLong;
             self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
 
@@ -292,13 +303,21 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
         CGFloat x = diffPoint.x;
         if (x <= SWIPE_SHORTSLOWSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeRightShort;
+            self.pollingTime = SAMPLE_TIME_SECS_MAX;
+
+        } else if (x <= SWIPE_SHORTMEDIUMSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeRightShort;
             self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
-            
+
         } else if (x <= SWIPE_SHORTFASTSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeRightShort;
             self.pollingTime = SAMPLE_TIME_SECS_MIN;
-            
+
         } else if (x <= SWIPE_LONGSLOWSWIPE_WIDTH) {
+            self.lastSwipeGestureType = JTKeyboardGestureSwipeRightLong;
+            self.pollingTime = SAMPLE_TIME_SECS_MAX;
+
+        } else if (x <= SWIPE_LONGMEDIUMSWIPE_WIDTH) {
             self.lastSwipeGestureType = JTKeyboardGestureSwipeRightLong;
             self.pollingTime = SAMPLE_TIME_SECS_MIDDLE;
             
@@ -312,8 +331,10 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
 - (void)determineVerticalSwipeGestureWithDiff:(CGPoint)diffPoint {
     if (diffPoint.y < 0) {
         self.lastSwipeGestureType = JTKeyboardGestureSwipeUp;
+        self.pollingTime = SAMPLE_TIME_SECS_MAX;
     } else {
         self.lastSwipeGestureType = JTKeyboardGestureSwipeDown;
+        self.pollingTime = SAMPLE_TIME_SECS_MAX;
     }
 }
 
@@ -388,6 +409,23 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
         }
         _enableGestures = enableGestures;
     }
+}
+
+# pragma mark - getters & setters
+- (UIColor *)touchDownColor {
+    return self.keyboardOverlayView.startCircleView.backgroundColor;
+}
+
+- (void)setTouchDownColor:(UIColor *)touchDownColor {
+    self.keyboardOverlayView.startCircleView.backgroundColor = touchDownColor;
+}
+
+- (UIColor *)touchMoveColor {
+    return self.keyboardOverlayView.endCircleView.backgroundColor;
+}
+
+- (void)setTouchMoveColor:(UIColor *)touchMoveColor {
+    self.keyboardOverlayView.endCircleView.backgroundColor = touchMoveColor;
 }
 
 @end

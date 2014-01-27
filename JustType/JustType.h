@@ -14,5 +14,6 @@
 #import "JTTextView.h"
 #import "JTKeyboardAttachmentView.h"
 #import "JTTextSuggestionDelegate.h"
+#import "JTDashedBorderedView.h"
 
 #endif

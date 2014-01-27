@@ -34,7 +34,7 @@
 		11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D66F87186DFDD000302F2F /* JTTextViewMediatorDelegate.h */; };
 		11213B8318782F2100A4880F /* JTTextSuggestionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA681876D0E100566E06 /* JTTextSuggestionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11213B8418782F2100A4880F /* JTTextController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F3186D581300D16576 /* JTTextController.h */; };
-		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; };
+		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
 		11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */; };
@@ -482,6 +482,7 @@
 				11213B7C18782EF300A4880F /* JTTextField.h in Headers */,
 				11213B7D18782EF300A4880F /* JTTextView.h in Headers */,
 				11213B8318782F2100A4880F /* JTTextSuggestionDelegate.h in Headers */,
+				11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */,
 				11213B7E18782F2100A4880F /* JTKeyboardHeaders.h in Headers */,
 				11213B7F18782F2100A4880F /* JTKeyboardOverlayView.h in Headers */,
 				11213B8018782F2100A4880F /* JTKeyboardGestureRecognizer.h in Headers */,
@@ -490,7 +491,6 @@
 				11213B8218782F2100A4880F /* JTTextViewMediatorDelegate.h in Headers */,
 				11213B8418782F2100A4880F /* JTTextController.h in Headers */,
 				11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */,
-				11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */,
 				11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */,
 				11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */,
 			);

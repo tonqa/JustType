@@ -13,4 +13,9 @@
  */
 @interface JTDashedBorderedView : UIView
 
+/**
+ *  The color with which the highlighting of words in textviews is done.
+ */
+@property (nonatomic, retain) UIColor *strokeColor;
+
 @end
