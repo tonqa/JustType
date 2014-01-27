@@ -37,6 +37,8 @@
 		11213B8518782F2100A4880F /* JTDashedBorderedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11DBAA651876120200566E06 /* JTDashedBorderedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11213B8618782F2100A4880F /* JTSyntaxLinguisticWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9FC186D590F00D16576 /* JTSyntaxLinguisticWord.h */; };
 		11213B8718782F2100A4880F /* JTSyntaxSeperatorWord.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B7A9F9186D589300D16576 /* JTSyntaxSeperatorWord.h */; };
+		1152113E18970B77001067A1 /* NSString+JTUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1152113C18970B77001067A1 /* NSString+JTUtil.h */; };
+		1152113F18970B77001067A1 /* NSString+JTUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1152113D18970B77001067A1 /* NSString+JTUtil.m */; };
 		11656C4D18941391009FC208 /* JTEdgeInsetLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */; };
 		11656C4E18941391009FC208 /* JTEdgeInsetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */; };
 		11656C8B1894868B009FC208 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7A9B9186D56A000D16576 /* Foundation.framework */; };
@@ -118,6 +120,8 @@
 		110110BD187B553700B5CFB8 /* JTTextController+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextController+TestsPrivate.h"; sourceTree = "<group>"; };
 		110110BE187B553700B5CFB8 /* JTTextField+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextField+TestsPrivate.h"; sourceTree = "<group>"; };
 		110110BF187B553700B5CFB8 /* JTTextView+TestsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JTTextView+TestsPrivate.h"; sourceTree = "<group>"; };
+		1152113C18970B77001067A1 /* NSString+JTUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JTUtil.h"; sourceTree = "<group>"; };
+		1152113D18970B77001067A1 /* NSString+JTUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JTUtil.m"; sourceTree = "<group>"; };
 		11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTEdgeInsetLabel.h; sourceTree = "<group>"; };
 		11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTEdgeInsetLabel.m; sourceTree = "<group>"; };
 		11656C8A1894868B009FC208 /* JustTypeAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,6 +457,8 @@
 				65B7A9F4186D581300D16576 /* JTTextController.m */,
 				11DBAA651876120200566E06 /* JTDashedBorderedView.h */,
 				11DBAA661876120200566E06 /* JTDashedBorderedView.m */,
+				1152113C18970B77001067A1 /* NSString+JTUtil.h */,
+				1152113D18970B77001067A1 /* NSString+JTUtil.m */,
 			);
 			name = "Text Management";
 			sourceTree = "<group>";
@@ -478,6 +484,7 @@
 			files = (
 				11213B7918782EF200A4880F /* JustType.h in Headers */,
 				11213B7A18782EF300A4880F /* JTKeyboardListener.h in Headers */,
+				1152113E18970B77001067A1 /* NSString+JTUtil.h in Headers */,
 				11213B7B18782EF300A4880F /* JTKeyboardAttachmentView.h in Headers */,
 				11213B7C18782EF300A4880F /* JTTextField.h in Headers */,
 				11213B7D18782EF300A4880F /* JTTextView.h in Headers */,
@@ -665,6 +672,7 @@
 				11213B66187829A600A4880F /* JTKeyboardListener.m in Sources */,
 				11656C4E18941391009FC208 /* JTEdgeInsetLabel.m in Sources */,
 				11213B6B187829B900A4880F /* JTTextFieldMediatorDelegate.m in Sources */,
+				1152113F18970B77001067A1 /* NSString+JTUtil.m in Sources */,
 				11213B6D187829B900A4880F /* JTTextViewMediatorDelegate.m in Sources */,
 				11213B69187829B900A4880F /* JTKeyboardGestureRecognizer.m in Sources */,
 				11213B68187829B900A4880F /* JTKeyboardAttachmentView.m in Sources */,

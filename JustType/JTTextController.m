@@ -12,6 +12,7 @@
 #import "JTSyntaxWord.h"
 #import "JTSyntaxLinguisticWord.h"
 #import "JTSyntaxSeperatorWord.h"
+#import "NSString+JTUtil.h"
 
 #define SYNTAX_COMPLETION_WHEN_SWIPING_RIGHT 0
 
@@ -659,8 +660,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     
     NSRange wordRangeToReplace = self.selectedSyntaxWordRange;
     NSString *switchedCaseWord = self.selectedSyntaxWord.text;
-    NSCharacterSet *characterSet = [NSCharacterSet uppercaseLetterCharacterSet];
-    BOOL isUppercase = [characterSet characterIsMember:[switchedCaseWord characterAtIndex:0]];
+    BOOL isUppercase = [switchedCaseWord beginsWithUpperCaseLetter];
     
     if (isUppercase) {
         switchedCaseWord = [switchedCaseWord lowercaseString];

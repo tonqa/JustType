@@ -9,6 +9,7 @@
 #import "JTSyntaxLinguisticWord.h"
 #import <UIKit/UIKit.h>
 #import <UIKit/UITextChecker.h>
+#import "NSString+JTUtil.h"
 
 @interface JTSyntaxLinguisticWord ()
 
@@ -17,7 +18,6 @@
 @property (nonatomic, retain) UITextInputMode *textInputMode;
 
 - (BOOL)isTextCheckerAvailable;
-- (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word;
 - (NSString *)selectedLocaleIdentifier;
 
 @end
@@ -65,11 +65,11 @@
             _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[self selectedLocaleIdentifier]];
             
             // this checks that all suggestions are of the same case
-            BOOL shouldBeUpperCase = [self wordBeginsWithUpperCaseLetter:self.text];
+            BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
             NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
                 NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
                 NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
-                return (matchesCount > 0) && ([self wordBeginsWithUpperCaseLetter:object] == shouldBeUpperCase);
+                return (matchesCount > 0) && ([object beginsWithUpperCaseLetter] == shouldBeUpperCase);
             }];
             _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
 
@@ -94,11 +94,6 @@
     NSString *localeIdentifier = self.textInputMode.primaryLanguage;
     localeIdentifier = [localeIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
     return localeIdentifier;
-}
-
-- (BOOL)wordBeginsWithUpperCaseLetter:(NSString *)word {
-    NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
-    return [upperCaseSet characterIsMember:[word characterAtIndex:0]];
 }
 
 - (UITextInputMode *)textInputMode {

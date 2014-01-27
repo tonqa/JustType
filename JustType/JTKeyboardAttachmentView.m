@@ -8,6 +8,7 @@
 
 #import "JTKeyboardAttachmentView.h"
 #import "JTEdgeInsetLabel.h"
+#import "NSString+JTUtil.h"
 
 #define JTKEYBOARD_ATTACHMENT_SPACING 12.0
 
@@ -327,19 +328,11 @@
     return button;
 }
 
-- (BOOL)syntaxWordIsUppercase {
-    NSString *switchedCaseWord = self.selectedSyntaxWord.text;
-    NSCharacterSet *characterSet = [NSCharacterSet uppercaseLetterCharacterSet];
-    BOOL isUppercase = [characterSet characterIsMember:[switchedCaseWord characterAtIndex:0]];
-    return isUppercase;
-}
-
 - (NSString *)capitalizeButtonText {
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         return @"^ ";
     } else {
-        //@"\u21F3";
-        if ([self syntaxWordIsUppercase]) {
+        if ([self.selectedSyntaxWord.text beginsWithUpperCaseLetter]) {
             return @"\u2193";
         } else {
             return @"\u2191";
