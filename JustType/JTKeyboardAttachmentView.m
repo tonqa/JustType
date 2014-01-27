@@ -238,17 +238,11 @@
 }
 
 - (UIButton *)upButton {
+    NSString *capitalizeArrowText = [self capitalizeButtonText];
     if (!_upButton) {
-        NSString *capitalizeArrowText;
-        
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-            capitalizeArrowText = @"^ ";
-        } else {
-            capitalizeArrowText = @"\u21F3";
-        }
         
         // the unicode char is smaller, thus we add eight points
-        UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize+10];
+        UIFont *capitalizeFont = [UIFont systemFontOfSize:self.fontSize];
         CGSize textSize = [self sizeOfText:capitalizeArrowText
                                   withFont:capitalizeFont];
         CGFloat upButtonWidth = textSize.width + 40;
@@ -261,6 +255,7 @@
         [_upButton addTarget:self action:@selector(switchcase:)
            forControlEvents:UIControlEventTouchUpInside];
     }
+    [_upButton setTitle:capitalizeArrowText forState:UIControlStateNormal];
     return _upButton;
 }
 
@@ -330,6 +325,26 @@
      forControlEvents:UIControlEventTouchUpInside];
 
     return button;
+}
+
+- (BOOL)syntaxWordIsUppercase {
+    NSString *switchedCaseWord = self.selectedSyntaxWord.text;
+    NSCharacterSet *characterSet = [NSCharacterSet uppercaseLetterCharacterSet];
+    BOOL isUppercase = [characterSet characterIsMember:[switchedCaseWord characterAtIndex:0]];
+    return isUppercase;
+}
+
+- (NSString *)capitalizeButtonText {
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        return @"^ ";
+    } else {
+        //@"\u21F3";
+        if ([self syntaxWordIsUppercase]) {
+            return @"\u2193";
+        } else {
+            return @"\u2191";
+        }
+    }
 }
 
 @end
