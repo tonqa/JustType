@@ -563,21 +563,30 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (BOOL)rangeIsAtEndOfWordAndText:(NSRange)range {
-    NSUInteger endPositionOfSelectedWord = range.location + range.length;
-    
+    // first get the selected index
     NSInteger selectedIndex;
     BOOL selectedIndexWasFound = [self getSelectedIndex:&selectedIndex];
+    if (!selectedIndexWasFound) {
+        return NO;
+    }
     
+    // then compare the word range with the end index of the selected word
+    NSUInteger endPositionOfWord = range.location + range.length;
+    if (endPositionOfWord != selectedIndex) {
+        return NO;
+    }
+    
+    // then compare the word range with the end index of the document
     UITextRange *selectedTextRange = [self.delegate selectedTextRange];
     UITextPosition *docStartPosition = [self.delegate beginningOfDocument];
     NSInteger textEndIndex = [self.delegate offsetFromPosition:docStartPosition toPosition:selectedTextRange.end];
-    
-    if (selectedIndexWasFound &&
-        endPositionOfSelectedWord == selectedIndex &&
-        endPositionOfSelectedWord == textEndIndex) {
-        return YES;
+    if (endPositionOfWord != textEndIndex) {
+        return NO;
     }
-    return NO;
+    
+    // if every check succeeded then we have found
+    // the right range at the end of the document
+    return YES;
 }
 
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward {

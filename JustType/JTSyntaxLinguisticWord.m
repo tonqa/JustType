@@ -84,6 +84,7 @@
                 return (matchesCount > 0) && ([object beginsWithUpperCaseLetter] == shouldBeUpperCase);
             }];
             [allSuggestions filterUsingPredicate:predicate];
+            [allSuggestions removeObject:_text];
             _allSuggestions = allSuggestions;
 
         } else {
