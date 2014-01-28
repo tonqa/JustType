@@ -84,7 +84,6 @@
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
-    NSLog(@"configure highlighting range");
     if (self.useSyntaxHighlighting) {
         CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
         highlightRect.origin.x -= 2;

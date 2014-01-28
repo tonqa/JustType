@@ -88,6 +88,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
         [notifCenter addObserver:self selector:@selector(didSwipe:) name:JTNotificationTextControllerDidRecognizeGesture object:nil];
+        [notifCenter addObserver:self selector:@selector(didChangeKeyboardTextInputMode:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
     }
     return self;
 }
@@ -226,13 +227,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (![self.delegate isFirstResponder]) return;
     if (!self.selectedSyntaxWord) return;
     
-    NSString *word = nil;
-    if (index == -1) {
-        word = [self.selectedSyntaxWord text];
-    } else {
-        word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
-    }
-    
+    NSString *word = [self selectedTextWithSyntaxWordSuggestionIndex:index];
+
     self.isIgnoringChangeUpdates = YES;
     
     [self replaceRange:self.selectedSyntaxWordRange withText:word];
@@ -305,6 +301,10 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 - (void)didSwipeDown:(NSNotification *)notification {
     [self selectNextSuggestion];
     [self postDidProcessNotificationForDirection:JTKeyboardGestureSwipeDown];
+}
+
+- (void)didChangeKeyboardTextInputMode:(NSNotification *)notification {
+    [self computeSyntaxWordWithForcedRecomputation:YES];
 }
 
 #pragma mark - internal methods
@@ -442,14 +442,11 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         
         //NSLog(@"didChange: '%@'", self.delegate.textContent);
 
-        if (self.selectedSyntaxWord && !enforced && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
+        if (!enforced && self.selectedSyntaxWord && rangeOfSelectedWord.location == self.selectedSyntaxWordRange.location) {
             return;
         }
         
         id<JTSyntaxWord> syntaxWord = [self syntaxWordForTextInRange:rangeOfSelectedWord];
-        
-        if ([[syntaxWord text] isEqualToString:[self.selectedSyntaxWord text]] && self.selectedSyntaxWordRange.location == rangeOfSelectedWord.location && self.selectedSyntaxWordSuggestionIndex == -1)
-            return;
         
         self.selectedSyntaxWordRange = rangeOfSelectedWord;
         self.selectedSyntaxWord = syntaxWord;
@@ -535,16 +532,22 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     return YES;
 }
 
+- (NSString *)selectedTextWithSyntaxWordSuggestionIndex:(NSInteger)index {
+    NSString *selectedText;
+    if (index == -1) {
+        selectedText = [self.selectedSyntaxWord text];
+    } else {
+        selectedText = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:index];
+    }
+    return selectedText;
+}
+
 - (id<JTSyntaxWord>)syntaxWordForTextInRange:(NSRange)range {
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
         if ([syntaxClass doesMatchWordInText:self.delegate.textContent range:range]) {
             // we need a check for the textInputMode (iOS7 only)
-            UITextInputMode *textInputMode = nil;
-            if ([self.delegate respondsToSelector:@selector(textInputMode)]) {
-                textInputMode = [self.delegate textInputMode];
-            }
-            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion textInputMode:textInputMode];
+            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion textInputMode:[self selectedTextInputMode]];
             return syntaxWord;
         }
     }
@@ -578,12 +581,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             *currentIndex = suggestionCount - 1;
         }
     }
-    
-    if (*currentIndex == -1) {
-        *word = [self.selectedSyntaxWord text];
-    } else {
-        *word = [[self.selectedSyntaxWord allSuggestions] objectAtIndex:*currentIndex];
-    }
+
+    *word = [self selectedTextWithSyntaxWordSuggestionIndex:*currentIndex];
 
     return;
 }
@@ -642,6 +641,14 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     }
 }
 
+- (UITextInputMode *)selectedTextInputMode {
+    UITextInputMode *textInputMode = nil;
+    if ([self.delegate respondsToSelector:@selector(textInputMode)]) {
+        textInputMode = [self.delegate textInputMode];
+    }
+    return textInputMode;
+}
+
 #pragma mark - JTKeyboardAttachmentViewDelegate methods
 - (void)setKeyboardAttachmentView:(JTKeyboardAttachmentView *)keyboardAttachmentView {
     if (_keyboardAttachmentView != keyboardAttachmentView) {
@@ -659,18 +666,19 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     if (![self getSelectedIndex:NULL]) return;
     
     NSRange wordRangeToReplace = self.selectedSyntaxWordRange;
-    NSString *switchedCaseWord = self.selectedSyntaxWord.text;
-    BOOL isUppercase = [switchedCaseWord beginsWithUpperCaseLetter];
+    NSInteger index = self.selectedSyntaxWordSuggestionIndex;
+    NSString *word = [self selectedTextWithSyntaxWordSuggestionIndex:index];
+    BOOL isUppercase = [word beginsWithUpperCaseLetter];
     
     if (isUppercase) {
-        switchedCaseWord = [switchedCaseWord lowercaseString];
+        word = [word lowercaseString];
         [self postDidProcessNotificationForAction:JTKeyboardActionLowercased];
     } else {
-        switchedCaseWord = [switchedCaseWord capitalizedString];
+        word = [word capitalizedString];
         [self postDidProcessNotificationForAction:JTKeyboardActionCapitalized];
     }
     
-    [self replaceRange:wordRangeToReplace withText:switchedCaseWord];
+    [self replaceRange:wordRangeToReplace withText:word];
     [self computeSyntaxWordWithForcedRecomputation:YES];
 }
 

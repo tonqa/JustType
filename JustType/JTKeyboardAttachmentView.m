@@ -46,6 +46,7 @@
     return self;
 }
 
+#pragma mark - public methods
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
     _highlightedIndex = -1;
     _selectedSyntaxWord = syntaxWord;
@@ -70,105 +71,6 @@
     [self setNeedsLayout];
 }
 
-- (void)update {
-    
-    for (UIView *subview in self.subviews) {
-        [subview removeFromSuperview];
-    }
-
-    if (!self.allButtons) {
-        [self addSubview:self.notAvailableLabel];
-        return;
-    }
-
-    CGFloat upButtonWidth = 0.0f;
-    if (self.selectedSyntaxWord.canBeCapitalized) {
-        upButtonWidth = self.upButton.frame.size.width;
-        self.upButton.frame = CGRectMake(self.frame.size.width-upButtonWidth, 0,
-                                         upButtonWidth, self.frame.size.height);
-        [self addSubview:self.upButton];
-    }
-
-    CGFloat xPos = 0;
-    CGFloat pageNo = 0;
-    BOOL foundHighlightedIndex = NO;
-    BOOL isFirstPage = YES;
-
-    UIButton *button;
-    CGFloat buttonWidth, summedUpWidth;
-    CGFloat backButtonWidth = 0.0f;
-    CGFloat nextButtonWidth = self.nextButton.frame.size.width;
-
-    NSMutableArray *displayedButtons = [NSMutableArray array];
-    for (int index = 0; index < [self.allButtons count]; index++) {
-        
-        button = [self.allButtons objectAtIndex:index];
-        buttonWidth = button.frame.size.width;
-        
-        //if it is the last button then 'no next button' (width is 0)
-        if (index+1 != [self.allButtons count]) {
-            nextButtonWidth = 0.0f;
-        }
-
-        summedUpWidth = xPos + backButtonWidth + buttonWidth +
-                        nextButtonWidth + upButtonWidth;
-        
-        BOOL buttonDoesFit = (summedUpWidth <= self.frame.size.width);
-        if (!buttonDoesFit) {
-            
-            // if we found stop page or highlighted index then quit
-            // else increase page number and go on
-            if ((self.currentStopPage && pageNo == [self.currentStopPage integerValue]) ||
-                (!self.currentStopPage && foundHighlightedIndex)) {
-                
-                break;
-                
-            } else {
-                xPos = 0.0f;
-                pageNo++;
-                isFirstPage = NO;
-                displayedButtons = [NSMutableArray array];
-                backButtonWidth = self.backButton.frame.size.width;
-            }
-        }
-        
-        // this adds the button
-        BOOL buttonIsHighlighted = (index == self.highlightedIndex+1);
-        if (buttonIsHighlighted) {
-            // we need to set highlighted state again
-            // because it was lost when removeFromSuperView was called.
-            [button setHighlighted:YES];
-        }
-        foundHighlightedIndex = foundHighlightedIndex || buttonIsHighlighted;
-        button.frame = CGRectMake(xPos + backButtonWidth, 0.0f,
-                                  button.frame.size.width,
-                                  self.frame.size.height);
-        [displayedButtons addObject:button];
-        xPos += buttonWidth;
-    }
-    
-    for (UIButton *displayedButton in displayedButtons) {
-        [self addSubview:displayedButton];
-    }
-    
-    // not on first page => back button
-    if (!isFirstPage) {
-        self.backButton.frame = CGRectMake(0, 0, self.backButton.frame.size.width,
-                                           self.frame.size.height);
-        [self addSubview:self.backButton];
-    }
-
-    // not on last page => next button
-    if (self.allButtons.lastObject != displayedButtons.lastObject) {
-        self.nextButton.frame = CGRectMake(xPos + backButtonWidth, 0,
-                                           self.nextButton.frame.size.width,
-                                           self.frame.size.height);
-        [self addSubview:self.nextButton];
-    }
-
-    self.currentPage = pageNo;
-}
-
 - (void)setHighlightedIndex:(NSInteger)highlightedIndex {
     NSInteger oldButtonIndex = _highlightedIndex+1;
     UIButton *oldButton = [self.allButtons objectAtIndex:oldButtonIndex];
@@ -183,6 +85,7 @@
     [self setNeedsLayout];
 }
 
+#pragma mark - actions
 - (IBAction)touchedWord:(UIButton *)sender {
     [self.delegate keyboardAttachmentView:self didSelectIndex:sender.tag-1];
 }
@@ -242,6 +145,23 @@
     return size;
 }
 
+- (UIButton *)createButtonWithText:(NSString *)text tag:(NSInteger)index {
+    UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
+    CGSize textSize = [self sizeOfText:text withFont:systemFont];
+    CGFloat buttonWidth = textSize.width + 20;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button.titleLabel setFont:systemFont];
+    [button setTag:index];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, buttonWidth, self.frame.size.height)];
+    [button addTarget:self action:@selector(touchedWord:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
+
+#pragma mark - getters & setters
 - (UIButton *)upButton {
     NSString *capitalizeArrowText = [self capitalizeButtonText];
     if (!_upButton) {
@@ -316,22 +236,6 @@
     return _nextButton;
 }
 
-- (UIButton *)createButtonWithText:(NSString *)text tag:(NSInteger)index {
-    UIFont *systemFont = [UIFont systemFontOfSize:self.fontSize];
-    CGSize textSize = [self sizeOfText:text withFont:systemFont];
-    CGFloat buttonWidth = textSize.width + 20;
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button.titleLabel setFont:systemFont];
-    [button setTag:index];
-    [button setTitle:text forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, buttonWidth, self.frame.size.height)];
-    [button addTarget:self action:@selector(touchedWord:)
-     forControlEvents:UIControlEventTouchUpInside];
-
-    return button;
-}
-
 - (NSString *)capitalizeButtonText {
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         return @"^ ";
@@ -344,9 +248,104 @@
     }
 }
 
+#pragma mark - layouting
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self update];
+    for (UIView *subview in self.subviews) {
+        [subview removeFromSuperview];
+    }
+    
+    if (!self.allButtons) {
+        [self addSubview:self.notAvailableLabel];
+        return;
+    }
+    
+    CGFloat upButtonWidth = 0.0f;
+    if (self.selectedSyntaxWord.canBeCapitalized) {
+        upButtonWidth = self.upButton.frame.size.width;
+        self.upButton.frame = CGRectMake(self.frame.size.width-upButtonWidth, 0,
+                                         upButtonWidth, self.frame.size.height);
+        [self addSubview:self.upButton];
+    }
+    
+    CGFloat xPos = 0;
+    CGFloat pageNo = 0;
+    BOOL foundHighlightedIndex = NO;
+    BOOL isFirstPage = YES;
+    
+    UIButton *button;
+    CGFloat buttonWidth, summedUpWidth;
+    CGFloat backButtonWidth = 0.0f;
+    CGFloat nextButtonWidth = self.nextButton.frame.size.width;
+    
+    NSMutableArray *displayedButtons = [NSMutableArray array];
+    for (int index = 0; index < [self.allButtons count]; index++) {
+        
+        button = [self.allButtons objectAtIndex:index];
+        buttonWidth = button.frame.size.width;
+        
+        //if it is the last button then 'no next button' (width is 0)
+        if (index+1 != [self.allButtons count]) {
+            nextButtonWidth = 0.0f;
+        }
+        
+        summedUpWidth = xPos + backButtonWidth + buttonWidth +
+        nextButtonWidth + upButtonWidth;
+        
+        BOOL buttonDoesFit = (summedUpWidth <= self.frame.size.width);
+        if (!buttonDoesFit) {
+            
+            // if we found stop page or highlighted index then quit
+            // else increase page number and go on
+            if ((self.currentStopPage && pageNo == [self.currentStopPage integerValue]) ||
+                (!self.currentStopPage && foundHighlightedIndex)) {
+                
+                break;
+                
+            } else {
+                xPos = 0.0f;
+                pageNo++;
+                isFirstPage = NO;
+                displayedButtons = [NSMutableArray array];
+                backButtonWidth = self.backButton.frame.size.width;
+            }
+        }
+        
+        // this adds the button
+        BOOL buttonIsHighlighted = (index == self.highlightedIndex+1);
+        if (buttonIsHighlighted) {
+            // we need to set highlighted state again
+            // because it was lost when removeFromSuperView was called.
+            [button setHighlighted:YES];
+        }
+        foundHighlightedIndex = foundHighlightedIndex || buttonIsHighlighted;
+        button.frame = CGRectMake(xPos + backButtonWidth, 0.0f,
+                                  button.frame.size.width,
+                                  self.frame.size.height);
+        [displayedButtons addObject:button];
+        xPos += buttonWidth;
+    }
+    
+    for (UIButton *displayedButton in displayedButtons) {
+        [self addSubview:displayedButton];
+    }
+    
+    // not on first page => back button
+    if (!isFirstPage) {
+        self.backButton.frame = CGRectMake(0, 0, self.backButton.frame.size.width,
+                                           self.frame.size.height);
+        [self addSubview:self.backButton];
+    }
+    
+    // not on last page => next button
+    if (self.allButtons.lastObject != displayedButtons.lastObject) {
+        self.nextButton.frame = CGRectMake(xPos + backButtonWidth, 0,
+                                           self.nextButton.frame.size.width,
+                                           self.frame.size.height);
+        [self addSubview:self.nextButton];
+    }
+    
+    self.currentPage = pageNo;
 }
 
 @end

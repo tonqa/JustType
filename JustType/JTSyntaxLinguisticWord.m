@@ -48,6 +48,15 @@
     return sharedLinguisticExpression;
 }
 
++ (UITextChecker *)sharedTextChecker {
+    static UITextChecker *sharedTextChecker;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedTextChecker = [[UITextChecker alloc] init];
+    });
+    return sharedTextChecker;
+}
+
 - (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
     self = [super init];
     if (self) {
@@ -56,13 +65,10 @@
         
         if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
 
-            static UITextChecker *sharedTextChecker;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                sharedTextChecker = [[UITextChecker alloc] init];
-            });
-
-            _allSuggestions = [sharedTextChecker guessesForWordRange:range inString:text language:[self selectedLocaleIdentifier]];
+            NSMutableArray *allSuggestions = [NSMutableArray array];
+            NSString *locale = [self selectedLocaleIdentifier];
+            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
+            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
             
             // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
@@ -71,7 +77,8 @@
                 NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
                 return (matchesCount > 0) && ([object beginsWithUpperCaseLetter] == shouldBeUpperCase);
             }];
-            _allSuggestions = [_allSuggestions filteredArrayUsingPredicate:predicate];
+            [allSuggestions filterUsingPredicate:predicate];
+            _allSuggestions = allSuggestions;
 
         } else {
             _allSuggestions = [NSArray array];
