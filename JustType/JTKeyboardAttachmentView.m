@@ -15,7 +15,6 @@
 @interface JTKeyboardAttachmentView ()
 
 @property (nonatomic, assign) CGFloat fontSize;
-@property (nonatomic, assign) BOOL allowCapitalization;
 @property (nonatomic, assign) NSUInteger currentPage;
 
 @property (nonatomic, retain) NSArray *allButtons;
@@ -49,7 +48,6 @@
 - (void)setSelectedSyntaxWord:(id<JTSyntaxWord>)syntaxWord {
     _highlightedIndex = -1;
     _selectedSyntaxWord = syntaxWord;
-    _allowCapitalization = syntaxWord.canBeCapitalized;
     
     if (syntaxWord) {
         NSMutableArray *allWords = [NSMutableArray arrayWithObject:syntaxWord.text];
@@ -84,7 +82,7 @@
     }
 
     CGFloat upButtonWidth = 0.0f;
-    if (self.allowCapitalization) {
+    if (self.selectedSyntaxWord.canBeCapitalized) {
         upButtonWidth = self.upButton.frame.size.width;
         self.upButton.frame = CGRectMake(self.frame.size.width-upButtonWidth, 0,
                                          upButtonWidth, self.frame.size.height);
