@@ -461,7 +461,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
         // set changed syntax word
         [self.keyboardAttachmentView setSelectedSyntaxWord:self.selectedSyntaxWord];
         [self.keyboardAttachmentView setHighlightedIndex:-1];
-
+        
         [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
         
     } else {
@@ -547,12 +547,37 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     for (NSString *className in self.syntaxWordClassNames) {
         Class<JTSyntaxWord> syntaxClass = NSClassFromString(className);
         if ([syntaxClass doesMatchWordInText:self.delegate.textContent range:range]) {
+            
+            // If we are at end of text and at end of last block
+            // then use 'partial word' suggestions. Else use suggestions
+            // with same number of letters.
+            BOOL isAtEndOfWordAndText = [self rangeIsAtEndOfWordAndText:range];
+            
             // we need a check for the textInputMode (iOS7 only)
-            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion textInputMode:[self selectedTextInputMode]];
+            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion usePartialSuggestionsFirst:isAtEndOfWordAndText textInputMode:[self selectedTextInputMode]];
+            
             return syntaxWord;
         }
     }
     return nil;
+}
+
+- (BOOL)rangeIsAtEndOfWordAndText:(NSRange)range {
+    NSUInteger endPositionOfSelectedWord = range.location + range.length;
+    
+    NSInteger selectedIndex;
+    BOOL selectedIndexWasFound = [self getSelectedIndex:&selectedIndex];
+    
+    UITextRange *selectedTextRange = [self.delegate selectedTextRange];
+    UITextPosition *docStartPosition = [self.delegate beginningOfDocument];
+    NSInteger textEndIndex = [self.delegate offsetFromPosition:docStartPosition toPosition:selectedTextRange.end];
+    
+    if (selectedIndexWasFound &&
+        endPositionOfSelectedWord == selectedIndex &&
+        endPositionOfSelectedWord == textEndIndex) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)selectNextSuggestionInForwardDirection:(BOOL)forward {

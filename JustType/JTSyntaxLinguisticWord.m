@@ -57,7 +57,8 @@
     return sharedTextChecker;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions textInputMode:(UITextInputMode *)textInputMode {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions usePartialSuggestionsFirst:(BOOL)usePartialSuggestionsFirst textInputMode:(UITextInputMode *)textInputMode {
+
     self = [super init];
     if (self) {
         _text = [text substringWithRange:range];
@@ -67,8 +68,13 @@
 
             NSMutableArray *allSuggestions = [NSMutableArray array];
             NSString *locale = [self selectedLocaleIdentifier];
-            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
-            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
+            if (usePartialSuggestionsFirst) {
+                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
+                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
+            } else {
+                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
+                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
+            }
             
             // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
