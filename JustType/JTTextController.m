@@ -398,7 +398,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             // this is only executed if we get to the left border of the document, 
             // then we go right as long as we can
             indexOfLastLetterOfBlock = selectedIndex;
-            while ([self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock]]) {
+            do {
                 if (indexOfLastLetterOfBlock < indexOfLastLetterOfDoc) {
                     indexOfLastLetterOfBlock += 1;
                 } else {
@@ -406,7 +406,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
                     anyWordsFound = NO;
                     break;
                 }
-            }
+            } while ([self isEmptyCharacter:[self.delegate.textContent characterAtIndex:indexOfLastLetterOfBlock]]);
+
             break;
         }
     }
@@ -564,9 +565,12 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self selectSuggestionByIndex:newIndex];
 }
 
-- (void)nextSuggestionInForwardDirection:(BOOL)forward word:(NSString **)word index:(NSInteger *)currentIndex {
-    *currentIndex = self.selectedSyntaxWordSuggestionIndex;
+- (void)nextSuggestionInForwardDirection:(BOOL)forward
+                                    word:(NSString **)word
+                                   index:(NSInteger *)currentIndex {
+    
     NSInteger suggestionCount = [[self.selectedSyntaxWord allSuggestions] count];
+    *currentIndex = self.selectedSyntaxWordSuggestionIndex;
     
     if (forward) {
         if (*currentIndex < suggestionCount - 1) {
@@ -604,8 +608,6 @@ extern NSString * const JTKeyboardGestureSwipeDown;
 }
 
 - (void)selectNextSeperatorForEndOfDocument {
-    //return;
-    
     NSString *word = nil;
     
     // get range of the spaces after the currently selected word

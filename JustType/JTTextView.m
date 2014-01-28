@@ -85,11 +85,18 @@
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
     if (self.useSyntaxHighlighting) {
-        CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
-        highlightRect.origin.x -= 2;
-        highlightRect.size.width += 4;
-        self.highlightView.frame = highlightRect;
-        [self.highlightView setNeedsDisplay];
+        if ([self.text length] == 0) {
+            // in the case the text is empty the [UITextView firstRectForRange:]
+            // method does not work, so we just set the frame to zero manually.
+            self.highlightView.frame = CGRectMake(0, 0, 0, 0);
+        } else {
+            UITextRange *textRange = [self.textController textRangeFromRange:newRange];
+            CGRect highlightRect = [self firstRectForRange:textRange];
+            highlightRect.origin.x -= 2;
+            highlightRect.size.width += 4;
+            self.highlightView.frame = highlightRect;
+            [self.highlightView setNeedsDisplay];
+        }
     }
     [self scrollRangeToVisible:newRange];
 }
