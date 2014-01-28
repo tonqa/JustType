@@ -34,7 +34,6 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
 #define SWIPE_LONGMEDIUMSWIPE_WIDTH 135.0
 #define SWIPE_LONGFASTSWIPE_WIDTH 1000.0 // everything else
 
-
 #define SAMPLE_TIME_SECS_INITIAL 0.6
 #define SAMPLE_TIME_SECS_MAX 0.4
 #define SAMPLE_TIME_SECS_MIDDLE 0.2

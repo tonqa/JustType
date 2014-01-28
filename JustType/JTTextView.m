@@ -45,6 +45,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self setupView];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return self;
 }
@@ -70,6 +71,8 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     _mediatorDelegate = nil;
     _textController.delegate = nil;
     _textController = nil;
@@ -81,6 +84,7 @@
 }
 
 - (void)replaceHighlightingWithRange:(NSRange)newRange {
+    NSLog(@"configure highlighting range");
     if (self.useSyntaxHighlighting) {
         CGRect highlightRect = [self firstRectForRange:[self.textController textRangeFromRange:newRange]];
         highlightRect.origin.x -= 2;
@@ -195,8 +199,8 @@
     }
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+# pragma mark - orientation changes 
+- (void)orientationChanged:(NSNotification *)notification{
     [self.textController triggerUpdateHighlighting];
 }
 
