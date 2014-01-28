@@ -78,6 +78,8 @@
  */
 - (UITextRange *)textRangeFromRange:(NSRange)range;
 
+- (void)triggerUpdateHighlighting;
+
 /**
  *  This triggers the text element to move the cursor to the previous word. If it does not exist the cursor just stays where it was.
  */

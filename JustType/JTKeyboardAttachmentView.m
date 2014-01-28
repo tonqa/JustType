@@ -22,6 +22,7 @@
 @property (nonatomic, retain) JTEdgeInsetLabel *notAvailableLabel;
 @property (nonatomic, retain) UIButton *backButton;
 @property (nonatomic, retain) UIButton *nextButton;
+@property (nonatomic, retain) NSNumber *currentStopPage;
 
 - (CGSize)sizeOfText:(NSString *)text withFont:(UIFont *)font;
 
@@ -65,12 +66,11 @@
         _allButtons = nil;
     }
 
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self updateAndStopAtPage:NO withNumber:0];
-    }];
+    self.currentStopPage = nil;
+    [self setNeedsLayout];
 }
 
-- (void)updateAndStopAtPage:(BOOL)shouldStop withNumber:(NSUInteger)stopPage {
+- (void)update {
     
     for (UIView *subview in self.subviews) {
         [subview removeFromSuperview];
@@ -118,8 +118,8 @@
             
             // if we found stop page or highlighted index then quit
             // else increase page number and go on
-            if ((shouldStop && pageNo == stopPage) ||
-                (!shouldStop && foundHighlightedIndex)) {
+            if ((self.currentStopPage && pageNo == [self.currentStopPage integerValue]) ||
+                (!self.currentStopPage && foundHighlightedIndex)) {
                 
                 break;
                 
@@ -133,7 +133,13 @@
         }
         
         // this adds the button
-        foundHighlightedIndex = foundHighlightedIndex || (index == self.highlightedIndex+1);
+        BOOL buttonIsHighlighted = (index == self.highlightedIndex+1);
+        if (buttonIsHighlighted) {
+            // we need to set highlighted state again
+            // because it was lost when removeFromSuperView was called.
+            [button setHighlighted:YES];
+        }
+        foundHighlightedIndex = foundHighlightedIndex || buttonIsHighlighted;
         button.frame = CGRectMake(xPos + backButtonWidth, 0.0f,
                                   button.frame.size.width,
                                   self.frame.size.height);
@@ -164,19 +170,17 @@
 }
 
 - (void)setHighlightedIndex:(NSInteger)highlightedIndex {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-
-        NSInteger oldButtonIndex = _highlightedIndex+1;
-        UIButton *oldButton = [self.allButtons objectAtIndex:oldButtonIndex];
-        [oldButton setHighlighted:NO];
-
-        NSInteger newButtonIndex = highlightedIndex+1;
-        UIButton *newButton = [self.allButtons objectAtIndex:newButtonIndex];
-        [newButton setHighlighted:YES];
-
-        _highlightedIndex = highlightedIndex;
-        [self updateAndStopAtPage:NO withNumber:0];
-    }];
+    NSInteger oldButtonIndex = _highlightedIndex+1;
+    UIButton *oldButton = [self.allButtons objectAtIndex:oldButtonIndex];
+    [oldButton setHighlighted:NO];
+    
+    NSInteger newButtonIndex = highlightedIndex+1;
+    UIButton *newButton = [self.allButtons objectAtIndex:newButtonIndex];
+    [newButton setHighlighted:YES];
+    
+    _highlightedIndex = highlightedIndex;
+    self.currentStopPage = nil;
+    [self setNeedsLayout];
 }
 
 - (IBAction)touchedWord:(UIButton *)sender {
@@ -184,11 +188,13 @@
 }
 
 - (IBAction)touchedLastPage:(id)sender {
-    [self updateAndStopAtPage:YES withNumber:self.currentPage-1];
+    self.currentStopPage = @(self.currentPage-1);
+    [self setNeedsLayout];
 }
 
 - (IBAction)touchedNextPage:(id)sender {
-    [self updateAndStopAtPage:YES withNumber:self.currentPage+1];
+    self.currentStopPage = @(self.currentPage+1);
+    [self setNeedsLayout];
 }
 
 - (IBAction)switchcase:(id)sender {
@@ -248,7 +254,7 @@
         
         _upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _upButton.frame = CGRectMake(0, 0, upButtonWidth, 0);
-        _upButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+        _upButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 10);
         [_upButton.titleLabel setFont:capitalizeFont];
         [_upButton setTitle:capitalizeArrowText forState:UIControlStateNormal];
         [_upButton addTarget:self action:@selector(switchcase:)
@@ -336,6 +342,11 @@
             return @"\u2191";
         }
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self update];
 }
 
 @end

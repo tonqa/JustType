@@ -195,6 +195,11 @@
     }
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.textController triggerUpdateHighlighting];
+}
+
 @end
 
 

@@ -737,4 +737,8 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     [self.delegate setSelectedTextRange:newTextRange];
 }
 
+- (void)triggerUpdateHighlighting {
+    [self replaceHighlightingWithRange:self.selectedSyntaxWordRange];
+}
+
 @end
