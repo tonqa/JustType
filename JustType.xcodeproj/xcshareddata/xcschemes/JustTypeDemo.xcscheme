@@ -38,16 +38,6 @@
                ReferencedContainer = "container:JustType.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "11676FFA187825E80058BFD1"
-               BuildableName = "JustTypeLibTests.xctest"
-               BlueprintName = "JustTypeLibTests"
-               ReferencedContainer = "container:JustType.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
