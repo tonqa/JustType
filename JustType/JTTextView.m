@@ -98,7 +98,10 @@
             [self.highlightView setNeedsDisplay];
         }
     }
-    [self scrollRangeToVisible:newRange];
+    // only scroll if we really select a word
+    if (newRange.length != 0) {
+        [self scrollRangeToVisible:newRange];
+    }
 }
 
 #pragma mark - Actions forwarded to controller
