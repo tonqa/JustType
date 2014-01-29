@@ -42,7 +42,7 @@
 - (void)testCreationWithLinguisticSyntaxWord {
     NSString *textualWord = @"testimonial";
     
-    JTSyntaxLinguisticWord *linguisticWord = [[JTSyntaxLinguisticWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES textInputMode:[self mockedTextInputMode]];
+    JTSyntaxLinguisticWord *linguisticWord = [[JTSyntaxLinguisticWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES usePartialSuggestionsFirst:NO textInputMode:[self mockedTextInputMode]];
     
     JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:CGRectMake(0, 0, 1000, 20)];
     attachmentView.selectedSyntaxWord = linguisticWord;
@@ -57,7 +57,7 @@
 - (void)testCreationWithSeperationSyntaxWord {
     NSString *textualWord = @"...";
     
-    JTSyntaxSeperatorWord *seperatorWord = [[JTSyntaxSeperatorWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES textInputMode:[self mockedTextInputMode]];
+    JTSyntaxSeperatorWord *seperatorWord = [[JTSyntaxSeperatorWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES usePartialSuggestionsFirst:NO textInputMode:[self mockedTextInputMode]];
     
     JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:CGRectMake(0, 0, 1000, 20)];
     attachmentView.selectedSyntaxWord = seperatorWord;
@@ -72,7 +72,7 @@
 - (void)testNumberOfSuggestionsInSyntaxWord {
     NSString *textualWord = @"...";
     
-    JTSyntaxSeperatorWord *seperatorWord = [[JTSyntaxSeperatorWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES textInputMode:[self mockedTextInputMode]];
+    JTSyntaxSeperatorWord *seperatorWord = [[JTSyntaxSeperatorWord alloc] initWithText:textualWord inRange:NSMakeRange(0, textualWord.length) useSuggestions:YES usePartialSuggestionsFirst:NO textInputMode:[self mockedTextInputMode]];
     
     XCTAssertEqual([seperatorWord.allSuggestions count],
                    [[JTSyntaxSeperatorWord possibleSuggestions] count],

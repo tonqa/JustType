@@ -51,7 +51,7 @@
     /*
      Test if short right gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(250, 200);
+    mock.gestureMovementPoint = CGPointMake(300, 200);
     
     [mock recomputeSwipe];
     
@@ -60,7 +60,7 @@
     /*
      Test if long right gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(300, 200);
+    mock.gestureMovementPoint = CGPointMake(400, 200);
 
     [mock recomputeSwipe];
 
@@ -69,7 +69,7 @@
     /*
      Test if short left gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(150, 200);
+    mock.gestureMovementPoint = CGPointMake(100, 200);
     
     [mock recomputeSwipe];
     
@@ -78,7 +78,7 @@
     /*
      Test if long left gesture movement ist recognized
      */
-    mock.gestureMovementPoint = CGPointMake(100, 200);
+    mock.gestureMovementPoint = CGPointMake(0, 200);
     
     [mock recomputeSwipe];
     
