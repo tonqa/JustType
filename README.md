@@ -81,6 +81,11 @@ Additional options
                                          initWithFrame:CGRectZero];
         textView.highlightView = myOwnHighlightView;
 
+* Instead you can also simply adapt the color used for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor (only on textViews):
+
+        UIView *highlightView = self.justTypeTextView.highlightView;
+        [(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
+
 * To adapt the style of textFields instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default (only textFields):
 
         textField.backgroundColor = [UIColor blackColor];
@@ -103,7 +108,12 @@ Additional options
 
         textView.isSyntaxCompletionUsed = NO;
 
-* If you want to deactivate the visual help (arrows) which occur on top of the keyboard while swiping then you can switch them off, too:
+* You can also adapt the two colors used for the gestures on the keyboard by using these properties:
+
+        [[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
+        [[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
+
+* If you want to deactivate the visual help (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
 
         [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 
