@@ -9,8 +9,7 @@ A keyboard extension using swipe gestures
 
 Built to be used in any iOS text editor and all text-intensive iOS apps.
 
-![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)
-![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
+![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png) &nbsp;&nbsp; ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
 Features
 ---------------------
