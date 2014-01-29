@@ -663,7 +663,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     // if the rest contain more than one whitespace replace with suggestion
     if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxSeperatorWord class]]) {
         
-        [self selectNextSuggestionInForwardDirection:YES];
+        //[self selectNextSuggestionInForwardDirection:YES];
 
     } else {
         
