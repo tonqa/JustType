@@ -49,16 +49,22 @@ Actually for using this keyboard extension there are only four steps to follow.
 
 1. You should check that the import works by adding to your *AppDelegate.m*:
 
-        #import <JustType/JustType.h>
+```objc
+#import <JustType/JustType.h>
+```
 
 1. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
-        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+```objc
+[[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+```
 
 1. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
-        JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
-        [self.view addSubview: textView];
+```objc
+JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
+[self.view addSubview: textView];
+```
 
 Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.
 
@@ -67,57 +73,78 @@ Additional options
 
 * For using the syntax completion attachment view for the keyboard you need to add the following to your textView or textField:
 
-        CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
-        JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] 
-                                      initWithFrame: attachmentViewFrame];
-        [textView setInputAccessoryView: attachmentView];
+```objc
+CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
+JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] 
+                          initWithFrame: attachmentViewFrame];
+[textView setInputAccessoryView: attachmentView];
+```
 
 * You can add your own highlighting style to a textView by creating and own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
 
-        UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] 
-                                         initWithFrame:CGRectZero];
-        textView.highlightView = myOwnHighlightView;
+```objc
+UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] 
+                                 initWithFrame:CGRectZero];
+textView.highlightView = myOwnHighlightView;
+```
 
 * Instead you can also simply adapt the color used for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor (only on textViews):
 
-        UIView *highlightView = self.justTypeTextView.highlightView;
-        [(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
+```objc
+UIView *highlightView = self.justTypeTextView.highlightView;
+[(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
+```
 
 * To adapt the style of textFields instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default (only textFields):
 
-        textField.backgroundColor = [UIColor blackColor];
-        textField.unhighlightedColor = [UIColor whiteColor];
-        textField.highlightedColor = [UIColor lightGrayColor];
+```objc
+textField.backgroundColor = [UIColor blackColor];
+textField.unhighlightedColor = [UIColor whiteColor];
+textField.highlightedColor = [UIColor lightGrayColor];
+```
 
 * If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
 
-        textView.textSuggestionDelegate = self;
+```objc
+textView.textSuggestionDelegate = self;
+```
 
 * When you implement this protocol it will be useful to replace suggestions for the current word by calling the following method on the textView / textField:
 
-        [textView selectSuggestionByIndex: suggestionIndex];
+```objc
+[textView selectSuggestionByIndex: suggestionIndex];
+```
 
 * If you want to turn the syntax highlighting off just use the following command on the textView / textField:
 
-        textView.isSyntaxHighlightingUsed = NO;
+```objc
+textView.isSyntaxHighlightingUsed = NO;
+```
 
 * In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
 
-        textView.isSyntaxCompletionUsed = NO;
+```objc
+textView.isSyntaxCompletionUsed = NO;
+```
 
 * You can also adapt the two colors used for the gestures on the keyboard by using these properties:
 
-        [[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
-        [[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
+```objc
+[[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
+[[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
+```
 
 * If you want to deactivate the visual help (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
 
-        [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
+```objc
+[[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
+```
 
 * Note: You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
 
-        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
-
+```objc
+[[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
+```
 
 As a side note 
 ---------------------
