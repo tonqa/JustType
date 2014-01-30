@@ -2,10 +2,10 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 
-The better keyboard for iOS
+The Better Keyboard designed for iOS
 ---------------------
 
-JustType is a keyboard extension using swipe gestures and it is built to be used in any iOS text editor and all text-intensive iOS apps.
+JustType is a keyboard extension using swipe gestures, highlighting and suggestions. It is built to be used in any iOS text editor and all text-intensive iOS apps.
 
 ![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png) &nbsp;&nbsp; ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
@@ -39,27 +39,29 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only four steps to follow. 
 
-1. Add the framework to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
+- Add the framework to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
-        $ cd <Your Project>  # go to your project
-        $ vim Podfile        # create Podfile (and save)
-          > platform :ios
-          > pod 'JustType'
-        $ pod install        # install libraries from Podfile
+```
+$ cd <Your Project>  # go to your project
+$ vim Podfile        # create Podfile (and save)
+  > platform :ios
+  > pod 'JustType'
+$ pod install        # install libraries from Podfile
+```
 
-2. You should check that the import works by adding to your *AppDelegate.m*:
+- You should check that the import works by adding to your *AppDelegate.m*:
 
 ```objc
 #import <JustType/JustType.h>
 ```
 
-3. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
+- For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
 ```objc
 [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
 ```
 
-4. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
+- For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
 ```objc
 JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
