@@ -2,7 +2,7 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 
-JustType
+The better keyboard for iOS
 ---------------------
 
 JustType is a keyboard extension using swipe gestures and it is built to be used in any iOS text editor and all text-intensive iOS apps.
