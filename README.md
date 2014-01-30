@@ -1,13 +1,13 @@
 
-JustType - A keyboard extension using swipe gestures
----------------------
-
-Built to be used in any iOS text editor and all text-intensive iOS apps.
-
-![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png) &nbsp;&nbsp; ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
-
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
+
+JustType
+---------------------
+
+JustType is a keyboard extension using swipe gestures and it is built to be used in any iOS text editor and all text-intensive iOS apps.
+
+![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png) &nbsp;&nbsp; ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
 
 Features
 ---------------------
