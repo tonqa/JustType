@@ -62,7 +62,7 @@ Actually for using this keyboard extension there are only four steps to follow.
         JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
         [self.view addSubview:textView];
 
-Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.
+<sub>Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.</sub>
 
 Additional options
 ---------------------
