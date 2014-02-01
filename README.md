@@ -43,24 +43,24 @@ Actually for using this keyboard extension there are only four steps to follow.
 
 1. Add the framework to your project by either linking the JustType project sources [as a project dependency](http://www.cocoanetics.com/2011/12/sub-projects-in-xcode/), [dragging the already compiled *libJustType.a* in your project](http://www.raywenderlich.com/41377/creating-a-static-library-in-ios-tutorial), or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
-    $ cd <Your Project>  # go to your project
-    $ vim Podfile        # create Podfile (and save)
-      > platform :ios
-      > pod 'JustType'
-    $ pod install        # install libraries from Podfile
+        $ cd <Your Project>  # go to your project
+        $ vim Podfile        # create Podfile (and save)
+          > platform :ios
+          > pod 'JustType'
+        $ pod install        # install libraries from Podfile
 
 2. You should check that the import works by adding to your *AppDelegate.m*:
 
-    #import <JustType/JustType.h>
+        #import <JustType/JustType.h>
 
 3. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
-    [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+        [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
 
 4. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
-    JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:textView];
+        JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
+        [self.view addSubview:textView];
 
 Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.
 
