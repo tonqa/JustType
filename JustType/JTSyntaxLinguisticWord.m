@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSArray *allSuggestions;
 @property (nonatomic, retain) UITextInputMode *textInputMode;
+@property (nonatomic, retain) NSCache *scoreCache;
 
 - (BOOL)isTextCheckerAvailable;
 - (NSString *)selectedLocaleIdentifier;
@@ -63,6 +64,7 @@
     if (self) {
         _text = [text substringWithRange:range];
         _textInputMode = textInputMode;
+        _scoreCache = [[NSCache alloc] init];
         
         if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
 
@@ -71,7 +73,7 @@
             [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
             [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
             [allSuggestions filterUsingPredicate:[self wordPredicateWhileWritingWord:isCurrentlyWritingWord]];
-            _allSuggestions = [allSuggestions sortedArrayUsingComparator:self.wordComparator];
+            _allSuggestions = [allSuggestions sortedArrayUsingComparator:[self wordComparatorWhileWritingWord:isCurrentlyWritingWord]];
 
         } else {
             _allSuggestions = [NSArray array];
@@ -116,7 +118,7 @@
     BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
     
     // while writing we only allow longer words, later we also allow words with one letter less
-    NSUInteger textLength = (isCurrentlyWriting) ? self.text.length - 1 : self.text.length;
+    NSUInteger textLength = (isCurrentlyWriting) ? self.text.length : self.text.length - 1;
     
     return [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
         if (object.length < textLength) return NO;
@@ -129,22 +131,45 @@
     }];
 }
 
-- (NSComparisonResult (^)(NSString *obj1, NSString *obj2))wordComparator {
+- (NSComparisonResult (^)(NSString *obj1, NSString *obj2))wordComparatorWhileWritingWord:(BOOL)isWritingWord {
+        
     NSString *text = self.text;
+    NSInteger bestTextLength = isWritingWord ? self.text.length + 1 : self.text.length;
     return ^NSComparisonResult(NSString *obj1, NSString *obj2) {
+
         // calculate similarity score
-        NSUInteger score1 = [self distanceBetweenText:text inWord:obj1];
-        NSUInteger score2 = [self distanceBetweenText:text inWord:obj2];
-        
-        if (score1 > score2) return NSOrderedAscending;
-        else if (score1 < score2) return NSOrderedDescending;
-        
-        // otherwise order by length
-        if (obj1.length < obj2.length) return NSOrderedAscending;
-        else if (obj1.length > obj2.length) return NSOrderedDescending;
+        CGFloat score1 = [self cachedScoreForWord:obj1 inText:text bestTextLength:bestTextLength];
+        CGFloat score2 = [self cachedScoreForWord:obj2 inText:text bestTextLength:bestTextLength];
+
+        //NSLog(@"compare: %@ (%f) - %@ (%f)", obj1, score1, obj2, score2);
+
+        // order by this score
+        if (score1 > score2)
+            return NSOrderedAscending;
+        else if (score1 < score2)
+            return NSOrderedDescending;
         
         return NSOrderedSame;
     };
+}
+
+- (CGFloat)cachedScoreForWord:(NSString *)word inText:(NSString *)text
+               bestTextLength:(NSInteger)bestTextLength {
+    
+    CGFloat score1;
+    NSNumber *score1Val = [self.scoreCache objectForKey:word];
+    
+    if (score1Val) {
+        score1 = [score1Val floatValue];
+    } else {
+        NSInteger matchedLetters1 = [self distanceBetweenText:text inWord:word];
+        NSInteger lengthDistance1 = ABS((NSInteger)word.length - bestTextLength);
+        score1 = 1.0 * matchedLetters1 / text.length +
+        (1.0 - ABS(1.0 * lengthDistance1 / word.length));
+        [self.scoreCache setObject:@(score1) forKey:word];
+    }
+    
+    return score1;
 }
 
 - (NSUInteger)distanceBetweenText:(NSString *)text inWord:(NSString *)word {
