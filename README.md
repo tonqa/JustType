@@ -68,7 +68,7 @@ Actually for using this keyboard extension there are only four steps to follow.
 Additional options
 ---------------------
 
-For **adding the attachment view** that presents suggestions *(recommended)* for the current word you need to add the following to your textView or textField.
+For **adding the attachment view** that presents suggestions for the current word *(recommended)* you need to add the following to your textView or textField.
 
 ```objc
 CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
@@ -87,7 +87,7 @@ textView.highlightView = myOwnHighlightView;
 Instead you can also simply **adapt the color used** for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor *(only on textViews)*:
 
 ```objc
-UIView *highlightView = self.justTypeTextView.highlightView;
+UIView *highlightView = textView.highlightView;
 [(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
 ```
 
