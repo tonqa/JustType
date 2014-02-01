@@ -68,7 +68,7 @@ Actually for using this keyboard extension there are only four steps to follow.
 Additional options
 ---------------------
 
-For adding the **attachment view** that presents suggestions for the current word you need to add the following to your textView or textField (recommended).
+For **adding the attachment view** that presents suggestions *(recommended)** for the current word you need to add the following to your textView or textField.
 
 ```objc
 CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
