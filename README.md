@@ -22,7 +22,7 @@ Recently, there has been quite a lot **buzz around keyboards** for iOS. We liked
 
 These all were amazing projects, but there is a lack of keyboard extensions for the **native iOS UI**, which are **freely available** for every app developer. We want something to be more built-in. So we built a framework on top of the existing UIKit of iOS, which integrates much better with the traditional text input.
 
-**The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. You can not directly make the word upper or lower case if you are in between a word. Also though there is a built-in syntax checker, you can only choose all suggestions by holding on a word. You never directly see what words it suggests. We can do better!
+**The iOS keyboard and text navigation is often cumbersome**. E.g. in order to jump to the preceding word in a text you need a lot of touches on the top of the text input itself. You can not directly make the word upper or lower case if you are in between a word. Also though there is a built-in syntax checker, you can only choose a suggestion by holding on a word. You never directly see what words it suggests. We can do better!
 
 This project tries to **not change** or temper with the **iOS default behavior** of texts. The highest priority of this project is instead to be fully compatible with iOS UITextFields and UITextViews. The default keyboard and text handling shall not be modified in any imaginable way, but instead this project adds on top of both. 
 
@@ -68,7 +68,7 @@ Actually for using this keyboard extension there are only four steps to follow.
 Additional options
 ---------------------
 
-For using the syntax completion attachment view for the keyboard you need to add the following to your textView or textField:
+For adding the **attachment view** that presents suggestions for the current word you need to add the following to your textView or textField (recommended).
 
 ```objc
 CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
@@ -77,21 +77,21 @@ JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc]
 [textView setInputAccessoryView:attachmentView];
 ```
 
-You can add your own highlighting style to a textView by creating an own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
+You can **add your own highlighting style** to a textView by creating an own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView *(only on textViews)*:
 
 ```objc
 UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] initWithFrame:CGRectZero];
 textView.highlightView = myOwnHighlightView;
 ```
 
-Instead you can also simply adapt the color used for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor (only on textViews):
+Instead you can also simply **adapt the color used** for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor *(only on textViews)*:
 
 ```objc
 UIView *highlightView = self.justTypeTextView.highlightView;
 [(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
 ```
 
-To adapt the style of textFields instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default (only textFields):
+To **adapt the style of textFields** instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default *(only textFields)*:
 
 ```objc
 textField.backgroundColor = [UIColor blackColor];
@@ -99,44 +99,44 @@ textField.unhighlightedColor = [UIColor whiteColor];
 textField.highlightedColor = [UIColor lightGrayColor];
 ```
 
-If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
+If you want to **create an own view for displaying the suggestions** you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
 
 ```objc
 textView.textSuggestionDelegate = self;
 ```
 
-When you implement this protocol it will be useful to replace suggestions for the current word by calling the following method on the textView / textField:
+If you want to implement this suggestion delegate protocol it will be useful to **replace suggestions for the current word** by calling the following method on the textView / textField:
 
 ```objc
 [textView selectSuggestionByIndex:suggestionIndex];
 ```
 
-If you want to turn the syntax highlighting off just use the following command on the textView / textField:
+If you want to **turn the syntax highlighting off** just use the following command on the textView / textField:
 
 ```objc
 textView.isSyntaxHighlightingUsed = NO;
 ```
 
-In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
+In the case you don't want to support **the syntax completion** you can also *turn it off* for the textView / textField:
 
 ```objc
 textView.isSyntaxCompletionUsed = NO;
 ```
 
-You can also adapt the two colors used for the gestures on the keyboard by using these properties:
+You can also **adapt the colors used for the gestures** on the keyboard by using these properties:
 
 ```objc
 [[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
 [[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
 ```
 
-If you want to deactivate the visual help (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
+If you want to **deactivate the visual help** (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
 
 ```objc
 [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 ```
 
-Note: You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
+**Note:** You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
 
 ```objc
 [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
