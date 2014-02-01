@@ -43,7 +43,7 @@
     return sharedSeperatorSuggestions;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions usePartialSuggestionsFirst:(BOOL)usePartialSuggestionsFirst textInputMode:(UITextInputMode *)textInputMode {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions isCurrentlyWritingWord:(BOOL)isCurrentlyWritingWord textInputMode:(UITextInputMode *)textInputMode {
 
     self = [super init];
     if (self) {

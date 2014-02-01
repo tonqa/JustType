@@ -57,7 +57,7 @@
     return sharedTextChecker;
 }
 
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions usePartialSuggestionsFirst:(BOOL)usePartialSuggestionsFirst textInputMode:(UITextInputMode *)textInputMode {
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions isCurrentlyWritingWord:(BOOL)isCurrentlyWritingWord textInputMode:(UITextInputMode *)textInputMode {
 
     self = [super init];
     if (self) {
@@ -70,9 +70,7 @@
             NSString *locale = [self selectedLocaleIdentifier];
             [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
             [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
-            
-            // this checks that all suggestions are of the same case
-            [allSuggestions filterUsingPredicate:self.wordPredicate];
+            [allSuggestions filterUsingPredicate:[self wordPredicateWhileWritingWord:isCurrentlyWritingWord]];
             _allSuggestions = [allSuggestions sortedArrayUsingComparator:self.wordComparator];
 
         } else {
@@ -113,10 +111,13 @@
     return YES;
 }
 
-- (NSPredicate *)wordPredicate {
+- (NSPredicate *)wordPredicateWhileWritingWord:(BOOL)isCurrentlyWriting {
     NSString *text = self.text;
     BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
-    NSUInteger textLength = self.text.length;
+    
+    // while writing we only allow longer words, later we also allow words with one letter less
+    NSUInteger textLength = (isCurrentlyWriting) ? self.text.length - 1 : self.text.length;
+    
     return [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
         if (object.length < textLength) return NO;
         if ([object isEqualToString:text]) return NO;

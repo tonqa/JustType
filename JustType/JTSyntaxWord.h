@@ -34,7 +34,7 @@
  *
  *  @return a syntax word with computed suggestions
  */
-- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions usePartialSuggestionsFirst:(BOOL)usePartialSuggestionsFirst textInputMode:(UITextInputMode *)textInputMode;
+- (id)initWithText:(NSString *)text inRange:(NSRange)range useSuggestions:(BOOL)shouldUseSuggestions isCurrentlyWritingWord:(BOOL)isCurrentlyWritingWord textInputMode:(UITextInputMode *)textInputMode;
 
 + (id)alloc;
 

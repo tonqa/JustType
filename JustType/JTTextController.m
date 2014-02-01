@@ -554,7 +554,7 @@ extern NSString * const JTKeyboardGestureSwipeDown;
             BOOL isAtEndOfWordAndText = [self rangeIsAtEndOfWordAndText:range];
             
             // we need a check for the textInputMode (iOS7 only)
-            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion usePartialSuggestionsFirst:isAtEndOfWordAndText textInputMode:[self selectedTextInputMode]];
+            id<JTSyntaxWord> syntaxWord = [[syntaxClass alloc] initWithText:self.delegate.textContent inRange:range useSuggestions:self.useSyntaxCompletion isCurrentlyWritingWord:isAtEndOfWordAndText textInputMode:[self selectedTextInputMode]];
             
             return syntaxWord;
         }
