@@ -7,7 +7,7 @@ The Better Keyboard for iOS
 
 JustType is a keyboard extension using swipe gestures, highlighting and suggestions. It is built to be used in any iOS text editor and all text-intensive iOS apps. And it is really easy to use.
 
-![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png) &nbsp;&nbsp; ![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)
+<a href="http://dl.dropboxusercontent.com/u/82016/justtype_1.png" target="_blank"><img alt="Editing text field using suggestions" src="http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png"></img></a> &nbsp;&nbsp; <a href="http://dl.dropboxusercontent.com/u/82016/justtype_2.png" target="_blank"><img alt="Editing text view using gestures" src="http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png"></img></a>
 
 Features
 ---------------------
