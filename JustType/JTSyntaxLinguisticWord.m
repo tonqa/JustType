@@ -72,15 +72,8 @@
             [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
             
             // this checks that all suggestions are of the same case
-            BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
-            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
-                NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
-                NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
-                return (matchesCount > 0) && ([object beginsWithUpperCaseLetter] == shouldBeUpperCase);
-            }];
-            [allSuggestions filterUsingPredicate:predicate];
-            [allSuggestions removeObject:_text];
-            _allSuggestions = [allSuggestions array];
+            [allSuggestions filterUsingPredicate:self.wordPredicate];
+            _allSuggestions = [allSuggestions sortedArrayUsingComparator:self.wordComparator];
 
         } else {
             _allSuggestions = [NSArray array];
@@ -118,6 +111,50 @@
 
 - (BOOL)canBeCapitalized {
     return YES;
+}
+
+- (NSPredicate *)wordPredicate {
+    NSString *text = self.text;
+    BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
+    NSUInteger textLength = self.text.length;
+    return [NSPredicate predicateWithBlock:^BOOL(NSString *object, NSDictionary *bindings) {
+        if (object.length < textLength) return NO;
+        if ([object isEqualToString:text]) return NO;
+        
+        NSRegularExpression *expression = [[self class] sharedLinguisticExpression];
+        NSUInteger matchesCount = [expression numberOfMatchesInString:object options:0 range:NSMakeRange(0, object.length)];
+        
+        return (matchesCount > 0) && ([object beginsWithUpperCaseLetter] == shouldBeUpperCase);
+    }];
+}
+
+- (NSComparisonResult (^)(NSString *obj1, NSString *obj2))wordComparator {
+    NSString *text = self.text;
+    return ^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        // calculate similarity score
+        NSUInteger score1 = [self distanceBetweenText:text inWord:obj1];
+        NSUInteger score2 = [self distanceBetweenText:text inWord:obj2];
+        
+        if (score1 > score2) return NSOrderedAscending;
+        else if (score1 < score2) return NSOrderedDescending;
+        
+        // otherwise order by length
+        if (obj1.length < obj2.length) return NSOrderedAscending;
+        else if (obj1.length > obj2.length) return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    };
+}
+
+- (NSUInteger)distanceBetweenText:(NSString *)text inWord:(NSString *)word {
+    NSUInteger distance = 0;
+    NSUInteger maxDistance = MIN(text.length, word.length);
+    for (NSInteger charIdx = 0; charIdx < maxDistance; charIdx++) {
+        if ([text characterAtIndex:charIdx] == [word characterAtIndex:charIdx]) {
+            distance++;
+        }
+    }
+    return distance;
 }
 
 @end
