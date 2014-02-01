@@ -111,32 +111,32 @@ If you want to implement this suggestion delegate protocol it will be useful to 
 [textView selectSuggestionByIndex:suggestionIndex];
 ```
 
-If you want to **turn the syntax highlighting off** just use the following command on the textView / textField:
+If you want to **turn the word highlighting off** just use the following command on the textView / textField:
 
 ```objc
 textView.isSyntaxHighlightingUsed = NO;
 ```
 
-In the case you don't want to support **the syntax completion** you can also *turn it off* for the textView / textField:
+In the case you don't want to support **the syntax completion** you can also **turn it off** for the textView / textField:
 
 ```objc
 textView.isSyntaxCompletionUsed = NO;
 ```
 
-You can also **adapt the colors used for the gestures** on the keyboard by using these properties:
+You can also **adapt the colors used for the gestures** on the keyboard by using these properties. As a default they are set to the window tintColor and its complementary color.
 
 ```objc
 [[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
 [[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
 ```
 
-If you want to **deactivate the visual help** (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
+If you want to **deactivate the visual help** for gestures which occur on top of the keyboard while swiping then you can switch them off, too:
 
 ```objc
 [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 ```
 
-**Note:** You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
+**Note:** You can use the *JTTextView* and *JTTextField* also stand-alone for word highlighting and completion without using gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
 
 ```objc
 [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
