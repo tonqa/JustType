@@ -73,7 +73,7 @@ For using the syntax completion attachment view for the keyboard you need to add
 CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
 JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] 
                           initWithFrame:attachmentViewFrame];
-[textView setInputAccessoryView: attachmentView];
+[textView setInputAccessoryView:attachmentView];
 ```
 
 You can add your own highlighting style to a textView by creating an own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
