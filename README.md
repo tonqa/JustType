@@ -41,65 +41,56 @@ Usage
 ---------------------
 Actually for using this keyboard extension there are only four steps to follow. 
 
-- Add the framework to your project by either linking the JustType project sources as a project dependency, dragging the already compiled *libJustType.a* in your project, or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
+1. Add the framework to your project by either linking the JustType project sources [as a project dependency](http://www.cocoanetics.com/2011/12/sub-projects-in-xcode/), [dragging the already compiled *libJustType.a* in your project](http://www.raywenderlich.com/41377/creating-a-static-library-in-ios-tutorial), or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
-```
-$ cd <Your Project>  # go to your project
-$ vim Podfile        # create Podfile (and save)
-  > platform :ios
-  > pod 'JustType'
-$ pod install        # install libraries from Podfile
-```
+    $ cd <Your Project>  # go to your project
+    $ vim Podfile        # create Podfile (and save)
+      > platform :ios
+      > pod 'JustType'
+    $ pod install        # install libraries from Podfile
 
-- You should check that the import works by adding to your *AppDelegate.m*:
+2. You should check that the import works by adding to your *AppDelegate.m*:
 
-```objc
-#import <JustType/JustType.h>
-```
+    #import <JustType/JustType.h>
 
-- For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
+3. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
-```objc
-[[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
-```
+    [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
 
-- For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
+4. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
-```objc
-JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
-[self.view addSubview: textView];
-```
+    JTTextView *textView = [[JTTextView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:textView];
 
 Hint: Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files.
 
 Additional options
 ---------------------
 
-* For using the syntax completion attachment view for the keyboard you need to add the following to your textView or textField:
+For using the syntax completion attachment view for the keyboard you need to add the following to your textView or textField:
 
 ```objc
 CGRect attachmentViewFrame = CGRectMake(0, 0, self.view.size.width, <height>);
 JTKeyboardAttachmentView *attachmentView = [[JTKeyboardAttachmentView alloc] 
-                          initWithFrame: attachmentViewFrame];
+                          initWithFrame:attachmentViewFrame];
 [textView setInputAccessoryView: attachmentView];
 ```
 
-* You can add your own highlighting style to a textView by creating and own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
+You can add your own highlighting style to a textView by creating an own UIView for highlighting, overwriting its *drawRect:* method and adding this highlightView to the textView (only on textViews):
 
 ```objc
-UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] 
-                                 initWithFrame:CGRectZero];
+UIView *myOwnHighlightView = [[MyOwnHighlightingView alloc] initWithFrame:CGRectZero];
 textView.highlightView = myOwnHighlightView;
 ```
 
-* Instead you can also simply adapt the color used for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor (only on textViews):
+Instead you can also simply adapt the color used for the default highlighting view displaying underdashes below the selected word. As the default it uses the window tintColor (only on textViews):
 
 ```objc
 UIView *highlightView = self.justTypeTextView.highlightView;
 [(JTDashedBorderedView *)highlightView setStrokeColor:[UIColor blackColor]];
 ```
 
-* To adapt the style of textFields instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default (only textFields):
+To adapt the style of textFields instead there are two textColor properties, of which the unhighlightedColor is black for default and the highlightedColor is gray by default (only textFields):
 
 ```objc
 textField.backgroundColor = [UIColor blackColor];
@@ -107,44 +98,44 @@ textField.unhighlightedColor = [UIColor whiteColor];
 textField.highlightedColor = [UIColor lightGrayColor];
 ```
 
-* If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
+If you want to create an own view for displaying the suggestions you can set a delegate corresponding to the *JTTextSuggestionDelegate* protocol and implement some of the optional protocol methods:
 
 ```objc
 textView.textSuggestionDelegate = self;
 ```
 
-* When you implement this protocol it will be useful to replace suggestions for the current word by calling the following method on the textView / textField:
+When you implement this protocol it will be useful to replace suggestions for the current word by calling the following method on the textView / textField:
 
 ```objc
-[textView selectSuggestionByIndex: suggestionIndex];
+[textView selectSuggestionByIndex:suggestionIndex];
 ```
 
-* If you want to turn the syntax highlighting off just use the following command on the textView / textField:
+If you want to turn the syntax highlighting off just use the following command on the textView / textField:
 
 ```objc
 textView.isSyntaxHighlightingUsed = NO;
 ```
 
-* In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
+In the case you don't want to support the syntax completion you can also turn it off for the textView / textField:
 
 ```objc
 textView.isSyntaxCompletionUsed = NO;
 ```
 
-* You can also adapt the two colors used for the gestures on the keyboard by using these properties:
+You can also adapt the two colors used for the gestures on the keyboard by using these properties:
 
 ```objc
 [[JTKeyboardListener sharedInstance] setTouchDownColor:[UIColor redColor]];
 [[JTKeyboardListener sharedInstance] setTouchMoveColor:[UIColor redColor]];
 ```
 
-* If you want to deactivate the visual help (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
+If you want to deactivate the visual help (for gestures) which occur on top of the keyboard while swiping then you can switch them off, too:
 
 ```objc
 [[JTKeyboardListener sharedInstance] setEnableVisualHelp:NO];
 ```
 
-* Note: You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
+Note: You can use the *JTTextView* and *JTTextField* also stand-alone for syntax highlighting and completion  without intercepting gestures on the keyboard. You can do this by simply not adding the keyboard listener (from step 3) at all or turning it off again after you turned it on:
 
 ```objc
 [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
