@@ -66,15 +66,10 @@
         
         if (shouldUseSuggestions && [self isTextCheckerAvailable]) {
 
-            NSMutableArray *allSuggestions = [NSMutableArray array];
+            NSMutableOrderedSet *allSuggestions = [NSMutableOrderedSet orderedSet];
             NSString *locale = [self selectedLocaleIdentifier];
-            if (usePartialSuggestionsFirst) {
-                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
-                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
-            } else {
-                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
-                [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
-            }
+            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker guessesForWordRange:range inString:text language:locale]];
+            [allSuggestions addObjectsFromArray:[self.class.sharedTextChecker completionsForPartialWordRange:range inString:text language:locale]];
             
             // this checks that all suggestions are of the same case
             BOOL shouldBeUpperCase = [self.text beginsWithUpperCaseLetter];
@@ -85,7 +80,7 @@
             }];
             [allSuggestions filterUsingPredicate:predicate];
             [allSuggestions removeObject:_text];
-            _allSuggestions = allSuggestions;
+            _allSuggestions = [allSuggestions array];
 
         } else {
             _allSuggestions = [NSArray array];
