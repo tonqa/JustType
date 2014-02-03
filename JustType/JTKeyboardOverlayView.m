@@ -37,10 +37,11 @@
             startCircleColor = [UIColor blueColor];
         }
         
-        UIColor *endCircleColor = [self complementaryColorForColor:startCircleColor];
+        UIColor *endCircleColor = [self colorWithModifiedAlpha:0.80 forColor:startCircleColor];
+//        UIColor *endCircleColor = [self complementaryColorForColor:startCircleColor];
         
-        _startCircleView = [self createCircleViewWithSize:CGSizeMake(40, 40)];
-        _startCircleView.backgroundColor = startCircleColor;
+        _startCircleView = [self createCircleViewWithSize:CGSizeMake(30, 30)];
+        _startCircleView.backgroundColor = endCircleColor;
         [self addSubview:_startCircleView];
 
         _endCircleView = [self createCircleViewWithSize:CGSizeMake(50, 50)];
@@ -128,6 +129,7 @@
                                                                   size.height)];
     circleView.alpha = 0.0;
     circleView.layer.cornerRadius = (size.width + size.height) / 4.0;
+    circleView.layer.backgroundColor = UIColor.clearColor.CGColor;
     circleView.userInteractionEnabled = NO;
     
     CABasicAnimation *stetchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -141,6 +143,16 @@
     [circleView.layer addAnimation:stetchAnimation forKey:@"animations"];
 
     return circleView;
+}
+
+- (UIColor *)colorWithModifiedAlpha:(CGFloat)alpha forColor:(UIColor *)color {
+    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    
+    CGFloat red = components[0];
+    CGFloat green = components[1];
+    CGFloat blue = components[2];
+    
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
 - (UIColor *)complementaryColorForColor:(UIColor *)color {
