@@ -39,6 +39,8 @@
         attachmentViewFrame = CGRectMake(0, 0, self.view.frame.size.width, 40.0f);
     }
     
+    self.justTypeTextView.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"text"];
+
     // this sets up the keyboard attachment view (with suggestions)
     // of the TextView (if available)
     JTKeyboardAttachmentView *textViewAttachmentView = [[JTKeyboardAttachmentView alloc] initWithFrame:attachmentViewFrame];
@@ -64,6 +66,8 @@
 {
 	[super viewWillDisappear:animated];
     
+    [[NSUserDefaults standardUserDefaults] setObject:self.justTypeTextView.text forKey:@"text"];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

@@ -15,6 +15,23 @@
 {
     // Override point for customization after application launch.
     [[JTKeyboardListener sharedInstance] observeKeyboardGestures:YES];
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"text"]) {
+        
+        NSString *defaultText =
+        @"Welcome to a text editor providing a faster way of typing on iOS. \n\n"
+        @"First try to select words in the text by touching them. "
+        @"You get suggestions of the default iOS syntax checker, try to select one. \n\n"
+        @"Now try to jump to words by swiping left and right on the keyboard. "
+        @"You can also hold while swiping to repeat that multiple times."
+        @"The more far you swipe the faster you jump in the text. \n\n"
+        @"You find an arrow pointing up and down to switch the case of the selected word. "
+        @"You can also swipe down for selecting the next suggestion and up for the recent one. "
+        @"Enjoy!";
+        
+        [[NSUserDefaults standardUserDefaults] setObject:defaultText forKey:@"text"];
+    }
+    
     return YES;
 }
 							
