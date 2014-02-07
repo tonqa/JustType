@@ -917,8 +917,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Alexander/Development/JustType/JustTypeTests,
-					/Users/Alexander/Development/JustType/JustTypeTests/libraries,
+					"$(SRCROOT)/JustTypeTests",
+					"$(SRCROOT)/JustTypeTests/libraries",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -960,8 +960,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Alexander/Development/JustType/JustTypeTests,
-					/Users/Alexander/Development/JustType/JustTypeTests/libraries,
+					"$(SRCROOT)/JustTypeTests",
+					"$(SRCROOT)/JustTypeTests/libraries",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
