@@ -65,4 +65,30 @@
     [(id)highlightMock verify];
 }
 
+- (void)testThatActualDelegateStillResponds {
+    JTTextView *textView = [[JTTextView alloc] init];
+    NSRange range = NSMakeRange(0, 0);
+    
+    id mockedTextViewDelegate = [OCMockObject mockForProtocol:@protocol(UITextViewDelegate)];
+    [textView setDelegate:mockedTextViewDelegate];
+    
+    [[mockedTextViewDelegate expect] textViewShouldBeginEditing:textView];
+    [[mockedTextViewDelegate expect] textViewShouldEndEditing:textView];
+    [[mockedTextViewDelegate expect] textViewDidBeginEditing:textView];
+    [[mockedTextViewDelegate expect] textViewDidEndEditing:textView];
+    [[mockedTextViewDelegate expect] textView:textView shouldChangeTextInRange:range replacementText:OCMOCK_ANY];
+    [[mockedTextViewDelegate expect] textViewDidChange:textView];
+    [[mockedTextViewDelegate expect] textViewDidChangeSelection:textView];
+    
+    [textView.delegate textViewShouldBeginEditing:textView];
+    [textView.delegate textViewShouldEndEditing:textView];
+    [textView.delegate textViewDidBeginEditing:textView];
+    [textView.delegate textViewDidEndEditing:textView];
+    [textView.delegate textView:textView shouldChangeTextInRange:range replacementText:OCMOCK_ANY];
+    [textView.delegate textViewDidChange:textView];
+    [textView.delegate textViewDidChangeSelection:textView];
+    
+    [mockedTextViewDelegate verify];
+}
+
 @end

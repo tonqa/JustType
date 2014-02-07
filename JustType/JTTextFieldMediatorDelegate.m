@@ -28,12 +28,20 @@
     return result;
 }
 
+// this returns true because we need to forward
+// all other calls to the actual delegate
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    if (aSelector == @selector(textFieldShouldBeginEditing:)) {
+        return YES;
+    } else {
+        return ([self.textField.actualDelegate respondsToSelector:aSelector]);
+    }
+}
+
 // forward everything else to delegate
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
     if ([self.textField.actualDelegate respondsToSelector:[anInvocation selector]]) {
         [anInvocation invokeWithTarget:self.textField.actualDelegate];
-    } else {
-        [super forwardInvocation:anInvocation];
     }
 }
 

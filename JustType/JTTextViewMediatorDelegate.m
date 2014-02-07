@@ -43,12 +43,23 @@
     }
 }
 
+// this returns true because we need to forward
+// all other calls to the actual delegate
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    if (aSelector == @selector(textViewShouldBeginEditing:) ||
+        aSelector == @selector(textViewDidChange:) ||
+        aSelector == @selector(textViewDidChangeSelection:)) {
+        
+        return YES;
+    } else {
+        return ([self.textView.actualDelegate respondsToSelector:aSelector]);
+    }
+}
+
 // forward everything else to delegate
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
     if ([self.textView.actualDelegate respondsToSelector:[anInvocation selector]]) {
         [anInvocation invokeWithTarget:self.textView.actualDelegate];
-    } else {
-        [super forwardInvocation:anInvocation];
     }
 }
 

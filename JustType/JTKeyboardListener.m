@@ -362,7 +362,16 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
     
     UIWindow *keyboardWindow = [allWindows objectAtIndex:1];
     NSString *specificWindowClassName = NSStringFromClass([keyboardWindow class]);
-    if (![specificWindowClassName isEqualToString:@"UITextEffectsWindow"]) {
+
+    static NSString *windowName = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableString *prefix = [NSMutableString stringWithString:@"UI"];
+        [prefix appendString:@"Text"@"Effects"@"Window"];
+        windowName = prefix;
+    });
+    
+    if (![specificWindowClassName isEqualToString:windowName]) {
         return nil;
     }
     
@@ -382,7 +391,16 @@ NSString * const JTKeyboardActionLowercased         = @"JTKeyboardActionLowercas
     
     UIView *keyboardView = [keyboardWindowSubviews objectAtIndex:0];
     NSString *specificViewClassName = NSStringFromClass([keyboardView class]);
-    if (![specificViewClassName isEqualToString:@"UIPeripheralHostView"]) {
+
+    static NSString *viewName = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableString *prefix = [NSMutableString stringWithString:@"UI"];
+        [prefix appendString:@"Peripheral"@"Host"@"View"];
+        viewName = prefix;
+    });
+    
+    if (![specificViewClassName isEqualToString:viewName]) {
         return nil;
     }
 

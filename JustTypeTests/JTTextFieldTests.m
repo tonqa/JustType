@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 #import "JTTextField.h"
 #import "JTTextField+TestsPrivate.h"
 #import "JTTextFieldMediatorDelegate.h"
@@ -67,6 +68,32 @@
     NSRange range;
     [textField.attributedText attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:&range];
     XCTAssertEqual((NSInteger)range.length, 5, @"The foreground color should be changed from index 0 to 5");
+}
+
+- (void)testThatActualDelegateStillResponds {
+    JTTextField *textField = [[JTTextField alloc] init];
+    NSRange range = NSMakeRange(0, 0);
+
+    id mockedTextFieldDelegate = [OCMockObject mockForProtocol:@protocol(UITextFieldDelegate)];
+    [textField setDelegate:mockedTextFieldDelegate];
+
+    [[mockedTextFieldDelegate expect] textFieldShouldBeginEditing:textField];
+    [[mockedTextFieldDelegate expect] textFieldDidBeginEditing:textField];
+    [[mockedTextFieldDelegate expect] textFieldShouldEndEditing:textField];
+    [[mockedTextFieldDelegate expect] textFieldDidEndEditing:textField];
+    [[mockedTextFieldDelegate expect] textField:textField shouldChangeCharactersInRange:range replacementString:OCMOCK_ANY];
+    [[mockedTextFieldDelegate expect] textFieldShouldClear:textField];
+    [[mockedTextFieldDelegate expect] textFieldShouldReturn:textField];
+    
+    [textField.delegate textFieldShouldBeginEditing:textField];
+    [textField.delegate textFieldDidBeginEditing:textField];
+    [textField.delegate textFieldShouldEndEditing:textField];
+    [textField.delegate textFieldDidEndEditing:textField];
+    [textField.delegate textField:textField shouldChangeCharactersInRange:range replacementString:OCMOCK_ANY];
+    [textField.delegate textFieldShouldClear:textField];
+    [textField.delegate textFieldShouldReturn:textField];
+    
+    [mockedTextFieldDelegate verify];
 }
 
 @end
