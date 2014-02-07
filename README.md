@@ -1,12 +1,12 @@
 
-[![Github](https://dl.dropboxusercontent.com/u/82016/GitHub_Logo.png)](https://github.com/tonqa/justtype)
-[![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
-[![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
-[![Build Status](https://travis-ci.org/tonqa/JustType.png?branch=master)](https://travis-ci.org/tonqa/JustType)
-[![License](https://dl.dropboxusercontent.com/u/82016/cc.png)](https://github.com/tonqa/JustType/blob/master/LICENSE)
-
 The Better Keyboard for iOS
 ---------------------
+
+[![Github](https://dl.dropboxusercontent.com/u/82016/GitHub_Logo.png)](https://github.com/tonqa/justtype)
+[![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
+[![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
+[![Build Status](https://travis-ci.org/tonqa/JustType.png?branch=master)](https://travis-ci.org/tonqa/JustType)
+[![License](https://dl.dropboxusercontent.com/u/82016/cc.png)](https://github.com/tonqa/JustType/blob/master/LICENSE)
 
 JustType is a keyboard extension using swipe gestures, highlighting and suggestions. It is built to be used in any iOS text editor and all text-intensive iOS apps. And it is really easy to use. If you want to have a video demonstration you can [find it on this blogpost](http://www.eglador.de/files/4e4f3394e0c39424ff87953dce60d031-23.php "Demo").
 
