@@ -3,6 +3,7 @@
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Build Status](https://travis-ci.org/tonqa/JustType.png?branch=master)](https://travis-ci.org/tonqa/JustType)
+[![License](https://dl.dropboxusercontent.com/u/82016/cc.png)](https://github.com/tonqa/JustType/blob/master/LICENSE)
 
 The Better Keyboard for iOS
 ---------------------
