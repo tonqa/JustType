@@ -20,12 +20,35 @@
 @implementation JTTextFieldMediatorDelegate
 @synthesize textField = _textField;
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.textField.actualDelegate respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
+        [self.textField.actualDelegate textFieldDidBeginEditing:self.textField];
+    }
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     BOOL result = [self.textField textFieldShouldBeginEditing:self.textField];
     if ([self.textField.actualDelegate respondsToSelector:@selector(textFieldShouldBeginEditing:)]) {
         result = [self.textField.actualDelegate textFieldShouldBeginEditing:self.textField];
     }
     return result;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    BOOL result = YES;
+    if ([self.textField.actualDelegate respondsToSelector:@selector(textFieldShouldEndEditing:)]) {
+        result = [self.textField.actualDelegate textFieldShouldEndEditing:self.textField];
+    }
+    return result;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.textField.actualDelegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+        [self.textField.actualDelegate textFieldDidEndEditing:self.textField];
+    }
 }
 
 // forward everything else to delegate
