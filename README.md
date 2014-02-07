@@ -47,32 +47,32 @@ Actually for using this keyboard extension there are only four steps to follow.
 
 1. Add the framework to your project by either linking the JustType project sources [as a project dependency](http://www.cocoanetics.com/2011/12/sub-projects-in-xcode/), [dragging headers and libJustType.a in your project](http://www.raywenderlich.com/41377/creating-a-static-library-in-ios-tutorial), or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
 
-	<code><pre>
+	<pre>
         $ <b><font color="#008080">cd &lt;Your Project&gt;</font></b>  # go to your project
         $ <b><font color="#008080">vim Podfile</font></b>        # create Podfile (and save)
           > platform :ios
           > pod 'JustType'
         $ <b><font color="#008080">pod install</font></b>        # install libraries from Podfile
-	</pre></code>
+	</pre>
 
 2. You should check that the import works by adding to your *AppDelegate.m*:
 
-	<code><pre>
+	<pre>
         #import &lt;<b><font color="#008080">JustType/JustType.h</font></b>&gt;
-	</pre></code>
+	</pre>
 
 3. For attaching the gestures to the keyboard you just need one simple command (e.g. do it in your *application:didFinishLaunching:*):
 
-	<code><pre>
+	<pre>
         [[<b><font color="#008080">JTKeyboardListener</font></b> sharedInstance] observeKeyboardGestures:YES];
-	</pre></code>
+	</pre>
 
 4. For using the text input elements you can use *JTTextView* exactly like a normal *UITextView* (or alternatively *JTTextField* like a *UITextField*) out of the box:
 
-	<code><pre>
+	<pre>
         <b><font color="#008080">JTTextView</font></b> *textView = [[<b><font color="#008080">JTTextView</font></b> alloc] initWithFrame:self.view.frame];
         [self.view addSubview:textView];
-	</pre></code>
+	</pre>
 
 <sub><b>Hint:</b> Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files. If you have a project not including ARC then also set the linker option *"-fobjc-arc"*.</sub>
 
