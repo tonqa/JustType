@@ -13,13 +13,11 @@ JustType is a keyboard extension using swipe gestures, highlighting and suggesti
 [![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)](http://dl.dropboxusercontent.com/u/82016/justtype_1.png) &nbsp;&nbsp; [![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)](http://dl.dropboxusercontent.com/u/82016/justtype_2.png)
 
 
-Features
----------------------
+### Features
 
 JustType **adds own gestures** to the keyboard, which do not interfere with the default keyboard. It allows to **smart jump** between words of texts by swiping left and right on the keyboard. It adds **highlighting** and **suggestions** for currently selected words to iOS default text inputs. It does that by using the **default iOS syntax checker**.
 
-Reasoning
----------------------
+### Reasoning
 
 Recently, there has been quite a lot **buzz around keyboards** for iOS. We liked the [Fleksy keyboard](http://fleksy.com/) as well as [some other prototypes](http://www.youtube.com/watch?v=RGQTaHGQ04Q) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. The [SwiftKey](http://www.swiftkey.net/en/) app brought intelligent predictions to the iOS device recently and [HipJot](http://jormy.com/hipjot/) also had a quite compelling user interface, but required a high learning curve.
 
@@ -31,8 +29,7 @@ This project tries to **not change** or temper with the **iOS default behavior**
 
 We want this extension **to be usable in all apps**, therefore we made it the most user friendly as possible, compatible with all iOS 6 systems and extendable in the most possible way. This is also why it is completely unit-tested.
 
-Advantages
----------------------
+### Advantages
 
 * **Broad language support**: Practically every language is supported, because no keyboard functionality is replaced. All languages which work in iOS also work with JustType.
 * **No enforcement**: Beginners do not need to use the gestures if they don't want to. Instead they can work exactly like they know it from any of their iOS apps.
@@ -41,8 +38,8 @@ Advantages
 * **Extendability**: The keyboard and UITextInput extensions are easily extendable for developers (e.g. the behavior for gestures could easily be modified). We in fact encourage you to contribute to this project.
 
 
-Usage
----------------------
+### Usage
+
 Actually for using this keyboard extension there are only four steps to follow. 
 
 1. Add the framework to your project by either linking the JustType project sources [as a project dependency](http://www.cocoanetics.com/2011/12/sub-projects-in-xcode/), [dragging headers and libJustType.a in your project](http://www.raywenderlich.com/41377/creating-a-static-library-in-ios-tutorial), or installing it via [CocoaPods](http://www.cocoapods.org) (see below).
@@ -76,8 +73,7 @@ Actually for using this keyboard extension there are only four steps to follow.
 
 <sub><b>Hint:</b> Under *"Workspace / Target / Build Settings"* you should check that the option *"all other linker flags"* is set to *"-all_load -ObjC"*, otherwise the compiler won't find the library classes e.g. when using lazy loading in nib files. If you have a project not including ARC then also set the linker option *"-fobjc-arc"*.</sub>
 
-Additional options
----------------------
+### Additional options
 
 For **adding the attachment view** that presents suggestions for the current word *(recommended)* you need to add the following to your textView or textField.
 
@@ -153,15 +149,14 @@ If you want to **deactivate the visual help** for gestures which occur on top of
 [[JTKeyboardListener sharedInstance] observeKeyboardGestures:NO];
 ```
 
-As a side note 
----------------------
+### As a side note 
 
 **Developers unite:** By using this project you will support us to hopefully and finally get Apple improving the default keyboard on their own to support better and faster typing. But for now we have this little extension supporting gestures, syntax highlighting and better syntax completion. 
 
 You will hopefully join us in using this project. We would also be grateful if there is some support from the community filing feature requests, forking, developing and sending pull requests for this project. Thanks for your help and enjoy!
 
-Creative Commons License
---------------------
+### Creative Commons License
+
 JustType is under the CC0 license, which means that all copyrights have been waived. So enjoy!
 
         JustType by Alexander Koglin
