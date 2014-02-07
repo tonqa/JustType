@@ -124,7 +124,7 @@
 		1152113D18970B77001067A1 /* NSString+JTUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JTUtil.m"; sourceTree = "<group>"; };
 		11656C4B18941391009FC208 /* JTEdgeInsetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTEdgeInsetLabel.h; sourceTree = "<group>"; };
 		11656C4C18941391009FC208 /* JTEdgeInsetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTEdgeInsetLabel.m; sourceTree = "<group>"; };
-		11656C8A1894868B009FC208 /* JustTypeAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustTypeAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11656C8A1894868B009FC208 /* JustType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11656C901894868B009FC208 /* JustTypeAppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JustTypeAppStore-Info.plist"; sourceTree = "<group>"; };
 		11656C921894868B009FC208 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		11656C941894868B009FC208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 				65B7A9B3186D56A000D16576 /* JustTypeDemo.app */,
 				118D78AA1878288C003E2AAD /* libJustType.a */,
 				118D78B71878288D003E2AAD /* JustTypeTests.xctest */,
-				11656C8A1894868B009FC208 /* JustTypeAppStore.app */,
+				11656C8A1894868B009FC208 /* JustType.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -521,7 +521,7 @@
 			);
 			name = JustTypeAppStore;
 			productName = JustTypeAppStore;
-			productReference = 11656C8A1894868B009FC208 /* JustTypeAppStore.app */;
+			productReference = 11656C8A1894868B009FC208 /* JustType.app */;
 			productType = "com.apple.product-type.application";
 		};
 		118D78A91878288C003E2AAD /* JustType */ = {
@@ -586,6 +586,9 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
+					11656C891894868B009FC208 = {
+						DevelopmentTeam = EU38S8HXTE;
+					};
 					118D78B61878288D003E2AAD = {
 						TestTargetID = 65B7A9B2186D56A000D16576;
 					};
@@ -792,6 +795,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JustTypeAppStore/JustTypeAppStore-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -805,7 +809,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JustType;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -821,6 +825,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JustTypeAppStore/JustTypeAppStore-Prefix.pch";
@@ -831,7 +836,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JustType;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
