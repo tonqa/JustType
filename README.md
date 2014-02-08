@@ -15,7 +15,7 @@ JustType is a keyboard extension using swipe gestures, highlighting and suggesti
 
 ### Features
 
-JustType **adds own gestures** to the keyboard, which do not interfere with the default keyboard. It allows to **smart jump** between words of texts by swiping left and right on the keyboard. It adds **highlighting** and **suggestions** for currently selected words to iOS default text inputs. It does that by using the **default iOS syntax checker**.
+JustType **adds own gestures** to the keyboard, which do not interfere with the default keyboard. It allows to **smart jump** between words of texts by swiping left and right on the keyboard. It adds **highlighting** and **suggestions** for currently selected words to iOS default text inputs. It does that by using the **default iOS syntax checker**. Meanwhile, the default text elements work like they always did.
 
 ### An information to the AppStore reviewer
 
