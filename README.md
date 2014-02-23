@@ -17,10 +17,6 @@ JustType is a keyboard extension using swipe gestures, highlighting and suggesti
 
 JustType **adds own gestures** to the keyboard, which do not interfere with the default keyboard. It allows to **smart jump** between words of texts by swiping left and right on the keyboard. It adds **highlighting** and **suggestions** for currently selected words to iOS default text inputs. It does that by using the **default iOS syntax checker**. Meanwhile, the default text elements work like they always did.
 
-### An information to the AppStore reviewer
-
-The app named **JustType Demo** was submitted to AppStore on February, 7th. In order to emphasize the importance of this event, this information here was added. We encourage the AppStore Reviewer to support this project. This would be the a good step to [open up the iOS platform for developers](http://www.engadget.com/2013/05/28/tim-cook-apple-will-open-up-our-apis-more/).
-
 ### Reasoning
 
 Recently, there has been quite a lot **buzz around keyboards** for iOS. We liked the [Fleksy keyboard](http://fleksy.com/) as well as [some other prototypes](http://www.youtube.com/watch?v=RGQTaHGQ04Q) a lot and also we are fans of the [Swype keyboard](http://www.swype.com/), which can be easily installed on every Android smartphone on the market. The [SwiftKey](http://www.swiftkey.net/en/) app brought intelligent predictions to the iOS device recently and [HipJot](http://jormy.com/hipjot/) also had a quite compelling user interface, but required a high learning curve.
@@ -38,7 +34,7 @@ We want this extension **to be usable in all apps**, therefore we made it the mo
 * **Broad language support**: Practically every language is supported, because no keyboard functionality is replaced. All languages which work in iOS also work with JustType.
 * **No enforcement**: Beginners do not need to use the gestures if they don't want to. Instead they can work exactly like they know it from any of their iOS apps.
 * **Performance:** This implementation uses the default UIKit text navigation provided by UITextInput protocol of UITextView and UITextField, which is of course very fast. Also it uses iOS gesture recognizers for gestures on the keyboard.
-* **Compatiblity:** This framework is compatible with iOS 6 and 7. It builds on the default UIKit. If the keyboard handling in later iOS versions changes the keyboard gestures extension just stops working. That's why this should not be any critical for apps used in production. In fact we have a demo app called *'JustType Demo'* in the App Store ourselves.
+* **Compatiblity:** This framework is compatible with iOS 6 and 7. It builds on the default UIKit. If the keyboard handling in later iOS versions changes the keyboard gestures extension just stops working. That's why this should not be any critical for apps used in production.
 * **Extendability**: The keyboard and UITextInput extensions are easily extendable for developers (e.g. the behavior for gestures could easily be modified). We in fact encourage you to contribute to this project.
 
 

@@ -13,4 +13,6 @@
  */
 @interface JTSyntaxLinguisticWord : NSObject<JTSyntaxWord>
 
+- (NSString *)selectedLocaleIdentifier;
+
 @end

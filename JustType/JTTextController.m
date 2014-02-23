@@ -708,12 +708,18 @@ extern NSString * const JTKeyboardGestureSwipeDown;
     NSInteger index = self.selectedSyntaxWordSuggestionIndex;
     NSString *word = [self selectedTextWithSyntaxWordSuggestionIndex:index];
     BOOL isUppercase = [word beginsWithUpperCaseLetter];
-    
+
+    NSLocale *locale = nil;
+    if ([self.selectedSyntaxWord isKindOfClass:[JTSyntaxLinguisticWord class]]) {
+        NSString *localeIdentifier = [(JTSyntaxLinguisticWord *)self.selectedSyntaxWord selectedLocaleIdentifier];
+        locale = [[NSLocale alloc] initWithLocaleIdentifier:localeIdentifier];
+    }
+
     if (isUppercase) {
-        word = [word lowercaseString];
+        word = [word lowercaseStringWithLocale:locale];
         [self postDidProcessNotificationForAction:JTKeyboardActionLowercased];
     } else {
-        word = [word capitalizedString];
+        word = [word capitalizedStringWithLocale:locale];
         [self postDidProcessNotificationForAction:JTKeyboardActionCapitalized];
     }
     
