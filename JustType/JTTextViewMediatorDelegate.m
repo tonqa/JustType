@@ -23,7 +23,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     BOOL result = [self.textView textViewShouldBeginEditing:self.textView];
-    if ([self.textView.actualDelegate respondsToSelector:@selector(textViewDidChange:)]) {
+    if ([self.textView.actualDelegate respondsToSelector:@selector(textViewShouldBeginEditing:)]) {
         result = [self.textView.actualDelegate textViewShouldBeginEditing:self.textView];
     }
     return result;
