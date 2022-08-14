@@ -8,7 +8,7 @@ The Better Keyboard for iOS
 [![Version](http://cocoapod-badges.herokuapp.com/v/JustType/badge.png)](http://cocoadocs.org/docsets/JustType)
 [![Build Status](https://travis-ci.org/tonqa/JustType.png?branch=master)](https://travis-ci.org/tonqa/JustType)
 
-JustType is a keyboard extension using swipe gestures, highlighting and suggestions. It is built to be used in any iOS text editor and all text-intensive iOS apps. And it is really easy to use. If you want to have a video demonstration you can [find it on this blogpost](http://www.eglador.de/files/4e4f3394e0c39424ff87953dce60d031-23.php "Demo").
+JustType is a keyboard extension using swipe gestures, highlighting and suggestions. It is built to be used in any iOS text editor and all text-intensive iOS apps. And it is really easy to use. If you want to have a video demonstration you can [find it on this blogpost](http://www.eglador.de/35 "Demo").
 
 [![Editing text field using suggestions](http://dl.dropboxusercontent.com/u/82016/justtype_1_small.png)](http://dl.dropboxusercontent.com/u/82016/justtype_1.png) &nbsp;&nbsp; [![Editing text view using gestures](http://dl.dropboxusercontent.com/u/82016/justtype_2_small.png)](http://dl.dropboxusercontent.com/u/82016/justtype_2.png)
 
